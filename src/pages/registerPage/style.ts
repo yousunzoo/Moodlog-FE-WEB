@@ -1,5 +1,5 @@
 import styled from 'styled-components'
 
-const Container = styled.div``
-
-const Input = styled.input``
+const Container = styled.div`
+  padding: 20px 10px;
+`
