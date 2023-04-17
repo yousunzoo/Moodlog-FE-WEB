@@ -5,4 +5,5 @@ export const Wrapper = styled.section`
   height: 100vh;
   background-color: #fff;
   padding: 0 20px;
+  position: relative;
 `
