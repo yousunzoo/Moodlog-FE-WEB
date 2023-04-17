@@ -1,7 +1,10 @@
 import React from 'react'
+import registerForm from '../../components/registerForm'
 
 function RegisterPage() {
-  return <div>RegisterPage</div>
+  return (
+    <>
+      <div>로고</div>
+    </>
+  )
 }
-
-export default RegisterPage
