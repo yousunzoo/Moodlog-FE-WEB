@@ -6,10 +6,12 @@ export const GlobalStyle = createGlobalStyle`
 
   * {
     box-sizing: border-box;
+
   }
 
   body {
     display: flex;
     justify-content: center;
+    background-color: #808080;
   }
 `
