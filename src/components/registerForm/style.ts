@@ -6,7 +6,7 @@ export const InputWrpper = styled.div`
 
 export const Input = styled.input`
   width: 100%;
-  border-radius: 8px;
+  border-radius: 10px;
 `
 
 export const Text = styled.div``
