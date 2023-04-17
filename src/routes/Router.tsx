@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import HomePage from '../pages/homePage'
 import LoginPage from '../pages/loginPage'
 import ProfilePage from '../pages/profilePage'
@@ -8,7 +8,6 @@ import SettingPage from '../pages/settingPage'
 import DiaryPage from '../pages/diaryPage'
 import DiaryDetailPage from '../pages/diaryDetailPage'
 import DiaryCreatePage from '../pages/diaryCreatePage'
-import { BrowserRouter } from 'react-router-dom'
 
 function Router() {
   return (
