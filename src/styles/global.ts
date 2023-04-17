@@ -18,6 +18,7 @@ export const GlobalStyle = createGlobalStyle`
   button {
     background: transparent;
     border: none;
+    padding: 0
   }
 
   * {
