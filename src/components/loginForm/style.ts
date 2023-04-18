@@ -28,7 +28,7 @@ export const Input = styled.input`
 `
 
 export const Button = styled.button`
-  background-color: #007bff;
+  background-color: #998c84;
   color: #fff;
   padding: 0.5rem;
   border: none;
@@ -40,4 +40,14 @@ export const Button = styled.button`
 export const Title = styled.h1`
   font-size: 2rem;
   margin-bottom: 2rem;
+`
+
+export const Signup = styled.p`
+  font-size: 12px;
+`
+
+export const Span = styled.span`
+  color: #a36856;
+  margin: 0 10px;
+  cursor: pointer;
 `
