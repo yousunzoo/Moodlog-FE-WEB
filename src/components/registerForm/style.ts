@@ -1,11 +1,6 @@
 import styled from 'styled-components'
 
-export const CloseButton = styled.button`
-  width: 16px;
-  height: 16px;
-  background-image: url('../../../public/assets/icons/close.png');
-  background-size: cover;
-`
+export const Form = styled.form``
 
 export const InputWrapper = styled.div`
   width: 100%;
