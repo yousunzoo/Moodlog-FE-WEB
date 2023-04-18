@@ -18,6 +18,7 @@ export const GlobalStyle = createGlobalStyle`
   button {
     background: transparent;
     border: none;
+    padding: 0
   }
 
   * {
@@ -28,5 +29,6 @@ export const GlobalStyle = createGlobalStyle`
     display: flex;
     justify-content: center;
     background-color: #808080;
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   }
 `
