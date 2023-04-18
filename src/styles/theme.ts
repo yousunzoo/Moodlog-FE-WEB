@@ -20,7 +20,4 @@ export const theme: DefaultTheme = {
   paletteBlack: '#333333',
   borderColor: '#AAAAAA',
   modalBackground: '#000000',
-
-
-  
 }
