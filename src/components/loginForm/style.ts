@@ -21,9 +21,10 @@ export const Form = styled.form`
 export const Input = styled.input`
   padding: 0.5rem;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 10px;
   margin-bottom: 1rem;
   width: 100%;
+  height: 60px;
   background-color: #f8f8f8;
 `
 
@@ -32,14 +33,17 @@ export const Button = styled.button`
   color: #fff;
   padding: 0.5rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
+  margin: 20px;
   cursor: pointer;
   width: 100%;
+  height: 50px;
 `
 
-export const Title = styled.h1`
-  font-size: 2rem;
-  margin-bottom: 2rem;
+export const Logo = styled.img`
+  margin: 20px
+  width: 250px;
+  height: 250px;
 `
 
 export const Signup = styled.p`
