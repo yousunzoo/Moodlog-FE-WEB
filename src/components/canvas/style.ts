@@ -137,10 +137,18 @@ export const SelectPhotoArea = styled.div`
   border-top: 2px solid ${({ theme }) => theme.grey03};
 `
 
-export const SelectPhotoBtn = styled.input`
+export const SelectPhotoLabel = styled.label`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
   width: 120px;
   height: 30px;
   border-radius: 20px;
   background-color: ${({ theme }) => theme.brown01};
   color: ${({ theme }) => theme.white01};
+`
+
+export const SelectPhoto = styled.input`
+  display: none;
 `

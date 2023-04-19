@@ -1,15 +1,17 @@
-import React, { MouseEvent, useEffect, useRef, useState } from 'react'
+import React, { ChangeEvent, MouseEvent, useEffect, useRef, useState } from 'react'
 import * as S from './style'
 import palette from '../../constants/palette.json'
+import { PaletteJSON } from '../../types/createDiary'
 
 function Canvas() {
-  const canvas = useRef(null)
-  const [ctx, setCtx] = useState<undefined>(undefined)
+  const canvas = useRef<HTMLCanvasElement>(null)
+  const [ctx, setCtx] = useState<CanvasRenderingContext2D | undefined>(undefined)
   const [lastPoint, setLastPoint] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
   const [color, setColor] = useState('08')
   const [size, setSize] = useState(25)
   const [mode, setMode] = useState('brush')
   const [isMouseDown, setIsMouseDown] = useState(false)
+  const [isImage, setIsImage] = useState(false)
 
   const handleMode = (e: MouseEvent<HTMLDivElement>) => {
     if (!(e.target instanceof HTMLButtonElement)) {
@@ -19,12 +21,22 @@ function Canvas() {
     setMode(mode)
   }
 
-  const setImage = (image: HTMLImageElement) => {
+  const setImage = (e: ChangeEvent<HTMLInputElement>) => {
     if (!ctx) return
-    ctx.drawImage(image, 0, 0, 425, 425)
+    const file = e.target.files?.[0]
+    if (!file) return
+    if (!file.type.startsWith('image/')) {
+      return
+    }
+    console.log(file)
+    const image = new Image()
+    image.src = URL.createObjectURL(file)
+    image.onload = () => {
+      ctx.drawImage(image, 0, 0, 400, 400)
+    }
   }
 
-  const startDrawing = ({ nativeEvent }) => {
+  const startDrawing = ({ nativeEvent }: MouseEvent) => {
     if (!ctx) return
 
     const { offsetX, offsetY } = nativeEvent
@@ -38,11 +50,12 @@ function Canvas() {
     ctx.beginPath()
     setIsMouseDown(false)
   }
-  const handleMouseMove = ({ nativeEvent }) => {
+  const handleMouseMove = ({ nativeEvent }: MouseEvent<HTMLCanvasElement>) => {
     if (!ctx) return
+
     const { offsetX, offsetY } = nativeEvent
     if (isMouseDown) {
-      ctx.strokeStyle = palette[color]
+      ctx.strokeStyle = (palette as PaletteJSON)[color]
       ctx.lineWidth = size
       ctx.lineCap = 'round'
       ctx.lineJoin = 'round'
@@ -64,9 +77,11 @@ function Canvas() {
 
   useEffect(() => {
     // @ts-ignore
-    setCtx(canvas.current.getContext('2d'))
-    canvas.current.width = 400
-    canvas.current.height = 400
+    if (canvas.current) {
+      setCtx(canvas.current.getContext('2d') as CanvasRenderingContext2D)
+      canvas.current.width = 400
+      canvas.current.height = 400
+    }
   }, [])
   return (
     <S.Wrapper>
@@ -121,7 +136,8 @@ function Canvas() {
         <S.Canvas ref={canvas} onMouseDown={startDrawing} onMouseMove={handleMouseMove} onMouseUp={endDrawing} />
       </S.CanvasArea>
       <S.SelectPhotoArea>
-        <S.SelectPhotoBtn type="file" placeholder="사진 선택" onChange={setImage} />
+        <S.SelectPhotoLabel htmlFor="select-photo">사진 선택</S.SelectPhotoLabel>
+        <S.SelectPhoto id="select-photo" type="file" placeholder="사진 선택" onChange={setImage} />
       </S.SelectPhotoArea>
     </S.Wrapper>
   )
