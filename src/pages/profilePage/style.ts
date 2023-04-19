@@ -64,6 +64,11 @@ export const UserImage = styled.div`
   top: 27px;
   border-radius: 50%;
   background: #747474;
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
 `
 
 export const UserName = styled.div`

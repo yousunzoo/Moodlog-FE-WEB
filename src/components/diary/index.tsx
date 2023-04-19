@@ -1,33 +1,31 @@
 import React from 'react'
 import * as S from './style'
+import { NewPost } from '../../types'
 
-function DiaryContainer() {
+interface ContainerProp {
+  arr: NewPost
+}
+
+function Diary({ arr }: ContainerProp) {
+  const date = arr.createdAt
+  const month = date.split('-')
+  const day = month[2].split('T')
   return (
     <S.DiaryPost>
       <S.DiaryPostImage>
-        <img src="/assets/icons/followers.png" width="100%" />
+        <img src={arr.img} width="100%" />
       </S.DiaryPostImage>
       <S.DiaryPostLetter>
-        <S.DiaryPostLetterContain>오늘의 일기 블라블라블라블라 야호야호야호 코딩코딩코딩....</S.DiaryPostLetterContain>
+        <S.DiaryPostLetterContain>{arr.body}</S.DiaryPostLetterContain>
       </S.DiaryPostLetter>
       <S.DiaryPostDate>
         <S.DiaryPostDateContain>
-          04
+          {month[1]}
           <br />
-          17
+          {day[0]}
         </S.DiaryPostDateContain>
       </S.DiaryPostDate>
     </S.DiaryPost>
-  )
-}
-
-function Diary() {
-  return (
-    <>
-      <DiaryContainer />
-      <DiaryContainer />
-      <DiaryContainer />
-    </>
   )
 }
 

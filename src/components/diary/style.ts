@@ -10,6 +10,7 @@ export const DiaryPost = styled.div`
 export const DiaryPostImage = styled.div`
   width: 60px;
   height: 100%;
+  background-color: #666;
 `
 
 export const DiaryPostLetter = styled.div`
