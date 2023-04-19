@@ -1,7 +1,12 @@
 import React from 'react'
+import TopBar from '../../components/topBar'
 
 function DiaryCreatePage() {
-  return <></>
+  return (
+    <>
+      <TopBar />
+    </>
+  )
 }
 
 export default DiaryCreatePage
