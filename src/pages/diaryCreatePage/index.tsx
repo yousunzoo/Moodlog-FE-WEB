@@ -1,12 +1,7 @@
 import React from 'react'
-import * as S from './style'
 
 function DiaryCreatePage() {
-  return (
-    <>
-      <S.TopBar></S.TopBar>
-    </>
-  )
+  return <></>
 }
 
 export default DiaryCreatePage
