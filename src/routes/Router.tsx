@@ -22,7 +22,7 @@ function Router() {
           <Route path="/setting" element={<SettingPage />} />
           <Route path="/diary" element={<DiaryPage />} />
           <Route path="/diaryCreate" element={<DiaryCreatePage />} />
-          <Route path="/diaryDetail" element={<DiaryDetailPage />} />
+          <Route path="/diary/:id" element={<DiaryDetailPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
