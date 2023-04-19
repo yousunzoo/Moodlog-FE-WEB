@@ -16,15 +16,15 @@ export const Palette = styled.div`
   border: 2px solid ${({ theme }) => theme.grey01};
   border-radius: 20px;
 `
-export const ColorPicker = styled.ul`
+export const ColorPicker = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 10px 20px;
   border-bottom: 2px solid ${({ theme }) => theme.grey01};
 `
-export const ColorItem = styled.li`
+export const ColorItem = styled.button`
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -63,8 +63,8 @@ export const Slider = styled.input`
     border-radius: 3px;
     background: ${({ value, theme }) =>
       value
-        ? `linear-gradient(to right, ${theme.grey04} ${value}%, ${theme.grey03}
- ${value}% 100%)`
+        ? `linear-gradient(to right, ${theme.grey04} ${Number(value) * 2}%, ${theme.grey03}
+ ${Number(value) * 2}% 100%)`
         : theme.grey03};
   }
 `
@@ -110,4 +110,37 @@ export const ActionItem = styled.button`
     width: 18px;
     height: 18px;
   }
+`
+
+export const CanvasArea = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: calc(100% - (190px + 60px));
+`
+
+export const Canvas = styled.canvas`
+  border: 4px solid ${({ theme }) => theme.grey01};
+`
+
+export const SelectPhotoArea = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 60px;
+  position: absolute;
+  bottom: 0;
+  background-color: ${({ theme }) => theme.white02};
+  border-top: 2px solid ${({ theme }) => theme.grey03};
+`
+
+export const SelectPhotoBtn = styled.input`
+  width: 120px;
+  height: 30px;
+  border-radius: 20px;
+  background-color: ${({ theme }) => theme.brown01};
+  color: ${({ theme }) => theme.white01};
 `
