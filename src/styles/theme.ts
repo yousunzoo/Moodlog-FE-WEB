@@ -6,6 +6,8 @@ export const theme: DefaultTheme = {
   white02: '#F8F8F8',
   brown01: '#998C84',
   brown02: '#A36856',
+  brown03: '#8a675c',
+  brown04: '#4F413A',
   grey01: '#D9D9D9',
   grey02: '#C6C6C8',
   grey03: '#AAAAAA',
