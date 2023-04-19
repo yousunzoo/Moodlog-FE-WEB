@@ -1,17 +1,17 @@
 import React from 'react'
-import { Button, Container, Input, Title, Form, Signup, Span } from './style'
+import * as S from './style'
 
 function LoginForm() {
   return (
-    <Form>
-      <Title>MoodLog</Title>
-      <Input type="email" placeholder="사용자 이메일" />
-      <Input type="password" placeholder="비밀번호" />
-      <Button type="submit">로그인</Button>
-      <Signup>
-        아직 회원이 아니신가요? <Span>회원가입</Span>
-      </Signup>
-    </Form>
+    <S.Form>
+      <S.Logo src="assets/icons/logo.png" alt="Logo" />
+      <S.Input type="email" placeholder="사용자 이메일" />
+      <S.Input type="password" placeholder="비밀번호" />
+      <S.Button type="submit">로그인</S.Button>
+      <S.Signup>
+        아직 회원이 아니신가요? <S.Span>회원가입</S.Span>
+      </S.Signup>
+    </S.Form>
   )
 }
 
