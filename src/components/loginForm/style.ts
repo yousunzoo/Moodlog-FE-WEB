@@ -41,7 +41,7 @@ export const Button = styled.button`
 `
 
 export const Logo = styled.img`
-  margin: 20px
+  margin: 20px;
   width: 250px;
   height: 250px;
 `
