@@ -2,7 +2,7 @@ import * as S from './style'
 import { ChangeEvent, FormEvent, useRef, useState } from 'react'
 import { useMutation, useQuery } from 'react-query'
 import { useNavigate, useParams } from 'react-router'
-import { createComment, getPost, updateLike } from '../../apis/diary'
+import { createComment, deleteComment, getPost, updateLike } from '../../apis/diary'
 import { useDateForm } from '../../hooks/useDateForm'
 import LikeButton from '../../components/common/button/likeButton'
 import Loading from '../../components/common/loading'
@@ -26,9 +26,22 @@ function DiaryDetailPage() {
 
   const [comment, setComment] = useState('')
 
-  const { isLoading, data: diary } = useQuery('post', () => getPost(Number(id)), {})
-  const { mutate: likeMutate } = useMutation(() => updateLike(Number(diary.id)))
-  const { mutate: commentMutate } = useMutation(() => createComment(Number(id), comment))
+  const { isLoading, data: diary } = useQuery(['post', id], () => getPost(Number(id)), {})
+  const { mutate: likeMutate } = useMutation(() => updateLike(Number(diary.id)), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('post')
+    },
+  })
+  const { mutate: commentMutate } = useMutation(() => createComment(Number(id), comment), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('post')
+    },
+  })
+  const { mutate: commentDeleteMutate } = useMutation((postId: number) => deleteComment(Number(postId)), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('post')
+    },
+  })
   const { mutate: loginMutate } = useMutation(() => login({ email: 'test@test.com', password: 'test1234' }))
 
   const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -46,12 +59,10 @@ function DiaryDetailPage() {
     if (comment === '') return alert('내용을 작성해주세요')
     commentMutate()
     setComment('')
-    queryClient.invalidateQueries()
   }
 
   const handleLike = () => {
     likeMutate()
-    queryClient.invalidateQueries()
   }
 
   if (isLoading) return <Loading />
@@ -104,9 +115,11 @@ function DiaryDetailPage() {
               <div className="comment-header">
                 <div className="user">user</div>
                 <div className="date">{useDateForm(comment.createdAt).date}</div>
-                {/* <div className="delete">삭제</div> */}
               </div>
               <div className="comment-body">{comment.comment}</div>
+              <div className="delete" onClick={() => commentDeleteMutate(comment.id)}>
+                삭제
+              </div>
             </div>
           ))}
         </div>

@@ -14,3 +14,8 @@ export const createComment = async (postId: number, body: string) => {
   const res = await axiosInstance.post(`/comments`, { postId, body })
   return res.data
 }
+
+export const deleteComment = async (postId: number) => {
+  const res = await axiosInstance.delete(`/comments/${postId}`)
+  return res.data
+}
