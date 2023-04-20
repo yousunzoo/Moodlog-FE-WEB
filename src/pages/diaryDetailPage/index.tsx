@@ -1,5 +1,5 @@
 import * as S from './style'
-import { ChangeEvent, FormEvent, useRef, useState, useEffect } from 'react'
+import { ChangeEvent, FormEvent, useRef, useState } from 'react'
 import { useMutation, useQuery } from 'react-query'
 import { useNavigate, useParams } from 'react-router'
 import { createComment, deleteComment, getPost, updateLike } from '../../apis/diary'
@@ -9,20 +9,14 @@ import Loading from '../../components/common/loading'
 import PrevButton from '../../components/common/button/prevButton'
 import DotsButton from '../../components/common/button/dotsButton'
 import SpeechBubbleButton from '../../components/common/button/speechBubbleButton'
-import { getUser, login } from '../../apis/auth'
+import { login } from '../../apis/auth'
 import { queryClient } from '../../utils/queryClient'
 
 interface Commnets {
   id: number
   comment: string
   createdAt: Date
-  user: {
-    id: number
-    email: string
-    username: string
-    profile_image: string
-    profile_message: string
-  }
+  updatedAt: Date
 }
 
 function DiaryDetailPage() {
@@ -32,13 +26,13 @@ function DiaryDetailPage() {
 
   const [comment, setComment] = useState('')
 
-  const { isLoading, error, data: diary } = useQuery(['post', id], () => getPost(Number(id)), {})
+  const { isLoading, data: diary } = useQuery(['post', id], () => getPost(Number(id)), {})
   const { mutate: likeMutate } = useMutation(() => updateLike(Number(diary.id)), {
     onSuccess: () => {
       queryClient.invalidateQueries('post')
     },
   })
-  const { mutate: commentMutate } = useMutation(() => createComment({ postId: Number(id), body: comment }), {
+  const { mutate: commentMutate } = useMutation(() => createComment(Number(id), comment), {
     onSuccess: () => {
       queryClient.invalidateQueries('post')
     },
@@ -71,12 +65,7 @@ function DiaryDetailPage() {
     likeMutate()
   }
 
-  useEffect(() => {
-    getUser(4)
-  }, [])
-
   if (isLoading) return <Loading />
-  if (error) return <>error</>
   return (
     <>
       <S.TopBar>
@@ -124,7 +113,7 @@ function DiaryDetailPage() {
           {diary.comments?.map((comment: Commnets) => (
             <div className="comment" key={comment.id}>
               <div className="comment-header">
-                <div className="user">{comment.user.username}</div>
+                <div className="user">user</div>
                 <div className="date">{useDateForm(comment.createdAt).date}</div>
               </div>
               <div className="comment-body">{comment.comment}</div>
