@@ -1,12 +1,12 @@
 import React from 'react'
 import * as S from './style'
-import { NewPost } from '../../types'
+import { NewPost } from '../../../types'
 
 interface ContainerProp {
   arr: NewPost
 }
 
-function Diary({ arr }: ContainerProp) {
+function Post({ arr }: ContainerProp) {
   const date = arr.createdAt
   const month = date.split('-')
   const day = month[2].split('T')
@@ -29,4 +29,4 @@ function Diary({ arr }: ContainerProp) {
   )
 }
 
-export default Diary
+export default Post

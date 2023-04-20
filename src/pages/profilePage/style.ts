@@ -98,8 +98,8 @@ export const UserIntro = styled.div`
   color: ${({ theme }) => theme.modalBlack};
 `
 
-// 유저 다이어리
-export const UserDiary = styled.div`
+// 유저 게시글
+export const Posts = styled.div`
   position: absolute;
   width: 100%;
   height: 477px;

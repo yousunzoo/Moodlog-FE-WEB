@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import * as S from './style'
-import Diary from '../../components/diary'
+import Post from '../../components/common/post'
 import axios from 'axios'
 import { useQuery } from 'react-query'
 import { axiosInstance } from '../../apis/axios'
@@ -25,7 +25,7 @@ function ProfilePage() {
       .get(`/auth/user`, {
         headers: {
           Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ0ZXN0dXNlciIsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSIsImlhdCI6MTY4MTkwNjc4MCwiZXhwIjoxNjgxOTEwMzgwfQ.wr9qKbU88zjTaofuGBd8zjLOw_gma8zgKYm7wQWXxm0',
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ0ZXN0dXNlciIsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSIsImlhdCI6MTY4MTkxNTMxMCwiZXhwIjoxNjgxOTE4OTEwfQ.thFRO-N-6GTe9ZZCIGuM5AS0Mkv1RHWOkDgIHH94dVg',
         },
       })
       .then((a) => {
@@ -79,11 +79,11 @@ function ProfilePage() {
         </S.UserDetail>
       </S.UserProfile>
       {/* 유저 다이어리 */}
-      <S.UserDiary>
+      <S.Posts>
         {post.map((arr, i) => {
-          return <Diary key={i} arr={arr} />
+          return <Post key={i} arr={arr} />
         })}
-      </S.UserDiary>
+      </S.Posts>
     </div>
   )
 }
