@@ -3,10 +3,12 @@ import * as S from './style'
 import Profile from '../common/profile'
 import { axiosInstance } from '../../apis/axios'
 import axios from 'axios'
-import { NewUser } from '../../types/'
-import { useForm } from 'react-hook-form'
+import { FieldValues, useForm } from 'react-hook-form'
+import { useRegisterUser } from '../../hooks/useRegisterUser'
 
 function RegisterForm() {
+  const [imgFile, setImgFile] = useState<undefined | string>(undefined)
+
   const {
     register,
     handleSubmit,
@@ -14,28 +16,26 @@ function RegisterForm() {
     formState: { errors },
   } = useForm()
 
-  // @ts-ignore
-
-  const [userInput, setUserInput] = useState({})
-  const handleSubmitUserInfo = async (data: any) => {
-    // @ts-ignore
+  const handleSubmitUserInfo = async (data: FieldValues) => {
     const { email, password, profile_image, username } = data
 
     const formData = new FormData()
     formData.append('email', email)
     formData.append('password', password)
-    formData.append('img', profile_image)
+    formData.append('img', profile_image[0])
     formData.append('username', username)
 
     console.log({ formData })
 
+    useRegisterUser()
+
     // const res = await axiosInstance.post('/auth/register', { data: userInput })
-    const res = await axios({
-      url: `http://localhost:3000/auth/register`,
-      method: 'post',
-      headers: { 'Content-Type': 'multipart/form-data' },
-      data: formData,
-    })
+    // const res = await axios({
+    //   url: `http://localhost:3000/auth/register`,
+    //   method: 'post',
+    //   headers: { 'Content-Type': 'multipart/form-data' },
+    //   data: formData,
+    // })
     // console.log(res)
   }
 
@@ -45,10 +45,8 @@ function RegisterForm() {
   // }
 
   return (
-    // @ts-ignore
-
-    <S.Form onSubmit={handleSubmit((data) => console.log(data))}>
-      <S.InputWrapper>
+    <S.Form onSubmit={handleSubmit((data) => handleSubmitUserInfo(data))}>
+      <S.InputArea>
         <label htmlFor="email" />
         <S.Input
           id="email"
@@ -62,9 +60,9 @@ function RegisterForm() {
           })}
           placeholder="사용하실 이메일을 입력해주세요"
         />
-        <S.Text>{errors.email?.message}</S.Text>
-      </S.InputWrapper>
-      <S.InputWrapper>
+        <S.ErrorMessage>{errors.email?.message}</S.ErrorMessage>
+      </S.InputArea>
+      <S.InputArea>
         <label htmlFor="username" />
         <S.Input
           id="username"
@@ -74,9 +72,9 @@ function RegisterForm() {
           })}
           placeholder="사용하실 이름을 입력해주세요"
         />
-        <S.Text>{errors.username?.message}</S.Text>
-      </S.InputWrapper>
-      <S.InputWrapper>
+        <S.ErrorMessage>{errors.username?.message}</S.ErrorMessage>
+      </S.InputArea>
+      <S.InputArea>
         <label htmlFor="password" />
         <S.Input
           id="password"
@@ -90,9 +88,9 @@ function RegisterForm() {
           })}
           placeholder="사용하실 비밀번호를을 입력해주세요"
         />
-        <S.Text>{errors.password?.message}</S.Text>
-      </S.InputWrapper>
-      <S.InputWrapper>
+        <S.ErrorMessage>{errors.password?.message}</S.ErrorMessage>
+      </S.InputArea>
+      <S.InputArea>
         <label htmlFor="passwordConfirm" />
         <S.Input
           id="passwordConfirm"
@@ -109,13 +107,30 @@ function RegisterForm() {
             },
           })}
         />
-        <S.Text>{errors.passwordConfirm?.message}</S.Text>
-      </S.InputWrapper>
+        <S.ErrorMessage>{errors.passwordConfirm?.message}</S.ErrorMessage>
+      </S.InputArea>
       <S.ProfileContainer>
-        <Profile />
+        <Profile img={imgFile} />
         <S.ProfileTextContainer>
           <label htmlFor="file" />
-          <S.Input id="file" type="file" {...register('profile_image', { required: true })} accept="image/*" />
+          <S.Input
+            id="file"
+            type="file"
+            {...register('profile_image', {
+              onChange: (e) => {
+                const {
+                  target: { files },
+                } = e
+                const file = files[0]
+                const reader = new FileReader()
+                reader.readAsDataURL(file)
+                reader.onload = () => {
+                  setImgFile(reader.result as string)
+                }
+              },
+            })}
+            accept="image/*"
+          />
         </S.ProfileTextContainer>
       </S.ProfileContainer>
       <S.ResigterButton type="submit">회원가입</S.ResigterButton>
