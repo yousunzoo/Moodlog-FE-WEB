@@ -1,10 +1,12 @@
 import React from 'react'
-import * as S from './style'
+import TopBar from '../../components/topBar'
+import Canvas from '../../components/canvas'
 
 function DiaryCreatePage() {
   return (
     <>
-      <S.TopBar></S.TopBar>
+      <TopBar />
+      <Canvas />
     </>
   )
 }
