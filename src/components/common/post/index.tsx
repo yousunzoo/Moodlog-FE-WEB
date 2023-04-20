@@ -3,20 +3,27 @@ import * as S from './style'
 import { NewPost } from '../../../types'
 
 interface ContainerProp {
-  arr: NewPost
+  post: NewPost
+  type: boolean
 }
 
-function Post({ arr }: ContainerProp) {
-  const date = arr.createdAt
+interface ConatinerPorps {
+  posts: NewPost[]
+  height: string
+  type: boolean
+}
+
+function Post({ post, type }: ContainerProp) {
+  const date = post.createdAt
   const month = date.split('-')
   const day = month[2].split('T')
   return (
     <S.DiaryPost>
       <S.DiaryPostImage>
-        <img src={arr.img} width="100%" />
+        <img src={post.img} width="100%" />
       </S.DiaryPostImage>
       <S.DiaryPostLetter>
-        <S.DiaryPostLetterContain>{arr.body}</S.DiaryPostLetterContain>
+        {type ? <></> : <S.DiaryPostLetterContain>{post.body}</S.DiaryPostLetterContain>}
       </S.DiaryPostLetter>
       <S.DiaryPostDate>
         <S.DiaryPostDateContain>
@@ -29,4 +36,13 @@ function Post({ arr }: ContainerProp) {
   )
 }
 
-export default Post
+export function Posts({ posts, height, type }: ConatinerPorps) {
+  console.log(posts, height, type)
+  return (
+    <S.Posts height={height}>
+      {posts.map((arr, i) => {
+        return <Post key={i} post={arr} type={type} />
+      })}
+    </S.Posts>
+  )
+}

@@ -1,5 +1,17 @@
 import styled, { css } from 'styled-components'
 
+// posts 컴포넌트
+export const Posts = styled.div<{ height: string }>`
+  position: absolute;
+  width: 100%;
+  height: ${(props) => props.height};
+  left: 0px;
+  top: 217px;
+  overflow-y: scroll;
+  background: ${({ theme }) => theme.white02};
+`
+
+// post 컴포넌트
 export const DiaryPost = styled.div`
   display: flex;
   width: calc(100% - 50px);
@@ -41,5 +53,5 @@ export const DiaryPostDate = styled.div`
 export const DiaryPostDateContain = styled.div`
   width: 100%;
   margin: auto;
-  color: ${({ theme }) => theme.brown03};
+  color: ${({ theme }) => theme.modalBlack};
 `
