@@ -30,6 +30,9 @@ export const ColorItem = styled.button`
   border-radius: 50%;
   border: 2px solid ${({ theme }) => theme.grey03};
   background-color: ${({ color, theme }) => theme[`palette${color}`]};
+  &.active {
+    border: 3px solid ${({ theme }) => theme.brown01};
+  }
 `
 
 export const SizePicker = styled.div`
@@ -80,19 +83,25 @@ export const SelectArea = styled.div`
 
 export const Tools = styled.div`
   display: flex;
-  gap: 30px;
+  gap: 20px;
 `
 
 export const ToolItem = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.brown01};
-  color: ${({ theme }) => theme.white01};
+  background-color: ${({ theme }) => theme.white01};
+  border: 2px solid ${({ theme }) => theme.brown01};
+  color: ${({ theme }) => theme.brown01};
   border-radius: 20px;
   width: 80px;
   height: 30px;
   cursor: pointer;
+  &.active {
+    font-weight: 600;
+    color: ${({ theme }) => theme.white01};
+    background-color: ${({ theme }) => theme.brown01};
+  }
 `
 
 export const Actions = styled.div`

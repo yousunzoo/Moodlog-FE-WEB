@@ -6,7 +6,6 @@ import { PaletteJSON } from '../../types/createDiary'
 function Canvas() {
   const canvas = useRef<HTMLCanvasElement>(null)
   const [ctx, setCtx] = useState<CanvasRenderingContext2D | undefined>(undefined)
-  const [lastPoint, setLastPoint] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
   const [color, setColor] = useState('08')
   const [size, setSize] = useState(25)
   const [mode, setMode] = useState('brush')
@@ -26,6 +25,7 @@ function Canvas() {
     const file = e.target.files?.[0]
     if (!file) return
     if (!file.type.startsWith('image/')) {
+      alert('이미지 파일만 업로드 가능합니다.')
       return
     }
     console.log(file)
@@ -36,11 +36,8 @@ function Canvas() {
     }
   }
 
-  const startDrawing = ({ nativeEvent }: MouseEvent) => {
+  const startDrawing = () => {
     if (!ctx) return
-
-    const { offsetX, offsetY } = nativeEvent
-    setLastPoint({ x: offsetX, y: offsetY })
     setIsMouseDown(true)
   }
 
@@ -54,7 +51,13 @@ function Canvas() {
     if (!ctx) return
 
     const { offsetX, offsetY } = nativeEvent
-    if (isMouseDown) {
+    if (!isMouseDown) {
+      ctx.beginPath()
+      ctx.moveTo(offsetX, offsetY)
+      return
+    }
+    if (isMouseDown && mode === 'brush') {
+      // 브러쉬 상태
       ctx.strokeStyle = (palette as PaletteJSON)[color]
       ctx.lineWidth = size
       ctx.lineCap = 'round'
@@ -62,8 +65,11 @@ function Canvas() {
       ctx.lineTo(offsetX, offsetY)
       ctx.stroke()
     } else {
-      ctx.beginPath()
-      ctx.moveTo(offsetX, offsetY)
+      // 지우개 상태
+      ctx.lineWidth = size
+      ctx.lineCap = 'round'
+      ctx.lineJoin = 'round'
+      ctx.clearRect(offsetX - size / 2, offsetY - size / 2, size, size)
     }
   }
 
@@ -71,7 +77,7 @@ function Canvas() {
     if (!(e.target instanceof HTMLButtonElement)) {
       return
     }
-    const color = e.target.dataset.color || ''
+    const color = e.target.dataset.color as string
     setColor(color)
   }
 
@@ -88,14 +94,14 @@ function Canvas() {
       <S.PaletteWrapper>
         <S.Palette>
           <S.ColorPicker onClick={handlePickColor}>
-            <S.ColorItem data-color="01" color="01" />
-            <S.ColorItem data-color="02" color="02" />
-            <S.ColorItem data-color="03" color="03" />
-            <S.ColorItem data-color="04" color="04" />
-            <S.ColorItem data-color="05" color="05" />
-            <S.ColorItem data-color="06" color="06" />
-            <S.ColorItem data-color="07" color="07" />
-            <S.ColorItem data-color="08" color="08" />
+            <S.ColorItem className={color === '01' ? 'active' : ''} data-color="01" color="01" />
+            <S.ColorItem className={color === '02' ? 'active' : ''} data-color="02" color="02" />
+            <S.ColorItem className={color === '03' ? 'active' : ''} data-color="03" color="03" />
+            <S.ColorItem className={color === '04' ? 'active' : ''} data-color="04" color="04" />
+            <S.ColorItem className={color === '05' ? 'active' : ''} data-color="05" color="05" />
+            <S.ColorItem className={color === '06' ? 'active' : ''} data-color="06" color="06" />
+            <S.ColorItem className={color === '07' ? 'active' : ''} data-color="07" color="07" />
+            <S.ColorItem className={color === '08' ? 'active' : ''} data-color="08" color="08" />
           </S.ColorPicker>
           <S.SizePicker>
             <span>Size</span>
@@ -113,8 +119,12 @@ function Canvas() {
         </S.Palette>
         <S.SelectArea>
           <S.Tools onClick={handleMode}>
-            <S.ToolItem data-mode="brush">브러쉬</S.ToolItem>
-            <S.ToolItem data-mode="eraser">지우개</S.ToolItem>
+            <S.ToolItem className={mode == 'brush' ? 'active' : ''} data-mode="brush">
+              브러쉬
+            </S.ToolItem>
+            <S.ToolItem className={mode == 'eraser' ? 'active' : ''} data-mode="eraser">
+              지우개
+            </S.ToolItem>
           </S.Tools>
           <S.Actions>
             <S.ActionItem data-action="prev">
