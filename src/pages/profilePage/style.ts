@@ -97,13 +97,3 @@ export const UserIntro = styled.div`
   line-height: 24px;
   color: ${({ theme }) => theme.modalBlack};
 `
-
-// 유저 게시글
-export const Posts = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 477px;
-  left: 0px;
-  top: 217px;
-  background: ${({ theme }) => theme.white02};
-`

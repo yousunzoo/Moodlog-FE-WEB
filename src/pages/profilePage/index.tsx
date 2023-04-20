@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import * as S from './style'
-import Post from '../../components/common/post'
+import { Posts } from '../../components/common/post'
 import axios from 'axios'
 import { useQuery } from 'react-query'
 import { axiosInstance } from '../../apis/axios'
@@ -25,7 +25,7 @@ function ProfilePage() {
       .get(`/auth/user`, {
         headers: {
           Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ0ZXN0dXNlciIsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSIsImlhdCI6MTY4MTkxNTMxMCwiZXhwIjoxNjgxOTE4OTEwfQ.thFRO-N-6GTe9ZZCIGuM5AS0Mkv1RHWOkDgIHH94dVg',
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ0ZXN0dXNlciIsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSIsImlhdCI6MTY4MTk4ODI2MCwiZXhwIjoxNjgxOTkxODYwfQ.sQOdEdzffnduoOCJMazZER_PYrb0tBbaE2Z0fDMntrc',
         },
       })
       .then((a) => {
@@ -33,9 +33,10 @@ function ProfilePage() {
         return a.data
       }),
   )
-  console.log(data) // 성공시 true
-  console.log(isLoading) // 로딩중일 때 true
-  console.log(error) // 실패시 true
+  // console.log(data) // 성공시 true
+  // console.log(isLoading) // 로딩중일 때 true
+  // console.log(error) // 실패시 true
+  console.log(post)
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -79,11 +80,7 @@ function ProfilePage() {
         </S.UserDetail>
       </S.UserProfile>
       {/* 유저 다이어리 */}
-      <S.Posts>
-        {post.map((arr, i) => {
-          return <Post key={i} arr={arr} />
-        })}
-      </S.Posts>
+      <Posts posts={post} height="477px" type={false} />
     </div>
   )
 }
