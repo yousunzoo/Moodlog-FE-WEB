@@ -2444,6 +2444,7 @@ unbox-primitive@^1.0.2:
     has-symbols "^1.0.3"
     which-boxed-primitive "^1.0.2"
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 universal-cookie@^4.0.0, universal-cookie@^4.0.4:
 =======
@@ -2456,6 +2457,8 @@ universal-cookie@^4.0.0:
     "@types/cookie" "^0.3.3"
     cookie "^0.4.0"
 
+=======
+>>>>>>> 77189e6b59fdcc64b5e9124b48cf95e73a5ed270
 unload@2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/unload/-/unload-2.2.0.tgz#ccc88fdcad345faa06a92039ec0f80b488880ef7"
