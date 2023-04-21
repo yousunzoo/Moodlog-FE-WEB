@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import * as S from './style'
-import { Posts } from '../../components/common/posts/posts'
+import { Posts } from '../../components/common/post/posts'
 import axios from 'axios'
 import { useQuery } from 'react-query'
 import { axiosInstance } from '../../apis/axios'
