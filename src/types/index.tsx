@@ -14,7 +14,7 @@ export interface NewPost {
   id: number
   createdAt: string
   updateAt?: string
-  feeling_code?: number
+  feeling_code: number
   img?: string
   open?: boolean
   title?: string
@@ -23,6 +23,7 @@ export interface NewPost {
 export interface UserStyle {
   name: string
   number: number
+  link: string
 }
 
 export interface NewPost {
@@ -30,7 +31,7 @@ export interface NewPost {
   id: number
   createdAt: string
   updateAt?: string
-  feeling_code?: number
+  feeling_code: number
   img?: string
   open?: boolean
   title?: string
