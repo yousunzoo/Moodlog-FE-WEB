@@ -1,5 +1,5 @@
 import * as S from './style'
-import { ChangeEvent, FormEvent, useRef, useState, useEffect } from 'react'
+import { ChangeEvent, FormEvent, useRef, useState } from 'react'
 import { useMutation, useQuery } from 'react-query'
 import { useNavigate, useParams } from 'react-router'
 import { createComment, deleteComment, getPost, updateLike } from '../../apis/diary'
@@ -9,8 +9,10 @@ import Loading from '../../components/common/loading'
 import PrevButton from '../../components/common/button/prevButton'
 import DotsButton from '../../components/common/button/dotsButton'
 import SpeechBubbleButton from '../../components/common/button/speechBubbleButton'
-import { getUser, login } from '../../apis/auth'
+import { login } from '../../apis/auth'
 import { queryClient } from '../../utils/queryClient'
+import { setToken } from '../../utils/userTokenCookie'
+import { AxiosError } from 'axios'
 
 interface Commnets {
   id: number
@@ -48,7 +50,17 @@ function DiaryDetailPage() {
       queryClient.invalidateQueries('post')
     },
   })
-  const { mutate: loginMutate } = useMutation(() => login({ email: 'test@test.com', password: 'test1234' }))
+  const { mutate: loginMutate } = useMutation(() => login({ email: 'test@test.com', password: 'test1234' }), {
+    onSuccess: (data) => {
+      setToken(data.accessToken, {
+        path: '/',
+        maxAge: data.content.exp - data.content.iat,
+      })
+    },
+    onError: (err: AxiosError) => {
+      console.log(err)
+    },
+  })
 
   const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     if (textarea.current) {
@@ -70,10 +82,6 @@ function DiaryDetailPage() {
   const handleLike = () => {
     likeMutate()
   }
-
-  useEffect(() => {
-    getUser(4)
-  }, [])
 
   if (isLoading) return <Loading />
   if (error) return <>error</>
