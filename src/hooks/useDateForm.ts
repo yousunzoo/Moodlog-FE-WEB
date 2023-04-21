@@ -1,7 +1,7 @@
-export const useDateForm = (dateform: Date) => {
+export const useDateForm = (dateform: string) => {
   const newDate = new Date(dateform)
   const year = newDate.getFullYear()
-  const month = newDate.getMonth()
+  const month = newDate.getMonth() + 1
   const date = newDate.getDate()
   let day
   switch (newDate.getDay()) {

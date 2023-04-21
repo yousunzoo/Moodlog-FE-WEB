@@ -1,13 +1,15 @@
+import { DiaryResponse } from '../types/diary'
 import { axiosInstance } from './axios'
 import { CommentProp, PostProp } from './type'
 
 export const getPosts = async () => {
-  const res = await axiosInstance().get(`/posts`)
+  const res = await axiosInstance().get<DiaryResponse[]>(`/posts`)
   return res.data
 }
 
 export const getPost = async (id: number) => {
-  const res = await axiosInstance().get(`/posts/${id}`)
+  const res = await axiosInstance().get<DiaryResponse>(`/posts/${id}`)
+  console.log(res.data)
   return res.data
 }
 
