@@ -16,18 +16,16 @@ function Router() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          {/* 
-          페이지 구현이 어느정도 마무리 되면 로그인 했을때만 접근 가능한 페이지를 ProtectedRouter로 감쌀 예정
-          <Route element={<ProtectedRouter />}></Route>
-           */}
-          <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/setting" element={<SettingPage />} />
-          <Route path="/diary" element={<DiaryPage />} />
-          <Route path="/diaryCreate" element={<DiaryCreatePage />} />
-          <Route path="/diary/:id" element={<DiaryDetailPage />} />
+          <Route element={<ProtectedRouter />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/setting" element={<SettingPage />} />
+            <Route path="/diary" element={<DiaryPage />} />
+            <Route path="/diaryCreate" element={<DiaryCreatePage />} />
+            <Route path="/diary/:id" element={<DiaryDetailPage />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
