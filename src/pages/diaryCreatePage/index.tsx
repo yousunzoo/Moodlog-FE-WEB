@@ -1,7 +1,14 @@
 import React from 'react'
+import TopBar from '../../components/topBar'
+import Canvas from '../../components/canvas'
 
 function DiaryCreatePage() {
-  return <div> DiaryCreatePage</div>
+  return (
+    <>
+      <TopBar />
+      <Canvas />
+    </>
+  )
 }
 
 export default DiaryCreatePage

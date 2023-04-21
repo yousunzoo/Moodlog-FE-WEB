@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
-export const Wrapper = styled.div`
+export const ProfileImg = styled.img`
   width: 70px;
   height: 70px;
   border-radius: 50%;
-  border: 1px solid black;
+  background-size: cover;
 `
