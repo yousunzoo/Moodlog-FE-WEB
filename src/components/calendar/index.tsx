@@ -4,32 +4,41 @@ import Calendar from 'react-calendar'
 import './calendar.css'
 import moment from 'moment'
 import { useQuery } from 'react-query'
-import { axiosInstance } from '../../apis/axios'
+import { getUser } from '../../apis/auth'
 import { NewUser } from '../../types'
 import { NewPost } from '../../types'
+import { Link, useParams } from 'react-router-dom'
 
-function CalendarPage() {
-  const [value, onChange] = useState(new Date())
+function Calendars() {
+  const [value, onChange] = useState<Date>(new Date())
   const [mark, setMark] = useState<string[]>([])
   const [post, setPost] = useState<NewPost[]>([])
+  const [postId, setPostId] = useState<number[]>([])
+  const [feeling, setFeeling] = useState<number[]>([])
 
-  const { data, isLoading, error } = useQuery<NewUser>('user', () =>
-    axiosInstance.get(`/auth/user/4`).then((a) => {
-      setPost(() => a.data.post)
-      return a.data
-    }),
+  const params = useParams()
+
+  const { data, isLoading, error } = useQuery<NewUser>(
+    'user',
+    () =>
+      getUser(params.id).then((a) => {
+        return a
+      }),
+    { staleTime: 10000, cacheTime: 1000 * 40 },
   )
 
   useEffect(() => {
-    for (const item of post) {
-      let date = item.createdAt.split('T')
-      setMark((mark) => [...mark, date[0]])
+    if (typeof data === 'object') {
+      for (const item of data.post) {
+        let date = item.createdAt.split('T')
+        setMark((mark) => [...mark, date[0]])
+        setPostId((postId) => [...postId, item.id])
+        setFeeling((feeling) => [...feeling, item.feeling_code])
+      }
     }
-    console.log(mark)
-  }, [post])
+  }, [data])
 
-  // console.log(post, 'mark: ', mark)
-
+  console.log(mark, postId, feeling)
   return (
     <div>
       <Calendar
@@ -37,15 +46,19 @@ function CalendarPage() {
         formatDay={(locale, date) => moment(date).format('DD')}
         value={value}
         className="mx-auto w-full text-sm border-b"
+        // onClickDay={(postId, console.log(postId))}
         tileContent={({ date, view }) => {
           if (mark.find((x) => x === moment(date).format('YYYY-MM-DD'))) {
+            let index = mark.findIndex((x) => x === moment(date).format('YYYY-MM-DD'))
             return (
               <>
-                <div className="flex justify-center items-center absoluteDiv">
-                  <div className="dot">
-                    <img src="/public/assets/icons/mood-02.png" width="auto" />
+                <Link to={`/diary:${postId[index]}`}>
+                  <div className="flex justify-center items-center absoluteDiv">
+                    <div className="dot">
+                      <img src={'/public/assets/icons/mood-0' + `${feeling[index]}` + '.png'} width="auto" />
+                    </div>
                   </div>
-                </div>
+                </Link>
               </>
             )
           } else {
@@ -58,9 +71,9 @@ function CalendarPage() {
             )
           }
         }}
-      />{' '}
+      />
     </div>
   )
 }
 
-export default CalendarPage
+export default Calendars

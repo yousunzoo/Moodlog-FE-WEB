@@ -1,11 +1,10 @@
 .react-calendar {
-  width: 95%;
+  width: 100%;
   margin: 0 auto;
   height: 600px;
   background-color: #fff;
   color: #222;
   border-radius: 6px;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
   line-height: 1.125em;
 }
 
@@ -136,19 +135,31 @@
   height: 20px;
   width: 20px;
   display: flex;
-  margin: 2px auto;
+  margin: 10px auto;
 }
 
 /* 요일 */
 abbr[title] {
   text-decoration: none !important;
   font-weight: 700;
+  padding: 10px 20px;
+  background-color: #fbeafa;
 }
+
+abbr[title="토요일"] {
+  color: rgb(90, 135, 203);
+}
+
+abbr[title="일요일"] {
+  color: rgb(118, 43, 43);
+}
+
 
 .react-calendar__month-view__weekdays__weekday {
   text-align: center;
   text-decoration: none;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  padding: 3px 0;
 }
 
 .react-calendar__month-view__weekdays__weekday abbr {
@@ -160,4 +171,12 @@ abbr[title] {
 .react-calendar__month-view__weekdays__weekday--weekend abbr {
   border-image: none;
 
+}
+
+
+/* day */
+.react-calendar__month-view__days__day {
+  font-size: 14px;
+  text-align: right;
+  padding-right: 8px;
 }
