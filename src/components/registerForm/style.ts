@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 
-export const Form = styled.form``
+export const Form = styled.form`
+  padding: 0 25px;
+`
 
-export const InputWrapper = styled.div`
+export const InputArea = styled.div`
   width: 100%;
   height: 80px;
 `
@@ -15,7 +17,15 @@ export const Input = styled.input`
   border: 1px solid #959595;
 `
 
-export const Text = styled.div``
+export const FileInput = styled.input`
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  background-color: #f8f8f8;
+  border: 1px solid #959595;
+`
+
+export const ErrorMessage = styled.div``
 
 export const ResigterButton = styled.button`
   width: 100%;
