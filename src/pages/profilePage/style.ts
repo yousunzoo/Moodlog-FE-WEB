@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import { Link } from 'react-router-dom'
 
 // 유저 프로필
 export const UserProfile = styled.div`
@@ -21,7 +22,8 @@ export const UserDetail = styled.div`
   background: ${({ theme }) => theme.brown01};
 `
 
-export const UserDetailContnet = styled.div`
+export const StyledLink = styled(Link)`
+  text-decoration: none;
   width: 33.3%;
   height: 100%;
 `
@@ -96,4 +98,8 @@ export const UserIntro = styled.div`
   font-size: 16px;
   line-height: 24px;
   color: ${({ theme }) => theme.modalBlack};
+`
+
+export const Postss = styled.div`
+  height: 424px;
 `
