@@ -1,24 +1,18 @@
 import React from 'react'
 import * as S from './style'
-import { NewPost } from '../../../types'
+import { NewPost } from '../../../../types'
 
 interface ContainerProp {
   post: NewPost
   type: boolean
 }
 
-interface ConatinerPorps {
-  posts: NewPost[]
-  height: string
-  type: boolean
-}
-
-function Post({ post, type }: ContainerProp) {
+export function Post({ post, type }: ContainerProp) {
   const date = post.createdAt
   const month = date.split('-')
   const day = month[2].split('T')
   return (
-    <S.DiaryPost>
+    <S.DiaryPost to={`/diary:${post.id}`}>
       <S.DiaryPostImage>
         <img src={post.img} width="100%" />
       </S.DiaryPostImage>
@@ -33,15 +27,5 @@ function Post({ post, type }: ContainerProp) {
         </S.DiaryPostDateContain>
       </S.DiaryPostDate>
     </S.DiaryPost>
-  )
-}
-
-export function Posts({ posts, height, type }: ConatinerPorps) {
-  return (
-    <S.Posts height={height}>
-      {posts.map((arr, i) => {
-        return <Post key={i} post={arr} type={type} />
-      })}
-    </S.Posts>
   )
 }

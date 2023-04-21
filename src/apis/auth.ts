@@ -32,6 +32,16 @@ export const logout = async () => {
   return res.data
 }
 
+// 로그아웃 시 cookie에 token을 삭제해야함. 아래와 같이 작성 ! (확인 후 이 주석은 지워주세요요)
+// const { mutate: loginMutate } = useMutation(() => login({ email: 'test@test.com', password: 'test1234' }), {
+//   onSuccess: (data) => {
+//     removeToken()
+//   },
+//   onError: (err: AxiosError) => {
+//     console.log(err);
+//   },
+// })
+
 export const withdrawal = async () => {
   const res = await axiosInstance().delete(`/auth/withdrawal`)
   console.log(res.data)
