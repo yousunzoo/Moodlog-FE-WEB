@@ -5,9 +5,14 @@ import { axiosInstance } from '../../apis/axios'
 import axios from 'axios'
 import { FieldValues, useForm } from 'react-hook-form'
 import { useRegisterUser } from '../../hooks/useRegisterUser'
+import { useCookies } from 'react-cookie'
 
 function RegisterForm() {
   const [imgFile, setImgFile] = useState<undefined | string>(undefined)
+  const [imgName, setImgName] = useState('')
+
+  const registerUser = useRegisterUser()
+  // setCookie('access-token', res.data['access_token'], { path: '/' })
 
   const {
     register,
@@ -26,8 +31,8 @@ function RegisterForm() {
     formData.append('username', username)
 
     console.log({ formData })
-
-    useRegisterUser()
+    //@ts-ignore
+    registerUser(formData)
 
     // const res = await axiosInstance.post('/auth/register', { data: userInput })
     // const res = await axios({
@@ -109,11 +114,11 @@ function RegisterForm() {
         />
         <S.ErrorMessage>{errors.passwordConfirm?.message}</S.ErrorMessage>
       </S.InputArea>
-      <S.ProfileContainer>
+      <S.ProfileWrapper>
         <Profile img={imgFile} />
-        <S.ProfileTextContainer>
-          <label htmlFor="file" />
-          <S.Input
+        <S.ProfileTextWrapper>
+          <label htmlFor="file">프로필 이미지 등록</label>
+          <S.FileInput
             id="file"
             type="file"
             {...register('profile_image', {
@@ -122,6 +127,7 @@ function RegisterForm() {
                   target: { files },
                 } = e
                 const file = files[0]
+                setImgName(file.name)
                 const reader = new FileReader()
                 reader.readAsDataURL(file)
                 reader.onload = () => {
@@ -131,8 +137,12 @@ function RegisterForm() {
             })}
             accept="image/*"
           />
-        </S.ProfileTextContainer>
-      </S.ProfileContainer>
+          <div>
+            <div>파일이름</div>
+            <span>{imgName}</span>
+          </div>
+        </S.ProfileTextWrapper>
+      </S.ProfileWrapper>
       <S.ResigterButton type="submit">회원가입</S.ResigterButton>
     </S.Form>
   )

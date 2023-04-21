@@ -7,12 +7,12 @@ import Nav from '../../components/common/Nav'
 
 function RegisterPage() {
   return (
-    <div>
+    <S.Wrapper>
       <CloseButton />
       <Logo size={200} />
       <RegisterForm />
       <Nav />
-    </div>
+    </S.Wrapper>
   )
 }
 
