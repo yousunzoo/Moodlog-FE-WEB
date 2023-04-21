@@ -6,9 +6,10 @@ import ProfilePage from '../pages/profilePage'
 import RegisterPage from '../pages/registerPage'
 import SettingPage from '../pages/settingPage'
 import DiaryPage from '../pages/diaryPage'
+import DiaryDetailPage from '../pages/diaryDetailPage'
 import DiaryCreatePage from '../pages/diaryCreatePage'
-import ShowDiary from '../pages/showDiaryPage'
 import Layout from '../components/common/layout'
+import CalendarPage from '../pages/calendarPage'
 import ProtectedRouter from './ProtectedRouter'
 
 function Router() {
@@ -22,12 +23,13 @@ function Router() {
            */}
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile/:id" element={<ProfilePage />} />
+          <Route path="/calendar/:id" element={<CalendarPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/setting" element={<SettingPage />} />
           <Route path="/diary" element={<DiaryPage />} />
           <Route path="/diaryCreate" element={<DiaryCreatePage />} />
-          <Route path="/diary/:id" element={<ShowDiary />} />
+          <Route path="/diary/:id" element={<DiaryDetailPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
