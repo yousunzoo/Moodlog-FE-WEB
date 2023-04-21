@@ -4,7 +4,7 @@ export const theme: DefaultTheme = {
   /* Color styles */
   white01: '#FFFFFF',
   white02: '#F8F8F8',
-  brown01: '#998C84',
+  brown01: '#6A6059',
   brown02: '#A36856',
   brown03: '#8a675c',
   brown04: '#4F413A',

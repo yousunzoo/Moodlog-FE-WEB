@@ -37,7 +37,6 @@ function Post({ post, type }: ContainerProp) {
 }
 
 export function Posts({ posts, height, type }: ConatinerPorps) {
-  console.log(posts, height, type)
   return (
     <S.Posts height={height}>
       {posts.map((arr, i) => {
