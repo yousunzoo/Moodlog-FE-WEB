@@ -12,7 +12,7 @@ export function Post({ post, type }: ContainerProp) {
   const month = date.split('-')
   const day = month[2].split('T')
   return (
-    <S.DiaryPost to={`/diary:${post.id}`}>
+    <S.DiaryPost to={`/diary/${post.id}`}>
       <S.DiaryPostImage>
         <img src={post.img} width="100%" />
       </S.DiaryPostImage>
