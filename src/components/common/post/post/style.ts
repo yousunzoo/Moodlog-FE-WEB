@@ -1,22 +1,14 @@
+import { Link } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 
-// posts 컴포넌트
-export const Posts = styled.div<{ height: string }>`
-  position: absolute;
-  width: 100%;
-  height: ${(props) => props.height};
-  left: 0px;
-  top: 217px;
-  overflow-y: scroll;
-  background: ${({ theme }) => theme.white02};
-`
-
 // post 컴포넌트
-export const DiaryPost = styled.div`
+export const DiaryPost = styled(Link)`
   display: flex;
   width: calc(100% - 50px);
   height: 60px;
   margin: 10px 25px;
+  text-decoration: none;
+  color: ${({ theme }) => theme.modalBlack};
 `
 
 export const DiaryPostImage = styled.div`
