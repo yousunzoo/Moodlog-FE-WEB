@@ -23,7 +23,7 @@ export const ErrorMessage = styled.div``
 
 export const ResigterButton = styled.button`
   width: 100%;
-  background-color: #998c84;
+  background-color: ${({ theme }) => theme.brown01};
   border-radius: 10px;
   height: 50px;
   color: #fff;
