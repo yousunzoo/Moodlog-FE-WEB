@@ -9,7 +9,7 @@ import DiaryPage from '../pages/diaryPage'
 import DiaryDetailPage from '../pages/diaryDetailPage'
 import DiaryCreatePage from '../pages/diaryCreatePage'
 import Layout from '../components/common/layout'
-import CalendarPage from '../components/calendar'
+import CalendarPage from '../pages/calendarPage'
 import ProtectedRouter from './ProtectedRouter'
 
 function Router() {
@@ -23,8 +23,8 @@ function Router() {
            */}
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/calendar" element={<CalendarPage />} />
+          <Route path="/profile/:id" element={<ProfilePage />} />
+          <Route path="/calendar/:id" element={<CalendarPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/setting" element={<SettingPage />} />
           <Route path="/diary" element={<DiaryPage />} />
