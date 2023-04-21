@@ -21,7 +21,7 @@ function Calendars() {
   const { data, isLoading, error } = useQuery<NewUser>(
     'user',
     () =>
-      getUser(params.id).then((a) => {
+      getUser(Number(params.id)).then((a) => {
         return a
       }),
     { staleTime: 10000, cacheTime: 1000 * 40 },
@@ -52,7 +52,7 @@ function Calendars() {
             let index = mark.findIndex((x) => x === moment(date).format('YYYY-MM-DD'))
             return (
               <>
-                <Link to={`/diary:${postId[index]}`}>
+                <Link to={`/diary/${postId[index]}`}>
                   <div className="flex justify-center items-center absoluteDiv">
                     <div className="dot">
                       <img src={'/public/assets/icons/mood-0' + `${feeling[index]}` + '.png'} width="auto" />
