@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { ReactElement, ReactNode, cloneElement, useEffect, useRef, useState } from 'react'
 import * as S from './style'
 import { ModalProps } from '../../../types/modal'
 
@@ -39,7 +39,7 @@ function Modal({ isOpen, onClose, children }: ModalProps) {
             ref={modalRef}
             onClick={(e) => e.stopPropagation()}
           >
-            {children}
+            {cloneElement(children as ReactElement, { handleClose })}
           </S.ModalWrapper>
         </S.ModalOverlay>
       )}

@@ -1,10 +1,11 @@
 import React, { MouseEvent, useState } from 'react'
 import TopBar from '../../components/topBar'
 import Canvas from '../../components/canvas'
-import DiaryForm from '../../components/diaryForm'
+import DiaryEditor from '../../components/diaryEditor'
 
 function DiaryCreatePage() {
   const [step, setStep] = useState('first')
+
   const changeStep = (e: MouseEvent<HTMLDivElement>) => {
     if (!(e.target instanceof HTMLButtonElement)) return
     const step = e.target.dataset.step as string
@@ -22,7 +23,7 @@ function DiaryCreatePage() {
   return (
     <>
       <TopBar step={step} changeStep={changeStep} />
-      {step === 'first' ? <Canvas /> : <DiaryForm />}
+      {step === 'first' ? <Canvas /> : <DiaryEditor />}
     </>
   )
 }
