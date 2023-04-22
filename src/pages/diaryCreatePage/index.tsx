@@ -2,10 +2,11 @@ import React, { MouseEvent, useState } from 'react'
 import TopBar from '../../components/topBar'
 import Canvas from '../../components/canvas'
 import DiaryEditor from '../../components/diaryEditor'
+import { Diary } from '../../types/createDiary'
 
 function DiaryCreatePage() {
   const [step, setStep] = useState('first')
-  const [diary, setDiary] = useState({
+  const [diary, setDiary] = useState<Diary>({
     title: '',
     body: '',
     img: null,
@@ -37,15 +38,26 @@ function DiaryCreatePage() {
         setStep('first')
         break
       case 'next':
+        if (!diary.img) {
+          alert('그림을 그려주세요')
+          return
+        }
         setStep('second')
         break
     }
+  }
+
+  const saveImage = (imageDataUrl: string | null) => {
+    setDiary({
+      ...diary,
+      img: imageDataUrl,
+    })
   }
   return (
     <>
       <TopBar step={step} changeStep={changeStep} />
       {step === 'first' ? (
-        <Canvas />
+        <Canvas img={diary.img} saveImage={saveImage} />
       ) : (
         <DiaryEditor diary={diary} onChange={onChange} handleChangeMood={handleChangeMood} />
       )}

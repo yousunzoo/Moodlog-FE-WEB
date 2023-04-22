@@ -1,10 +1,10 @@
 import React, { ChangeEvent, MouseEvent, useCallback, useEffect, useRef, useState } from 'react'
 import * as S from './style'
 import palette from '../../constants/palette.json'
-import { PaletteJSON } from '../../types/createDiary'
+import { CanvasProps, PaletteJSON } from '../../types/createDiary'
 import { CanvasState } from '../../types/createDiary'
 
-function Canvas() {
+function Canvas({ img, saveImage }: CanvasProps) {
   const [canvasState, setCanvasState] = useState<CanvasState>({
     canvas: null,
     color: '08',
@@ -17,6 +17,24 @@ function Canvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const nowColor = canvasState.color
   const nowMode = canvasState.mode
+
+  useEffect(() => {
+    if (!canvasRef.current) return
+    const canvas = canvasRef.current
+    setCtx(() => canvas.getContext('2d') as CanvasRenderingContext2D)
+    canvas.width = 400
+    canvas.height = 400
+    setCanvasState((prevState) => ({ ...prevState, canvas }))
+    if (img) {
+      const image = new Image()
+      image.src = img
+      image.onload = () => {
+        const context = canvas.getContext('2d') as CanvasRenderingContext2D
+        context.drawImage(image, 0, 0, 400, 400)
+      }
+      return
+    }
+  }, [])
 
   const handleActions = (e: MouseEvent<HTMLDivElement>) => {
     if (!(e.target instanceof HTMLButtonElement)) return
@@ -41,6 +59,7 @@ function Canvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     setUndoStack([])
     setRedoStack([])
+    saveImage(null)
   }
   const handleUndo = () => {
     const canvas = canvasRef.current
@@ -105,6 +124,8 @@ function Canvas() {
     if (!canvasRef.current) return
     if (!ctx) return
     const imageData = ctx.getImageData(0, 0, canvasRef.current.width, canvasRef.current.height)
+    const imageDataUrl = canvasRef.current.toDataURL('image/png')
+    saveImage(imageDataUrl)
     setUndoStack((prevState) => {
       const newState = [...prevState, imageData]
       return newState
@@ -143,6 +164,7 @@ function Canvas() {
 
   const setImage = (e: ChangeEvent<HTMLInputElement>) => {
     if (!ctx) return
+    if (!canvasRef.current) return
     const file = e.target.files?.[0]
     if (!file) return
     if (!file.type.startsWith('image/')) {
@@ -153,18 +175,12 @@ function Canvas() {
     image.src = URL.createObjectURL(file)
     image.onload = () => {
       ctx.drawImage(image, 0, 0, 400, 400)
+      if (!canvasRef.current) return
+      const imageData = ctx.getImageData(0, 0, canvasRef.current.width, canvasRef.current.height)
+      setUndoStack((prevState) => [...prevState, imageData])
+      saveImage(canvasRef.current.toDataURL('image/png'))
     }
   }
-
-  useEffect(() => {
-    if (canvasRef.current) {
-      const canvas = canvasRef.current
-      setCtx(canvas.getContext('2d') as CanvasRenderingContext2D)
-      canvas.width = 400
-      canvas.height = 400
-      setCanvasState((prevState) => ({ ...prevState, canvas }))
-    }
-  }, [])
 
   return (
     <S.Wrapper>
@@ -220,4 +236,4 @@ function Canvas() {
   )
 }
 
-export default React.memo(Canvas)
+export default Canvas

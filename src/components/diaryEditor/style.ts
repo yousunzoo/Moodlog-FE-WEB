@@ -43,7 +43,7 @@ export const MoodSelect = styled.button`
 export const EditorContent = styled.textarea`
   display: block;
   width: 100%;
-  height: calc(100vh - 200px);
+  height: calc(100vh - 600px);
   padding: 25px;
   border: none;
   outline: none;

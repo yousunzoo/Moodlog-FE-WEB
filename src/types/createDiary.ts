@@ -4,7 +4,7 @@ export interface Diary {
   title: string
   body: string
   feeling_code: number
-  img: File | null
+  img: string | null
   open: boolean
 }
 export interface PaletteJSON {
@@ -32,4 +32,9 @@ export interface CanvasState {
   color: string
   lineWidth: number
   mode: string
+}
+
+export interface CanvasProps {
+  img: string | null
+  saveImage: (imageData: string | null) => void
 }
