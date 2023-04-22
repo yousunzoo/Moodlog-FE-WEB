@@ -15,14 +15,32 @@ export const Palette = styled.div`
   width: 100%;
   border: 2px solid ${({ theme }) => theme.grey01};
   border-radius: 20px;
+  overflow: hidden;
 `
+
 export const ColorPicker = styled.div`
   width: 100%;
   display: flex;
+  position: relative;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
   border-bottom: 2px solid ${({ theme }) => theme.grey01};
+`
+
+export const DisableColorPicker = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: ${({ theme }) => theme.white02};
+  span {
+    color: ${({ theme }) => theme.grey03};
+  }
 `
 export const ColorItem = styled.button`
   width: 30px;

@@ -17,6 +17,7 @@ function Canvas() {
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const nowColor = canvasState.color
+  const nowMode = canvasState.mode
 
   const handleUndo = () => {
     if (undoStack.length === 1) {
@@ -129,6 +130,11 @@ function Canvas() {
       <S.PaletteWrapper>
         <S.Palette>
           <S.ColorPicker onClick={handleColorChange}>
+            {nowMode === 'eraser' && (
+              <S.DisableColorPicker>
+                <span>지우기 모드</span>
+              </S.DisableColorPicker>
+            )}
             <S.ColorItem className={nowColor === '01' ? 'active' : ''} data-color="01" color="01" />
             <S.ColorItem className={nowColor === '02' ? 'active' : ''} data-color="02" color="02" />
             <S.ColorItem className={nowColor === '03' ? 'active' : ''} data-color="03" color="03" />
@@ -146,10 +152,10 @@ function Canvas() {
         </S.Palette>
         <S.SelectArea>
           <S.Tools onClick={handleMode}>
-            <S.ToolItem className={canvasState.mode == 'brush' ? 'active' : ''} data-mode="brush">
+            <S.ToolItem className={nowMode == 'brush' ? 'active' : ''} data-mode="brush">
               브러쉬
             </S.ToolItem>
-            <S.ToolItem className={canvasState.mode == 'eraser' ? 'active' : ''} data-mode="eraser">
+            <S.ToolItem className={nowMode == 'eraser' ? 'active' : ''} data-mode="eraser">
               지우개
             </S.ToolItem>
           </S.Tools>
@@ -180,4 +186,4 @@ function Canvas() {
   )
 }
 
-export default Canvas
+export default React.memo(Canvas)
