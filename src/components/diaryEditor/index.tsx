@@ -14,7 +14,6 @@ function DiaryEditor({ diary, onChange, handleChangeMood }: DiaryEditorProps) {
   const handleCloseModal = () => {
     setIsOpen(false)
   }
-  console.log(diary)
   return (
     <>
       <div>
@@ -29,7 +28,7 @@ function DiaryEditor({ diary, onChange, handleChangeMood }: DiaryEditorProps) {
             <S.MoodSelect />
           </S.TabSelect>
         </S.EditorTab>
-        <img src={diary.img} alt="img" />
+        <img src={diary.img as string} alt="img" />
         <S.EditorContent id="body" placeholder="내용을 입력해주세요" value={diary.body} onChange={onChange} />
       </div>
       <Modal isOpen={isOpen} onClose={handleCloseModal}>

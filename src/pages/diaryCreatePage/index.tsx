@@ -3,6 +3,8 @@ import TopBar from '../../components/topBar'
 import Canvas from '../../components/canvas'
 import DiaryEditor from '../../components/diaryEditor'
 import { Diary } from '../../types/createDiary'
+import { usePostDiary } from '../../hooks/usePostDiary'
+import { PostProp } from '../../apis/type'
 
 function DiaryCreatePage() {
   const [step, setStep] = useState('first')
@@ -13,6 +15,7 @@ function DiaryCreatePage() {
     feeling_code: 1,
     open: true,
   })
+  const postDiary = usePostDiary()
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target
@@ -44,6 +47,8 @@ function DiaryCreatePage() {
         }
         setStep('second')
         break
+      case 'submit':
+        postDiary(diary as PostProp)
     }
   }
 
