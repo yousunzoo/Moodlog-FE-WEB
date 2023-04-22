@@ -4,9 +4,10 @@ export interface LoginProp {
 }
 
 export interface RegisterProp extends LoginProp {
-  username: string
+  email: string
   password: string
-  profile_image?: string
+  profile_image?: File[]
+  username: string
 }
 
 export interface ProfileProp {
