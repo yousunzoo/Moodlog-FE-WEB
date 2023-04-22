@@ -25,6 +25,7 @@ export interface DiaryEditorProps {
   diary: Diary
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void
   handleChangeMood: (e: MouseEvent<HTMLLIElement>) => void
+  handleChangeOpen: (e: MouseEvent<HTMLDivElement>) => void
 }
 
 export interface CanvasState {

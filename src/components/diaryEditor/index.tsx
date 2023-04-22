@@ -5,7 +5,7 @@ import { moodImgUrl } from '../../constants/moodImgUrl'
 import MoodModal from '../moodModal'
 import { DiaryEditorProps } from '../../types/createDiary'
 
-function DiaryEditor({ diary, onChange, handleChangeMood }: DiaryEditorProps) {
+function DiaryEditor({ diary, onChange, handleChangeMood, handleChangeOpen }: DiaryEditorProps) {
   const [isOpen, setIsOpen] = useState(false)
   const handleOpenModal = () => {
     setIsOpen(true)
@@ -28,8 +28,17 @@ function DiaryEditor({ diary, onChange, handleChangeMood }: DiaryEditorProps) {
             <S.MoodSelect />
           </S.TabSelect>
         </S.EditorTab>
-        <img src={diary.img as string} alt="img" />
+        <S.Img src={diary.img as string} alt="그림" />
         <S.EditorContent id="body" placeholder="내용을 입력해주세요" value={diary.body} onChange={onChange} />
+        <S.Settings onClick={handleChangeOpen}>
+          <S.SettingTitle>공개 여부</S.SettingTitle>
+          <S.SettingItem data-open="true" className={diary.open ? 'active' : ''}>
+            전체 공개
+          </S.SettingItem>
+          <S.SettingItem data-open="false" className={!diary.open ? 'active' : ''}>
+            비공개
+          </S.SettingItem>
+        </S.Settings>
       </div>
       <Modal isOpen={isOpen} onClose={handleCloseModal}>
         <MoodModal onClick={handleChangeMood} />

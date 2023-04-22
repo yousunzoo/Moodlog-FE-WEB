@@ -1,4 +1,4 @@
-import React, { MouseEvent, useState } from 'react'
+import React, { ChangeEvent, MouseEvent, useState } from 'react'
 import TopBar from '../../components/topBar'
 import Canvas from '../../components/canvas'
 import DiaryEditor from '../../components/diaryEditor'
@@ -17,18 +17,27 @@ function DiaryCreatePage() {
   })
   const postDiary = usePostDiary()
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target
     setDiary({
       ...diary,
       [id]: value,
     })
   }
-  const handleChangeMood = (e: React.MouseEvent<HTMLLIElement>) => {
+  const handleChangeMood = (e: MouseEvent<HTMLLIElement>) => {
     const { mood } = e.currentTarget.dataset
     setDiary({
       ...diary,
       feeling_code: Number(mood),
+    })
+  }
+
+  const handleChangeOpen = (e: MouseEvent<HTMLDivElement>) => {
+    if (!(e.target instanceof HTMLButtonElement)) return
+    const { open } = e.target.dataset
+    setDiary({
+      ...diary,
+      open: open === 'true' ? true : false,
     })
   }
   const changeStep = (e: MouseEvent<HTMLDivElement>) => {
@@ -64,7 +73,12 @@ function DiaryCreatePage() {
       {step === 'first' ? (
         <Canvas img={diary.img} saveImage={saveImage} />
       ) : (
-        <DiaryEditor diary={diary} onChange={onChange} handleChangeMood={handleChangeMood} />
+        <DiaryEditor
+          diary={diary}
+          onChange={onChange}
+          handleChangeMood={handleChangeMood}
+          handleChangeOpen={handleChangeOpen}
+        />
       )}
     </>
   )
