@@ -3,9 +3,9 @@ import * as S from './style'
 import Modal from '../common/modal'
 import { moodImgUrl } from '../../constants/moodImgUrl'
 import MoodModal from '../moodModal'
+import { DiaryEditorProps } from '../../types/createDiary'
 
-function DiaryEditor() {
-  const [diary, setDiary] = useState({ title: '', content: '', moodCode: 1, open: true })
+function DiaryEditor({ diary, onChange, handleChangeMood }: DiaryEditorProps) {
   const [isOpen, setIsOpen] = useState(false)
   const handleOpenModal = () => {
     setIsOpen(true)
@@ -14,20 +14,7 @@ function DiaryEditor() {
   const handleCloseModal = () => {
     setIsOpen(false)
   }
-  const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { id, value } = e.target
-    setDiary({
-      ...diary,
-      [id]: value,
-    })
-  }
-  const handleChangeMood = (e: React.MouseEvent<HTMLLIElement>) => {
-    const { mood } = e.currentTarget.dataset
-    setDiary({
-      ...diary,
-      moodCode: Number(mood),
-    })
-  }
+
   return (
     <>
       <div>
@@ -38,11 +25,11 @@ function DiaryEditor() {
         <S.EditorTab>
           <S.TabTitle htmlFor="mood">오늘의 기분</S.TabTitle>
           <S.TabSelect onClick={handleOpenModal}>
-            <S.MoodImg src={moodImgUrl[diary.moodCode]} />
+            <S.MoodImg src={moodImgUrl[diary.feeling_code]} />
             <S.MoodSelect />
           </S.TabSelect>
         </S.EditorTab>
-        <S.EditorContent id="content" placeholder="내용을 입력해주세요" value={diary.content} onChange={onChange} />
+        <S.EditorContent id="body" placeholder="내용을 입력해주세요" value={diary.body} onChange={onChange} />
       </div>
       <Modal isOpen={isOpen} onClose={handleCloseModal}>
         <MoodModal onClick={handleChangeMood} />

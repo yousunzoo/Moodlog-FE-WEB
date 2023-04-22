@@ -2,22 +2,108 @@ import React, { ChangeEvent, MouseEvent, useEffect, useRef, useState } from 'rea
 import * as S from './style'
 import palette from '../../constants/palette.json'
 import { PaletteJSON } from '../../types/createDiary'
+import { CanvasState } from '../../types/createDiary'
 
 function Canvas() {
-  const canvas = useRef<HTMLCanvasElement>(null)
+  const [canvasState, setCanvasState] = useState<CanvasState>({
+    canvas: null,
+    isDrawing: false,
+    color: '08',
+    lineWidth: 25,
+    mode: 'brush',
+  })
   const [ctx, setCtx] = useState<CanvasRenderingContext2D | undefined>(undefined)
-  const [color, setColor] = useState('08')
-  const [size, setSize] = useState(25)
-  const [mode, setMode] = useState('brush')
-  const [isMouseDown, setIsMouseDown] = useState(false)
-  const [isImage, setIsImage] = useState(false)
+
+  const [undoStack, setUndoStack] = useState<string[]>([])
+
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const nowColor = canvasState.color
+
+  useEffect(() => {
+    if (canvasRef.current) {
+      const canvas = canvasRef.current
+      setCtx(canvas.getContext('2d') as CanvasRenderingContext2D)
+      canvas.width = 400
+      canvas.height = 400
+      setCanvasState((prevState) => ({ ...prevState, canvas }))
+    }
+  }, [])
 
   const handleMode = (e: MouseEvent<HTMLDivElement>) => {
     if (!(e.target instanceof HTMLButtonElement)) {
       return
     }
-    const mode = e.target.dataset.mode || ''
-    setMode(mode)
+    const mode = e.target.dataset.mode as string
+    setCanvasState({ ...canvasState, mode })
+  }
+
+  const handleMouseMove = ({ nativeEvent }: MouseEvent) => {
+    if (!canvasState.canvas || !canvasState.isDrawing) return
+    if (!ctx) return
+    const { offsetX, offsetY } = nativeEvent
+    const mode = canvasState.mode
+    if (mode === 'brush') {
+      ctx.strokeStyle = (palette as PaletteJSON)[nowColor]
+      ctx.lineWidth = canvasState.lineWidth
+      ctx.lineCap = 'round'
+      ctx.lineJoin = 'round'
+      ctx.lineTo(offsetX, offsetY)
+      ctx.stroke()
+    } else {
+      ctx.beginPath()
+      ctx.arc(offsetX, offsetY, canvasState.lineWidth / 2, 0, 2 * Math.PI)
+      ctx.globalCompositeOperation = 'destination-out'
+      ctx.fill()
+      ctx.globalCompositeOperation = 'source-over'
+    }
+  }
+
+  const handleMouseUp = () => {
+    if (!canvasState.canvas) return
+    if (!ctx) return
+    const dataUrl = canvasState.canvas.toDataURL()
+    setUndoStack((prevState) => [...prevState, dataUrl])
+    setCanvasState((prevState) => ({
+      ...prevState,
+      isDrawing: false,
+      canvas: canvasRef.current,
+    }))
+    ctx.beginPath()
+    canvasState.canvas.removeEventListener('mousemove', handleMouseMove)
+    canvasState.canvas.removeEventListener('mouseup', handleMouseUp)
+  }
+
+  const handleMouseDown = (event: React.MouseEvent<HTMLCanvasElement>) => {
+    if (!canvasState.canvas) return
+    setCanvasState((prevState) => ({ ...prevState, isDrawing: true }))
+    canvasState.canvas.addEventListener('mousemove', handleMouseMove)
+    canvasState.canvas.addEventListener('mouseup', handleMouseUp)
+  }
+
+  const handleUndo = () => {
+    if (undoStack.length === 0) return
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+    const img = new Image()
+    img.src = undoStack[undoStack.length - 1]
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      ctx.drawImage(img, 0, 0)
+      setUndoStack((prevState) => prevState.slice(0, -1))
+    }
+  }
+
+  const handleColorChange = (event: MouseEvent<HTMLDivElement>) => {
+    if (!(event.target instanceof HTMLButtonElement)) return
+    const color = event.target.dataset['color'] as string
+    setCanvasState({ ...canvasState, color })
+  }
+
+  const handleLineWidthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const lineWidth = parseInt(event.target.value)
+    setCanvasState((prevState) => ({ ...prevState, lineWidth }))
   }
 
   const setImage = (e: ChangeEvent<HTMLInputElement>) => {
@@ -35,94 +121,32 @@ function Canvas() {
       ctx.drawImage(image, 0, 0, 400, 400)
     }
   }
-
-  const startDrawing = () => {
-    if (!ctx) return
-    setIsMouseDown(true)
-  }
-
-  const endDrawing = () => {
-    if (!ctx) return
-
-    ctx.beginPath()
-    setIsMouseDown(false)
-  }
-  const handleMouseMove = ({ nativeEvent }: MouseEvent<HTMLCanvasElement>) => {
-    if (!ctx) return
-
-    const { offsetX, offsetY } = nativeEvent
-    if (!isMouseDown) {
-      ctx.beginPath()
-      ctx.moveTo(offsetX, offsetY)
-      return
-    }
-    if (isMouseDown && mode === 'brush') {
-      // 브러쉬 상태
-      ctx.strokeStyle = (palette as PaletteJSON)[color]
-      ctx.lineWidth = size
-      ctx.lineCap = 'round'
-      ctx.lineJoin = 'round'
-      ctx.lineTo(offsetX, offsetY)
-      ctx.stroke()
-    } else {
-      // 지우개 상태
-      ctx.lineWidth = size
-      ctx.lineCap = 'round'
-      ctx.lineJoin = 'round'
-      ctx.clearRect(offsetX - size / 2, offsetY - size / 2, size, size)
-    }
-  }
-
-  const handlePickColor = (e: MouseEvent<HTMLDivElement>) => {
-    if (!(e.target instanceof HTMLButtonElement)) {
-      return
-    }
-    const color = e.target.dataset.color as string
-    setColor(color)
-  }
-
-  useEffect(() => {
-    // @ts-ignore
-    if (canvas.current) {
-      setCtx(canvas.current.getContext('2d') as CanvasRenderingContext2D)
-      canvas.current.width = 400
-      canvas.current.height = 400
-    }
-  }, [])
   return (
     <S.Wrapper>
       <S.PaletteWrapper>
         <S.Palette>
-          <S.ColorPicker onClick={handlePickColor}>
-            <S.ColorItem className={color === '01' ? 'active' : ''} data-color="01" color="01" />
-            <S.ColorItem className={color === '02' ? 'active' : ''} data-color="02" color="02" />
-            <S.ColorItem className={color === '03' ? 'active' : ''} data-color="03" color="03" />
-            <S.ColorItem className={color === '04' ? 'active' : ''} data-color="04" color="04" />
-            <S.ColorItem className={color === '05' ? 'active' : ''} data-color="05" color="05" />
-            <S.ColorItem className={color === '06' ? 'active' : ''} data-color="06" color="06" />
-            <S.ColorItem className={color === '07' ? 'active' : ''} data-color="07" color="07" />
-            <S.ColorItem className={color === '08' ? 'active' : ''} data-color="08" color="08" />
+          <S.ColorPicker onClick={handleColorChange}>
+            <S.ColorItem className={nowColor === '01' ? 'active' : ''} data-color="01" color="01" />
+            <S.ColorItem className={nowColor === '02' ? 'active' : ''} data-color="02" color="02" />
+            <S.ColorItem className={nowColor === '03' ? 'active' : ''} data-color="03" color="03" />
+            <S.ColorItem className={nowColor === '04' ? 'active' : ''} data-color="04" color="04" />
+            <S.ColorItem className={nowColor === '05' ? 'active' : ''} data-color="05" color="05" />
+            <S.ColorItem className={nowColor === '06' ? 'active' : ''} data-color="06" color="06" />
+            <S.ColorItem className={nowColor === '07' ? 'active' : ''} data-color="07" color="07" />
+            <S.ColorItem className={nowColor === '08' ? 'active' : ''} data-color="08" color="08" />
           </S.ColorPicker>
           <S.SizePicker>
             <span>Size</span>
-            <S.Slider
-              type="range"
-              min={1}
-              max={50}
-              value={size}
-              onChange={(e) => {
-                setSize(Number(e.target.value))
-              }}
-            />
-            <span>{size}</span>
+            <S.Slider type="range" min={1} max={50} value={canvasState.lineWidth} onChange={handleLineWidthChange} />
+            <span>{canvasState.lineWidth}</span>
           </S.SizePicker>
         </S.Palette>
         <S.SelectArea>
           <S.Tools onClick={handleMode}>
-            <S.ToolItem className={mode == 'brush' ? 'active' : ''} data-mode="brush">
+            <S.ToolItem className={canvasState.mode == 'brush' ? 'active' : ''} data-mode="brush">
               브러쉬
             </S.ToolItem>
-            <S.ToolItem className={mode == 'eraser' ? 'active' : ''} data-mode="eraser">
+            <S.ToolItem className={canvasState.mode == 'eraser' ? 'active' : ''} data-mode="eraser">
               지우개
             </S.ToolItem>
           </S.Tools>
@@ -143,7 +167,12 @@ function Canvas() {
         </S.SelectArea>
       </S.PaletteWrapper>
       <S.CanvasArea>
-        <S.Canvas ref={canvas} onMouseDown={startDrawing} onMouseMove={handleMouseMove} onMouseUp={endDrawing} />
+        <S.Canvas
+          ref={canvasRef}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+        />
       </S.CanvasArea>
       <S.SelectPhotoArea>
         <S.SelectPhotoLabel htmlFor="select-photo">사진 선택</S.SelectPhotoLabel>
