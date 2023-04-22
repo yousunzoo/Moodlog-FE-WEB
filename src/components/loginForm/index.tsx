@@ -12,11 +12,10 @@ interface UserInput {
 
 function LoginForm() {
   const [userInput, setUserInput] = useState<UserInput>({ email: '', password: '' })
+  const [isShownPasswrod, setIsShownPassword] = useState(false)
   const loginUser = useLoginUser()
 
-  const [cookies, setCookie, removeCookie] = useCookies()
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setUserInput({
       ...userInput,
@@ -24,28 +23,38 @@ function LoginForm() {
     })
   }
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     loginUser(userInput)
   }
 
-  // const queryClient = useQueryClient()
-  //   const { data: user } = useQuery(queryKeys.user, () => login(user)), {
-  //   //   initialData: getStoredUser,
-  //   //   onSuccess: (received: User | null) => {
-  //   //     if (!received) {
-  //   //       clearStoredUser()
-  //   //     } else {
-  //   //       setStoredUser(received)
-  //   //     }
-  //   //   },
-  //   // })
-  // }
+  const handletogglePassword = () => {
+    setIsShownPassword(!isShownPasswrod)
+  }
 
   return (
-    <S.Form onSubmit={onSubmit}>
-      <S.Input type="email" name="email" placeholder="사용자 이메일" onChange={onChange} value={userInput.email} />
-      <S.Input type="password" name="password" placeholder="비밀번호" onChange={onChange} value={userInput.password} />
+    <S.Form onSubmit={handleSubmit}>
+      <S.Label>
+        <S.Input
+          type="email"
+          name="email"
+          placeholder="사용자 이메일"
+          onChange={handleChange}
+          value={userInput.email}
+        />
+      </S.Label>
+
+      <S.Label>
+        <S.Input
+          type={isShownPasswrod ? 'text' : 'password'}
+          name="password"
+          placeholder="비밀번호"
+          onChange={handleChange}
+          value={userInput.password}
+        />
+        <S.PasswordButton type="button" onClick={handletogglePassword} isShown={isShownPasswrod} />
+      </S.Label>
+
       <S.Button type="submit">로그인</S.Button>
       <S.SignupWrapper>
         아직 회원이 아니신가요?
