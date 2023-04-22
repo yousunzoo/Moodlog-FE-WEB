@@ -9,11 +9,11 @@ import { LoginProp } from '../apis/type'
 import { setToken } from '../utils/userTokenCookie'
 import { useNavigate } from 'react-router-dom'
 
-export const useLoginUser = (): UseMutateFunction<void, unknown, LoginProp, unknown> => {
+export const useLoginUser = () => {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
 
-  const { mutate } = useMutation((user: LoginProp) => login(user), {
+  const { mutate, isError } = useMutation((user: LoginProp) => login(user), {
     onSuccess: (data) => {
       setToken(data.accessToken, {
         path: '/',
@@ -26,5 +26,5 @@ export const useLoginUser = (): UseMutateFunction<void, unknown, LoginProp, unkn
     },
   })
 
-  return mutate
+  return { mutate, isError }
 }
