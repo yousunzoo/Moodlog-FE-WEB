@@ -19,7 +19,7 @@ export const useLoginUser = (): UseMutateFunction<void, unknown, LoginProp, unkn
         path: '/',
         maxAge: data.content.exp - data.content.iat,
       })
-      navigate('/home')
+      navigate('/')
     },
     onError: (err: AxiosError) => {
       console.log(err)
