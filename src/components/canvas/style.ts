@@ -132,10 +132,18 @@ export const ActionItem = styled.button`
   height: 30px;
   border-radius: 15px;
   background-color: ${({ theme }) => theme.grey03};
+  background-size: 18px 18px;
+  background-position: center;
+  background-repeat: no-repeat;
   font-size: 0px;
-  img {
-    width: 18px;
-    height: 18px;
+  &[data-action='undo'] {
+    background-image: url('assets/icons/prev.png');
+  }
+  &[data-action='redo'] {
+    background-image: url('assets/icons/next.png');
+  }
+  &[data-action='reset'] {
+    background-image: url('assets/icons/reset.png');
   }
 `
 

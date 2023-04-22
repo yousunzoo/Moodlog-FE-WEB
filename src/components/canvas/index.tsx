@@ -12,34 +12,75 @@ function Canvas() {
     mode: 'brush',
   })
   const [ctx, setCtx] = useState<CanvasRenderingContext2D | undefined>(undefined)
-
   const [undoStack, setUndoStack] = useState<ImageData[]>([])
-
+  const [redoStack, setRedoStack] = useState<ImageData[]>([])
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const nowColor = canvasState.color
   const nowMode = canvasState.mode
 
+  const handleActions = (e: MouseEvent<HTMLDivElement>) => {
+    if (!(e.target instanceof HTMLButtonElement)) return
+    const action = e.target.dataset.action as string
+    switch (action) {
+      case 'undo':
+        handleUndo()
+        break
+      case 'redo':
+        handleRedo()
+        break
+      case 'reset':
+        handleReset()
+        break
+    }
+  }
+
+  const handleReset = () => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    if (!ctx) return
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    setUndoStack([])
+    setRedoStack([])
+  }
   const handleUndo = () => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    if (!ctx) return
+    if (undoStack.length === 0) return
     if (undoStack.length === 1) {
-      const canvas = canvasRef.current
-      if (!canvas) return
-      const ctx = canvas.getContext('2d')
-      if (!ctx) return
+      setRedoStack((prevState) => [...prevState, undoStack[0]])
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       setUndoStack([])
       return
     }
+    const imageData = undoStack[undoStack.length - 2]
+    const img = new ImageData(new Uint8ClampedArray(imageData.data), imageData.width, imageData.height)
+    ctx.putImageData(img, 0, 0)
+    setUndoStack((prevState) => {
+      const redo = prevState.pop()
+      if (redo) {
+        setRedoStack((prevState) => [...prevState, redo])
+      }
+      return [...prevState]
+    })
+  }
+  const handleRedo = () => {
+    if (redoStack.length === 0) return
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
     if (!ctx) return
-    const imageData = undoStack[undoStack.length - 2]
+    const imageData = redoStack[redoStack.length - 1]
     const img = new ImageData(new Uint8ClampedArray(imageData.data), imageData.width, imageData.height)
     ctx.putImageData(img, 0, 0)
-    setUndoStack((prevState) => prevState.slice(0, -1))
+    setUndoStack((prevState) => [...prevState, imageData])
+    setRedoStack((prevState) => {
+      prevState.pop()
+      return [...prevState]
+    })
   }
 
-  const handleMouseMove = (event: MouseEvent) => {
+  const handleMouseMove = (event: MouseEvent<HTMLCanvasElement>) => {
     if (!canvasState.canvas) return
     if (!ctx) return
     const { offsetX, offsetY } = event
@@ -159,19 +200,12 @@ function Canvas() {
               지우개
             </S.ToolItem>
           </S.Tools>
-          <S.Actions>
-            <S.ActionItem data-action="prev" onClick={handleUndo} disabled={undoStack.length === 0}>
+          <S.Actions onClick={handleActions}>
+            <S.ActionItem data-action="undo" disabled={undoStack.length === 0}>
               이전으로
-              <img src="/assets/icons/prev.png" />
             </S.ActionItem>
-            <S.ActionItem data-action="next">
-              다음으로
-              <img src="/assets/icons/next.png" />
-            </S.ActionItem>
-            <S.ActionItem data-action="reset">
-              리셋
-              <img src="/assets/icons/reset.png" />
-            </S.ActionItem>
+            <S.ActionItem data-action="redo">다음으로</S.ActionItem>
+            <S.ActionItem data-action="reset">리셋</S.ActionItem>
           </S.Actions>
         </S.SelectArea>
       </S.PaletteWrapper>
