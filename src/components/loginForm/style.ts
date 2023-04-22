@@ -30,12 +30,6 @@ export const Button = styled.button`
   height: 50px;
 `
 
-export const Logo = styled.img`
-  margin: 20px;
-  width: 250px;
-  height: 250px;
-`
-
 export const SignupWrapper = styled.div`
   font-size: 12px;
 `
@@ -44,4 +38,23 @@ export const SignupButton = styled.button`
   color: ${({ theme }) => theme.brown02};
   margin: 0 10px;
   cursor: pointer;
+`
+
+export const PasswordButton = styled.button<{ isShown: boolean }>`
+  width: 30px;
+  height: 30px;
+  background-image: ${({ isShown }) =>
+    isShown
+      ? `url('../../../public/assets/icons/show-password.png')`
+      : `url('../../../public/assets/icons/hide-password.png')`};
+  background-size: cover;
+  background-color: transparent;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 18px;
+`
+
+export const Label = styled.label`
+  position: relative;
 `
