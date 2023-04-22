@@ -29,7 +29,6 @@ export interface DiaryEditorProps {
 
 export interface CanvasState {
   canvas: HTMLCanvasElement | null
-  isDrawing: boolean
   color: string
   lineWidth: number
   mode: string

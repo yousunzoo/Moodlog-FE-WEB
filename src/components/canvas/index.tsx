@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, useEffect, useRef, useState } from 'react'
+import React, { ChangeEvent, MouseEvent, useCallback, useEffect, useRef, useState } from 'react'
 import * as S from './style'
 import palette from '../../constants/palette.json'
 import { PaletteJSON } from '../../types/createDiary'
@@ -7,41 +7,43 @@ import { CanvasState } from '../../types/createDiary'
 function Canvas() {
   const [canvasState, setCanvasState] = useState<CanvasState>({
     canvas: null,
-    isDrawing: false,
     color: '08',
     lineWidth: 25,
     mode: 'brush',
   })
   const [ctx, setCtx] = useState<CanvasRenderingContext2D | undefined>(undefined)
 
-  const [undoStack, setUndoStack] = useState<string[]>([])
+  const [undoStack, setUndoStack] = useState<ImageData[]>([])
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const nowColor = canvasState.color
 
-  useEffect(() => {
-    if (canvasRef.current) {
+  const handleUndo = () => {
+    if (undoStack.length === 1) {
       const canvas = canvasRef.current
-      setCtx(canvas.getContext('2d') as CanvasRenderingContext2D)
-      canvas.width = 400
-      canvas.height = 400
-      setCanvasState((prevState) => ({ ...prevState, canvas }))
-    }
-  }, [])
-
-  const handleMode = (e: MouseEvent<HTMLDivElement>) => {
-    if (!(e.target instanceof HTMLButtonElement)) {
+      if (!canvas) return
+      const ctx = canvas.getContext('2d')
+      if (!ctx) return
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      setUndoStack([])
       return
     }
-    const mode = e.target.dataset.mode as string
-    setCanvasState({ ...canvasState, mode })
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+    const imageData = undoStack[undoStack.length - 2]
+    const img = new ImageData(new Uint8ClampedArray(imageData.data), imageData.width, imageData.height)
+    ctx.putImageData(img, 0, 0)
+    setUndoStack((prevState) => prevState.slice(0, -1))
   }
 
-  const handleMouseMove = ({ nativeEvent }: MouseEvent) => {
-    if (!canvasState.canvas || !canvasState.isDrawing) return
+  const handleMouseMove = (event: MouseEvent) => {
+    if (!canvasState.canvas) return
     if (!ctx) return
-    const { offsetX, offsetY } = nativeEvent
+    const { offsetX, offsetY } = event
     const mode = canvasState.mode
+    ctx.beginPath()
     if (mode === 'brush') {
       ctx.strokeStyle = (palette as PaletteJSON)[nowColor]
       ctx.lineWidth = canvasState.lineWidth
@@ -50,7 +52,6 @@ function Canvas() {
       ctx.lineTo(offsetX, offsetY)
       ctx.stroke()
     } else {
-      ctx.beginPath()
       ctx.arc(offsetX, offsetY, canvasState.lineWidth / 2, 0, 2 * Math.PI)
       ctx.globalCompositeOperation = 'destination-out'
       ctx.fill()
@@ -59,40 +60,32 @@ function Canvas() {
   }
 
   const handleMouseUp = () => {
-    if (!canvasState.canvas) return
+    if (!canvasRef.current) return
     if (!ctx) return
-    const dataUrl = canvasState.canvas.toDataURL()
-    setUndoStack((prevState) => [...prevState, dataUrl])
-    setCanvasState((prevState) => ({
-      ...prevState,
-      isDrawing: false,
-      canvas: canvasRef.current,
-    }))
+    const imageData = ctx.getImageData(0, 0, canvasRef.current.width, canvasRef.current.height)
+    setUndoStack((prevState) => {
+      const newState = [...prevState, imageData]
+      return newState
+    })
+    setCanvasState((prevState) => ({ ...prevState, canvas: canvasRef.current }))
     ctx.beginPath()
-    canvasState.canvas.removeEventListener('mousemove', handleMouseMove)
-    canvasState.canvas.removeEventListener('mouseup', handleMouseUp)
+    canvasRef.current.removeEventListener('mousemove', handleMouseMove)
+    canvasRef.current.removeEventListener('mouseup', handleMouseUp)
   }
 
   const handleMouseDown = (event: React.MouseEvent<HTMLCanvasElement>) => {
-    if (!canvasState.canvas) return
-    setCanvasState((prevState) => ({ ...prevState, isDrawing: true }))
-    canvasState.canvas.addEventListener('mousemove', handleMouseMove)
-    canvasState.canvas.addEventListener('mouseup', handleMouseUp)
+    if (!canvasRef.current) return
+    setCanvasState((prevState) => ({ ...prevState }))
+    canvasRef.current.addEventListener('mousemove', handleMouseMove)
+    canvasRef.current.addEventListener('mouseup', handleMouseUp)
   }
 
-  const handleUndo = () => {
-    if (undoStack.length === 0) return
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-    const img = new Image()
-    img.src = undoStack[undoStack.length - 1]
-    img.onload = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      ctx.drawImage(img, 0, 0)
-      setUndoStack((prevState) => prevState.slice(0, -1))
+  const handleMode = (e: MouseEvent<HTMLDivElement>) => {
+    if (!(e.target instanceof HTMLButtonElement)) {
+      return
     }
+    const mode = e.target.dataset.mode as string
+    setCanvasState({ ...canvasState, mode })
   }
 
   const handleColorChange = (event: MouseEvent<HTMLDivElement>) => {
@@ -114,13 +107,23 @@ function Canvas() {
       alert('이미지 파일만 업로드 가능합니다.')
       return
     }
-    console.log(file)
     const image = new Image()
     image.src = URL.createObjectURL(file)
     image.onload = () => {
       ctx.drawImage(image, 0, 0, 400, 400)
     }
   }
+
+  useEffect(() => {
+    if (canvasRef.current) {
+      const canvas = canvasRef.current
+      setCtx(canvas.getContext('2d') as CanvasRenderingContext2D)
+      canvas.width = 400
+      canvas.height = 400
+      setCanvasState((prevState) => ({ ...prevState, canvas }))
+    }
+  }, [])
+
   return (
     <S.Wrapper>
       <S.PaletteWrapper>
@@ -151,7 +154,7 @@ function Canvas() {
             </S.ToolItem>
           </S.Tools>
           <S.Actions>
-            <S.ActionItem data-action="prev">
+            <S.ActionItem data-action="prev" onClick={handleUndo} disabled={undoStack.length === 0}>
               이전으로
               <img src="/assets/icons/prev.png" />
             </S.ActionItem>
@@ -167,12 +170,7 @@ function Canvas() {
         </S.SelectArea>
       </S.PaletteWrapper>
       <S.CanvasArea>
-        <S.Canvas
-          ref={canvasRef}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-        />
+        <S.Canvas ref={canvasRef} onMouseDown={handleMouseDown} />
       </S.CanvasArea>
       <S.SelectPhotoArea>
         <S.SelectPhotoLabel htmlFor="select-photo">사진 선택</S.SelectPhotoLabel>
