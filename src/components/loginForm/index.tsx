@@ -1,6 +1,4 @@
-import axios from 'axios'
 import { useState } from 'react'
-import { useCookies } from 'react-cookie'
 import * as S from './style'
 import { Link } from 'react-router-dom'
 import { useLoginUser } from '../../hooks/useLogin'
@@ -13,7 +11,7 @@ interface UserInput {
 function LoginForm() {
   const [userInput, setUserInput] = useState<UserInput>({ email: '', password: '' })
   const [isShownPasswrod, setIsShownPassword] = useState(false)
-  const loginUser = useLoginUser()
+  const { mutate: loginUser, isError } = useLoginUser()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -28,7 +26,7 @@ function LoginForm() {
     loginUser(userInput)
   }
 
-  const handletogglePassword = () => {
+  const handleTogglePassword = () => {
     setIsShownPassword(!isShownPasswrod)
   }
 
@@ -52,10 +50,12 @@ function LoginForm() {
           onChange={handleChange}
           value={userInput.password}
         />
-        <S.PasswordButton type="button" onClick={handletogglePassword} isShown={isShownPasswrod} />
+        <S.PasswordButton type="button" onClick={handleTogglePassword} isShown={isShownPasswrod} />
       </S.Label>
-
-      <S.Button type="submit">로그인</S.Button>
+      <S.ErrorWrapper>
+        {isError && <S.ErrorMessage>사용자의 이메일 혹은 비밀번호를 확인해주세요.</S.ErrorMessage>}
+      </S.ErrorWrapper>
+      <S.SigninButton type="submit">로그인</S.SigninButton>
       <S.SignupWrapper>
         아직 회원이 아니신가요?
         <Link to="/register">
