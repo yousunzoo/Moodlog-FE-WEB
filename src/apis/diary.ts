@@ -1,4 +1,5 @@
 import { DiaryResponse } from '../types/diary'
+import dataURLtoFile from '../utils/dataURLtoFile'
 import { axiosInstance } from './axios'
 import { CommentProp, PostProp } from './type'
 
@@ -14,7 +15,9 @@ export const getPost = async (id: number) => {
 }
 
 export const createPost = async (post: PostProp) => {
-  const res = await axiosInstance({ multi: true }).post(`/posts`, post)
+  const file = dataURLtoFile(post.img as string)
+  const diary = { ...post, img: file }
+  const res = await axiosInstance({ multi: true }).post(`/posts`, diary)
   return res.data
 }
 
