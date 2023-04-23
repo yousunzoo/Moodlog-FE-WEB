@@ -101,5 +101,8 @@ export const UserIntro = styled.div`
 `
 
 export const Postss = styled.div`
-  height: 424px;
+  position: absolute;
+  top: 217px;
+  height: 482px;
+  overflow-y: scroll;
 `

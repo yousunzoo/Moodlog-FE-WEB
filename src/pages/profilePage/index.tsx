@@ -77,7 +77,7 @@ function ProfilePage() {
       </S.UserProfile>
       {/* 유저 다이어리 */}
       <S.Postss>
-        <Posts posts={post} height="477px" type={false} />
+        <Posts posts={post} isShownUsername={false} />
       </S.Postss>
       <Nav />
     </div>
