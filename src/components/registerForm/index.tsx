@@ -12,7 +12,6 @@ function RegisterForm() {
   const [imgName, setImgName] = useState('')
 
   const registerUser = useRegisterUser()
-  // setCookie('access-token', res.data['access_token'], { path: '/' })
 
   const {
     register,
@@ -33,21 +32,7 @@ function RegisterForm() {
     console.log({ formData })
     //@ts-ignore
     registerUser(formData)
-
-    // const res = await axiosInstance.post('/auth/register', { data: userInput })
-    // const res = await axios({
-    //   url: `http://localhost:3000/auth/register`,
-    //   method: 'post',
-    //   headers: { 'Content-Type': 'multipart/form-data' },
-    //   data: formData,
-    // })
-    // console.log(res)
   }
-
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value, files } = e.target
-  //   files ? setUserInput({ ...userInput, [name]: files[0] }) : setUserInput({ ...userInput, [name]: value })
-  // }
 
   return (
     <S.Form onSubmit={handleSubmit((data) => handleSubmitUserInfo(data))}>

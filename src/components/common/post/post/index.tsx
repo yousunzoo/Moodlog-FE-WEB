@@ -1,15 +1,14 @@
 import React from 'react'
 import * as S from './style'
-import { NewPost } from '../../../../types'
+import { DiaryResponse } from '../../../../types/diary'
 
 interface ContainerProp {
-  post: NewPost
-  type: boolean
+  post: DiaryResponse
+  isShownUsername: boolean
 }
 
-export function Post({ post, type }: ContainerProp) {
-  const date = post.createdAt
-  const month = date.split('-')
+export function Post({ post, isShownUsername }: ContainerProp) {
+  const month = post.createdAt.split('-')
   const day = month[2].split('T')
   return (
     <S.DiaryPost to={`/diary:${post.id}`}>
@@ -17,7 +16,16 @@ export function Post({ post, type }: ContainerProp) {
         <img src={post.img} width="100%" />
       </S.DiaryPostImage>
       <S.DiaryPostLetter>
-        {type ? <></> : <S.DiaryPostLetterContain>{post.body}</S.DiaryPostLetterContain>}
+        {isShownUsername ? (
+          <S.DiaryPostLetterContain>
+            <S.UsernameText>{post.user.username}</S.UsernameText>
+            <S.PostBodyWrapper>{post.body}</S.PostBodyWrapper>
+          </S.DiaryPostLetterContain>
+        ) : (
+          <S.DiaryPostLetterContain>
+            <S.PostBodyWrapper>{post.body}</S.PostBodyWrapper>
+          </S.DiaryPostLetterContain>
+        )}
       </S.DiaryPostLetter>
       <S.DiaryPostDate>
         <S.DiaryPostDateContain>
