@@ -60,7 +60,11 @@ function ProfilePage() {
         <S.UserIntro>{isLoading ? 'loading' : data?.profile_message}</S.UserIntro>
         {/* 유저 세부사항 */}
         <S.UserDetail>
-          <UserDetails name="팔로워" number={isLoading ? 0 : (follower?.length as number)} link="" />
+          <UserDetails
+            name="팔로워"
+            number={isLoading ? 0 : (follower?.length as number)}
+            link={`/follow/${params.id}`}
+          />
           <S.UserDetailIine left="108px" />
           <UserDetails name="좋아요" number={like} link="" />
           <S.UserDetailIine left="230px" />
