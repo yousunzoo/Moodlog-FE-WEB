@@ -16,7 +16,7 @@ export const DiaryPost = styled(Link)`
 export const DiaryPostImage = styled.div`
   width: 60px;
   height: 100%;
-  background-color: #666;
+  background-color: white;
 `
 
 export const DiaryPostLetter = styled.div`
