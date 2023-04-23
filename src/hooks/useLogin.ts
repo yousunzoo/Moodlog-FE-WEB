@@ -13,18 +13,22 @@ export const useLoginUser = () => {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
 
+  const signinSuccess = (data: any) => {
+    setToken(data.accessToken, {
+      path: '/',
+      maxAge: data.content.exp - data.content.iat,
+    })
+    navigate('/')
+  }
+
   const { mutate, isError } = useMutation((user: LoginProp) => login(user), {
     onSuccess: (data) => {
-      setToken(data.accessToken, {
-        path: '/',
-        maxAge: data.content.exp - data.content.iat,
-      })
-      navigate('/')
+      signinSuccess(data)
     },
     onError: (err: AxiosError) => {
       console.log(err)
     },
   })
 
-  return { mutate, isError }
+  return { mutate, isError, signinSuccess }
 }
