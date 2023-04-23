@@ -1,6 +1,8 @@
 import { UseMutateFunction, useMutation, useQueryClient } from 'react-query'
+import { AxiosError } from 'axios'
 
 import { register } from '../apis/auth'
+import { useLoginUser } from './useLogin'
 
 interface FormData {
   email: string
@@ -10,13 +12,10 @@ interface FormData {
 }
 
 export const useRegisterUser = (): UseMutateFunction<void, unknown, FormData, unknown> => {
+  const { signinSuccess } = useLoginUser()
   const { mutate } = useMutation((formData: FormData) => register(formData), {
     onSuccess: (data) => {
-      setToken(data.accessToken, {
-        path: '/',
-        maxAge: data.content.exp - data.content.iat,
-      })
-      navigate('/')
+      signinSuccess(data)
     },
     onError: (err: AxiosError) => {
       console.log(err)
