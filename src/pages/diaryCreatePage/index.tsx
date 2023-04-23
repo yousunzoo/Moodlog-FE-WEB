@@ -6,6 +6,7 @@ import { Diary } from '../../types/createDiary'
 import { usePostDiary } from '../../hooks/usePostDiary'
 import { PostProp } from '../../apis/type'
 import Alert from '../../components/common/alert'
+import dataURLtoFile from '../../utils/dataURLtoFile'
 
 function DiaryCreatePage() {
   const [step, setStep] = useState('first')
