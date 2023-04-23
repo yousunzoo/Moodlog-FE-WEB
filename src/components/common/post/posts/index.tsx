@@ -1,20 +1,18 @@
 import React from 'react'
-import * as S from './style'
-import { NewPost } from '../../../../types'
 import { Post } from '../post'
+import { DiaryResponse } from '../../../../types/diary'
 
 interface ConatinerPorps {
-  posts: NewPost[]
-  height: string
-  type: boolean
+  posts: DiaryResponse[]
+  isShownUsername: boolean
 }
 
-export function Posts({ posts, height, type }: ConatinerPorps) {
+export function Posts({ posts, isShownUsername }: ConatinerPorps) {
   return (
-    <S.Posts height={height}>
-      {posts.map((arr, i) => {
-        return <Post key={i} post={arr} type={type} />
+    <>
+      {posts.map((post) => {
+        return <Post key={post.id} post={post} isShownUsername={isShownUsername} />
       })}
-    </S.Posts>
+    </>
   )
 }
