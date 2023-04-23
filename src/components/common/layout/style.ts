@@ -5,4 +5,7 @@ export const Wrapper = styled.section`
   height: 100vh;
   background-color: ${({ theme }) => theme.background};
   position: relative;
+  * {
+    font-family: 'Dovemayo_gothic';
+  }
 `
