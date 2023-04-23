@@ -76,7 +76,7 @@ function RegisterForm() {
               message: '비밀번호는 8자 이상이여야 합니다,',
             },
           })}
-          placeholder="사용하실 비밀번호를을 입력해주세요"
+          placeholder="사용하실 비밀번호를 입력해주세요"
         />
         <S.ErrorMessage>{errors.password?.message}</S.ErrorMessage>
       </S.InputArea>

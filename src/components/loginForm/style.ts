@@ -13,19 +13,23 @@ export const Form = styled.form`
 export const Input = styled.input`
   font-size: 20px;
   padding: 0.5rem;
-  border: 1px solid #ccc;
   border-radius: 10px;
   margin-bottom: 1rem;
   width: 100%;
   height: 60px;
-  background-color: ${({ theme }) => theme.gray04};
+  background-color: ${({ theme }) => theme.input};
+  border: none;
+  padding: 0 20px;
+  &::placeholder {
+    color: ${({ theme }) => theme.placeholder};
+  }
 `
 
 export const SigninButton = styled.button`
   font-size: 20px;
   margin: 20px 0;
-  background-color: ${({ theme }) => theme.brown01};
-  color: #fff;
+  background-color: ${({ theme }) => theme.main01};
+  color: ${({ theme }) => theme.buttonText};
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -40,7 +44,7 @@ export const SignupWrapper = styled.div`
 
 export const SignupButton = styled.button`
   font-weight: bold;
-  color: ${({ theme }) => theme.brown02};
+  color: ${({ theme }) => theme.main01};
   margin: 0 10px;
   cursor: pointer;
 `
@@ -65,7 +69,7 @@ export const Label = styled.label`
 `
 
 export const ErrorMessage = styled.span`
-  color: ${({ theme }) => theme.brown02};
+  color: ${({ theme }) => theme.main01};
 `
 export const ErrorWrapper = styled.div`
   height: 20px;

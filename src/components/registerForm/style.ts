@@ -11,8 +11,12 @@ export const Input = styled.input`
   width: 100%;
   height: 50px;
   border-radius: 10px;
-  background-color: #f8f8f8;
-  border: 1px solid #959595;
+  border: none;
+  padding: 0 20px;
+  background-color: ${({ theme }) => theme.input};
+  &::placeholder {
+    color: ${({ theme }) => theme.placeholder};
+  }
 `
 
 export const FileInput = styled(Input)`
@@ -23,10 +27,10 @@ export const ErrorMessage = styled.div``
 
 export const ResigterButton = styled.button`
   width: 100%;
-  background-color: ${({ theme }) => theme.brown01};
+  background-color: ${({ theme }) => theme.main01};
   border-radius: 10px;
   height: 50px;
-  color: #fff;
+  color: ${({ theme }) => theme.buttonText};
 `
 export const ProfileWrapper = styled.div`
   display: flex;
