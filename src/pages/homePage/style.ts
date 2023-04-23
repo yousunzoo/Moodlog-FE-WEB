@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const ShowDiaryIcon = styled.div`
-  background-image: url('../../../public/assets/icons/show-diary.png');
+  background-image: url('../../../public/assets/icons/book.png');
   background-size: cover;
   width: 19px;
   height: 24px;
