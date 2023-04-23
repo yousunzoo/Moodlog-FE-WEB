@@ -167,10 +167,7 @@ function Canvas({ img, saveImage }: CanvasProps) {
     if (!canvasRef.current) return
     const file = e.target.files?.[0]
     if (!file) return
-    if (!file.type.startsWith('image/')) {
-      alert('이미지 파일만 업로드 가능합니다.')
-      return
-    }
+
     const image = new Image()
     image.src = URL.createObjectURL(file)
     image.onload = () => {
@@ -230,7 +227,7 @@ function Canvas({ img, saveImage }: CanvasProps) {
       </S.CanvasArea>
       <S.SelectPhotoArea>
         <S.SelectPhotoLabel htmlFor="select-photo">사진 선택</S.SelectPhotoLabel>
-        <S.SelectPhoto id="select-photo" type="file" placeholder="사진 선택" onChange={setImage} />
+        <S.SelectPhoto id="select-photo" type="file" accept="image/*" placeholder="사진 선택" onChange={setImage} />
       </S.SelectPhotoArea>
     </S.Wrapper>
   )
