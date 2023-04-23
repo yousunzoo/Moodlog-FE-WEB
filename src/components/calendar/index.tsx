@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import * as S from './style'
 import Calendar from 'react-calendar'
 import './calendar.css'
 import moment from 'moment'
 import { useQuery } from 'react-query'
 import { getUser } from '../../apis/auth'
-import { NewUser } from '../../types'
-import { NewPost } from '../../types'
+import { NewUser,NewPost } from '../../types'
 import { Link, useParams } from 'react-router-dom'
 
 function Calendars() {
   const [value, onChange] = useState<Date>(new Date())
   const [mark, setMark] = useState<string[]>([])
-  const [post, setPost] = useState<NewPost[]>([])
+  // const [post, setPost] = useState<NewPost[]>([])
   const [postId, setPostId] = useState<number[]>([])
   const [feeling, setFeeling] = useState<number[]>([])
 
@@ -28,7 +26,8 @@ function Calendars() {
   )
 
   useEffect(() => {
-    if (typeof data === 'object') {
+    console.log(data)
+    if (typeof data === 'object' && typeof data.post === 'object') {
       for (const item of data.post) {
         let date = item.createdAt.split('T')
         setMark((mark) => [...mark, date[0]])
@@ -38,7 +37,6 @@ function Calendars() {
     }
   }, [data])
 
-  console.log(mark, postId, feeling)
   return (
     <div>
       <Calendar
