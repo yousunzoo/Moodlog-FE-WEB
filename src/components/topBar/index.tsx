@@ -19,7 +19,7 @@ function TopBar({ step, changeStep }: TopbarProps) {
       <S.Wrapper onClick={changeStep}>
         <S.Title>일기 작성</S.Title>
         <S.PrevBtn data-step="prev">이전</S.PrevBtn>
-        <S.Btn data-step="complete">완료</S.Btn>
+        <S.Btn data-step="submit">완료</S.Btn>
       </S.Wrapper>
     </>
   )
