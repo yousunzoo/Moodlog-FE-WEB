@@ -6,7 +6,7 @@ import { Diary } from '../../types/createDiary'
 import { usePostDiary } from '../../hooks/usePostDiary'
 import { PostProp } from '../../apis/type'
 import Alert from '../../components/common/alert'
-import dataURLtoFile from '../../utils/dataURLtoFile'
+import { useNavigate } from 'react-router-dom'
 
 function DiaryCreatePage() {
   const [step, setStep] = useState('first')
@@ -19,6 +19,7 @@ function DiaryCreatePage() {
   })
   const [message, setMessage] = useState('')
   const [isAlertOpen, setIsAlertOpen] = useState(false)
+  const navigate = useNavigate()
   const postDiary = usePostDiary()
 
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -49,6 +50,7 @@ function DiaryCreatePage() {
     const step = e.target.dataset.step as string
     switch (step) {
       case 'cancel':
+        navigate(-1)
         break
       case 'prev':
         setStep('first')

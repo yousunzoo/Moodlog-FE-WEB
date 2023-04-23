@@ -1,14 +1,14 @@
 import styled from 'styled-components'
 
 export const ShowDiaryIcon = styled.div`
-  background-image: url('../../../public/assets/icons/show-diary.png');
+  background-image: url(${({ theme }) => theme.showDiary});
   background-size: cover;
   width: 19px;
   height: 24px;
 `
 
 export const FollwerIcon = styled.div`
-  background-image: url('../../../public/assets/icons/followers.png');
+  background-image: url(${({ theme }) => theme.followers});
   background-size: cover;
   width: 30px;
   height: 30px;

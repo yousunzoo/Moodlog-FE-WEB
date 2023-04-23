@@ -50,5 +50,6 @@ export const CloseBtn = styled.button`
   left: 50%;
   transform: translateX(-50%);
   border-radius: 10px;
-  background-color: #f1f1f1;
+  background-color: ${({ theme }) => theme.main01};
+  color: ${({ theme }) => theme.buttonText};
 `
