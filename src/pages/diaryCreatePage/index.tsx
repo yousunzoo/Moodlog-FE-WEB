@@ -5,6 +5,7 @@ import DiaryEditor from '../../components/diaryEditor'
 import { Diary } from '../../types/createDiary'
 import { usePostDiary } from '../../hooks/usePostDiary'
 import { PostProp } from '../../apis/type'
+import Alert from '../../components/common/alert'
 
 function DiaryCreatePage() {
   const [step, setStep] = useState('first')
@@ -15,6 +16,8 @@ function DiaryCreatePage() {
     feeling_code: 1,
     open: true,
   })
+  const [message, setMessage] = useState('')
+  const [isAlertOpen, setIsAlertOpen] = useState(false)
   const postDiary = usePostDiary()
 
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -51,12 +54,18 @@ function DiaryCreatePage() {
         break
       case 'next':
         if (!diary.img) {
-          alert('그림을 그려주세요')
+          setMessage('그림을 그려주세요')
+          setIsAlertOpen(true)
           return
         }
         setStep('second')
         break
       case 'submit':
+        if (!diary.title || !diary.body) {
+          setMessage('제목과 내용을 입력해주세요')
+          setIsAlertOpen(true)
+          return
+        }
         postDiary(diary as PostProp)
     }
   }
@@ -66,6 +75,10 @@ function DiaryCreatePage() {
       ...diary,
       img: imageDataUrl,
     })
+  }
+
+  const handleCloseAlert = () => {
+    setIsAlertOpen(false)
   }
   return (
     <>
@@ -80,6 +93,7 @@ function DiaryCreatePage() {
           handleChangeOpen={handleChangeOpen}
         />
       )}
+      <Alert isOpen={isAlertOpen} onClose={handleCloseAlert} message={message}></Alert>
     </>
   )
 }

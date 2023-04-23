@@ -9,8 +9,7 @@ export const usePostDiary = (): UseMutateFunction<void, unknown, PostProp, unkno
 
   const { mutate } = useMutation((post: PostProp) => createPost(post), {
     onSuccess: (data) => {
-      console.log(data)
-      navigate('/diary')
+      navigate(`/diary/${data.id}`)
     },
     onError: (err: AxiosError) => {
       console.log(err)
