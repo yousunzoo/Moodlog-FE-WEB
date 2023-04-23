@@ -9,22 +9,26 @@ import { LoginProp } from '../apis/type'
 import { setToken } from '../utils/userTokenCookie'
 import { useNavigate } from 'react-router-dom'
 
-export const useLoginUser = (): UseMutateFunction<void, unknown, LoginProp, unknown> => {
+export const useLoginUser = () => {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
 
-  const { mutate } = useMutation((user: LoginProp) => login(user), {
+  const signinSuccess = (data: any) => {
+    setToken(data.accessToken, {
+      path: '/',
+      maxAge: data.content.exp - data.content.iat,
+    })
+    navigate('/')
+  }
+
+  const { mutate, isError } = useMutation((user: LoginProp) => login(user), {
     onSuccess: (data) => {
-      setToken(data.accessToken, {
-        path: '/',
-        maxAge: data.content.exp - data.content.iat,
-      })
-      navigate('/home')
+      signinSuccess(data)
     },
     onError: (err: AxiosError) => {
       console.log(err)
     },
   })
 
-  return mutate
+  return { mutate, isError, signinSuccess }
 }

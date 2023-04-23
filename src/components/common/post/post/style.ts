@@ -4,10 +4,12 @@ import styled, { css } from 'styled-components'
 // post 컴포넌트
 export const DiaryPost = styled(Link)`
   display: flex;
-  width: calc(100% - 50px);
-  height: 60px;
-  margin: 10px 25px;
+  height: 70px;
+  margin: 10px auto;
+  padding: 8px;
   text-decoration: none;
+  border-radius: 10px;
+  background-color: ${({ theme }) => theme.white02};
   color: ${({ theme }) => theme.modalBlack};
 `
 
@@ -31,13 +33,19 @@ export const DiaryPostLetterContain = styled.div`
   margin: auto 20px;
 `
 
+export const UsernameText = styled.div`
+  height: 16px;
+  top: 4px;
+  font-weight: bold;
+  font-size: 16px;
+`
+
 export const DiaryPostDate = styled.div`
   width: 60px;
   height: 100%;
   font-style: normal;
   font-weight: 600;
   font-size: 28px;
-  line-height: 30px;
   align-items: center;
   text-align: center;
 `
@@ -46,4 +54,13 @@ export const DiaryPostDateContain = styled.div`
   width: 100%;
   margin: auto;
   color: ${({ theme }) => theme.modalBlack};
+`
+
+export const PostBodyWrapper = styled.div`
+  height: 36px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `
