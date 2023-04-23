@@ -12,7 +12,7 @@ function HomePage() {
   return (
     <>
       <TopbarWrapper>
-        <Logo size={120} />
+        <Logo size={120} isCenter={false} />
         <S.IconWrapper>
           <S.FollwerIcon />
           <S.ShowDiaryIcon />

@@ -8,7 +8,7 @@ function RegisterPage() {
   return (
     <S.Wrapper>
       <CloseButton />
-      <Logo size={200} />
+      <Logo size={200} isCenter={true} />
       <RegisterForm />
     </S.Wrapper>
   )
