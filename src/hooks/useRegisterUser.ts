@@ -1,5 +1,8 @@
 import { UseMutateFunction, useMutation, useQueryClient } from 'react-query'
-import axios from 'axios'
+import { AxiosError } from 'axios'
+
+import { register } from '../apis/auth'
+import { useLoginUser } from './useLogin'
 
 interface FormData {
   email: string
@@ -8,19 +11,16 @@ interface FormData {
   username: string
 }
 
-const registerUser = async (formData: FormData): Promise<void> => {
-  await axios({
-    url: `http://localhost:3000/auth/register`,
-    method: 'post',
-    headers: { 'Content-Type': 'multipart/form-data' },
-    data: formData,
-  })
-}
-
 export const useRegisterUser = (): UseMutateFunction<void, unknown, FormData, unknown> => {
-  const queryClient = useQueryClient()
-
-  const { mutate } = useMutation((formData: FormData) => registerUser(formData))
+  const { signinSuccess } = useLoginUser()
+  const { mutate } = useMutation((formData: FormData) => register(formData), {
+    onSuccess: (data) => {
+      signinSuccess(data)
+    },
+    onError: (err: AxiosError) => {
+      console.log(err)
+    },
+  })
 
   return mutate
 }
