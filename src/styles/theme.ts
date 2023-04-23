@@ -12,7 +12,7 @@ export const theme: DefaultTheme = {
   grey04: '#5B5B5B',
   palette01: '#FF6663',
   palette02: '#FEB144',
-  palette03: '#FDFD97',
+  palette03: '#FEF44E',
   palette04: '#9EE09E',
   palette05: '#9EC1CF',
   palette06: '#CC99C9',
