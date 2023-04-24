@@ -1,6 +1,7 @@
 import * as S from './style'
 import { useDateForm } from '../../hooks/useDateForm'
 import { DiaryResponse } from '../../types/diary'
+import { moodImgUrl } from '../../constants/moodImgUrl'
 
 export interface DiaryDetailProps {
   diary: DiaryResponse
@@ -10,7 +11,7 @@ function DiaryDetail({ diary }: DiaryDetailProps) {
   return (
     <S.DiaryDetail>
       <div className="mood">
-        <img src={`/assets/icons/mood-0${diary.feeling_code === 0 ? 5 : diary.feeling_code}.png`} alt="" />
+        <img src={moodImgUrl[diary.feeling_code]} alt="" />
       </div>
       <div className="date">
         <span>{useDateForm(diary.createdAt).date}</span>
