@@ -19,13 +19,14 @@ export const UserDetail = styled.div`
   left: 25px;
   top: 127px;
   border-radius: 10px;
-  background: ${({ theme }) => theme.brown01};
+  background-color: ${({ theme }) => theme.palette01};
 `
 
 export const StyledLink = styled(Link)`
   text-decoration: none;
   width: 33.3%;
   height: 100%;
+  color: ${({ theme }) => theme.background};
 `
 
 export const UserDetailContnetText = styled.div<{ size: string }>`
@@ -48,7 +49,7 @@ export const UserDetailIine = styled.div<{ left: string }>`
   transform: rotate(90deg);
 `
 
-export const UserSettingBtn = styled.button`
+export const UserSettingLink = styled(Link)`
   position: absolute;
   width: 30px;
   height: 30px;
@@ -104,5 +105,7 @@ export const Postss = styled.div`
   position: absolute;
   top: 217px;
   height: 482px;
+  width: 88%;
+  margin: 0 6% 0 6%;
   overflow-y: scroll;
 `

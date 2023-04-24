@@ -38,7 +38,17 @@ export const FollowImg = styled.div`
   height: 60px;
   width: 60px;
   border-radius: 50%;
-  background-color: beige;
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+  div {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: ${({ theme }) => theme.placeholder};
+  }
 `
 
 export const FollowUserId = styled.div`
@@ -62,7 +72,8 @@ export const FollowUserId = styled.div`
 export const FollowBtn = styled.button`
   width: 100px;
   height: 30px;
-  background: #eeeeee;
+  background: ${({ theme }) => theme.main02};
+  color: ${({ theme }) => theme.background};
   border-radius: 10px;
   margin: auto;
 `

@@ -19,6 +19,7 @@ function Router() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/profile/:id" element={<ProfilePage />} />
           <Route path="/calendar/:id" element={<CalendarPage />} />
           <Route path="/follow/:id" element={<FollowPage />} />

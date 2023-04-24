@@ -7,7 +7,7 @@ import { axiosInstance } from '../../apis/axios'
 import { NewUser } from '../../types'
 import { NewPost } from '../../types'
 import { UserStyle } from '../../types'
-import { getUser } from '../../apis/auth'
+import { getOwn, getUser } from '../../apis/auth'
 import Nav from '../../components/common/Nav'
 import { useParams } from 'react-router-dom'
 
@@ -20,39 +20,19 @@ function UserDetails({ name, number, link }: UserStyle) {
   )
 }
 
-function ProfilePage() {
-  const params = useParams()
-  // const [data, setData] = useState<NewUser[]>([])
-  const [post, setPost] = useState<NewPost[]>([])
-  const [like, setLike] = useState<number>(0)
-  const [follower, setFollower] = useState([])
-
-  const { data, isLoading, error } = useQuery<NewUser>(
-    'user',
-    () =>
-      getUser(params.id).then((a) => {
-        return a
-      }),
-    { staleTime: 10000, cacheTime: 1000 * 40 },
-  )
-
-  useEffect(() => {
-    if (typeof data === 'object') {
-      setPost((post) => data.post)
-      setLike((like) => data.likes.length)
-      setFollower((follower) => data.follower)
-    }
-  }, [data])
-
-  if (!data) return
+function UserContainer({ post, like, follower, isLoading, own, data, params }) {
   return (
     <div>
       {/* 유저 프로필 */}
       <S.UserProfile>
-        <S.UserSettingBtn>
-          <img src="/public/assets/icons/setting.png" width="100%" />
-          설정
-        </S.UserSettingBtn>
+        {own ? (
+          <S.UserSettingLink to={'/setting'}>
+            <img src="/public/assets/icons/setting.png" width="100%" />
+            설정
+          </S.UserSettingLink>
+        ) : (
+          <></>
+        )}
         <S.UserImage>
           <img src={isLoading ? '' : data.profile_image} />
         </S.UserImage>
@@ -82,6 +62,76 @@ function ProfilePage() {
       <Nav />
     </div>
   )
+}
+
+function ProfilePage() {
+  const params = useParams()
+  // const [data, setData] = useState<NewUser[]>([])
+  const [post, setPost] = useState<NewPost[]>([])
+  const [like, setLike] = useState<number>(0)
+  const [follower, setFollower] = useState([])
+
+  if (params.id) {
+    const { data, isLoading, error } = useQuery<NewUser>(
+      'user',
+      () =>
+        getUser(Number(params.id)).then((a) => {
+          return a
+        }),
+      { staleTime: 10000, cacheTime: 1000 * 40 },
+    )
+    useEffect(() => {
+      if (typeof data === 'object') {
+        setPost((post) => data.post)
+        setLike((like) => data.likes.length)
+        setFollower((follower) => data.follower)
+      }
+    }, [data])
+
+    if (!data) return <>nothing</>
+    return (
+      <UserContainer
+        post={post}
+        like={like}
+        follower={follower}
+        own={false}
+        isLoading={isLoading}
+        data={data}
+        params={params}
+      />
+    )
+  } else {
+    const { data, isLoading, error } = useQuery(
+      'own',
+      () =>
+        getOwn().then((a) => {
+          return a
+        }),
+      { staleTime: 10000, cacheTime: 1000 * 40 },
+    )
+    console.log(data)
+
+    useEffect(() => {
+      if (typeof data === 'object') {
+        setPost((post) => data.post)
+        setLike((like) => data.likes.length)
+        setFollower((follower) => data.follower)
+      }
+    }, [data])
+
+    if (!data) return <>nothing</>
+    return (
+      <UserContainer
+        post={post}
+        like={like}
+        follower={follower}
+        own={true}
+        isLoading={isLoading}
+        data={data}
+        params={params}
+      />
+    )
+  }
 }
 
 export default ProfilePage
