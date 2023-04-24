@@ -8,11 +8,10 @@ import { usePosts } from '../../hooks/usePosts'
 
 function HomePage() {
   const { posts } = usePosts()
-  console.log({ posts })
   return (
     <>
       <TopbarWrapper>
-        <Logo size={120} />
+        <Logo size={120} isCenter={false} />
         <S.IconWrapper>
           <S.FollwerIcon />
           <S.ShowDiaryIcon />
