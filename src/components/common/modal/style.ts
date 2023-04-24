@@ -29,6 +29,9 @@ export const ModalWrapper = styled.div`
   border-radius: 20px 20px 0 0;
   padding: 20px;
   z-index: 2;
+  * {
+    color: ${({ theme }) => theme.modalText};
+  }
   &.open {
     transform: translateY(0);
     transition: transform 0.3s ease-in;
