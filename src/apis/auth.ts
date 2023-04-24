@@ -65,13 +65,6 @@ export const getMyProfile = async () => {
   const res = await axiosInstance().get<UserProfile>(`/auth/user`)
   return res.data
 }
-
-export const getOwn = async () => {
-  const res = await axiosInstance().get(`/auth/user`)
-  console.log(res.data)
-  return res.data
-}
-
 export const editProfile = async (profile: ProfileProp) => {
   const res = await axiosInstance({ multi: true }).put(`/auth/user`, profile)
   return res.data
