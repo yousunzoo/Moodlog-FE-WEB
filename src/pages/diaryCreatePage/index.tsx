@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, useState } from 'react'
+import React, { ChangeEvent, MouseEvent, useEffect, useState } from 'react'
 import TopBar from '../../components/topBar'
 import Canvas from '../../components/canvas'
 import DiaryEditor from '../../components/diaryEditor'
@@ -6,9 +6,13 @@ import { Diary } from '../../types/createDiary'
 import { usePostDiary } from '../../hooks/usePostDiary'
 import { PostProp } from '../../apis/type'
 import Alert from '../../components/common/alert'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useMutation } from 'react-query'
+import { getPost } from '../../apis/diary'
 
 function DiaryCreatePage() {
+  const { id } = useParams()
+  const { data: curDiary, mutate } = useMutation(() => getPost(Number(id)))
   const [step, setStep] = useState('first')
   const [diary, setDiary] = useState<Diary>({
     title: '',
@@ -83,6 +87,23 @@ function DiaryCreatePage() {
   const handleCloseAlert = () => {
     setIsAlertOpen(false)
   }
+
+  useEffect(() => {
+    if (id) mutate()
+  }, [id])
+
+  useEffect(() => {
+    if (curDiary) {
+      setDiary({
+        title: curDiary.title,
+        body: curDiary.body,
+        img: curDiary.img,
+        feeling_code: curDiary.feeling_code,
+        open: curDiary.open,
+      })
+    }
+  }, [curDiary])
+
   return (
     <>
       <TopBar step={step} changeStep={changeStep} />

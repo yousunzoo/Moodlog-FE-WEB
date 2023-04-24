@@ -43,6 +43,7 @@ export const TopBar = styled(TopbarWrapper)`
       background-color: ${({ theme }) => theme.modalBackground};
       border: 1px solid ${({ theme }) => theme.border};
       border-radius: 5px;
+
       li {
         padding: 8px 10px;
 
@@ -52,9 +53,6 @@ export const TopBar = styled(TopbarWrapper)`
 
         &.delete {
           color: ${({ theme }) => theme.main01};
-        }
-        &:hover {
-          background-color: ${({ theme }) => theme.modalBackground};
         }
       }
     }
