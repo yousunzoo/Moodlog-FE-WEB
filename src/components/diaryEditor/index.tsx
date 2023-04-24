@@ -24,7 +24,7 @@ function DiaryEditor({ diary, onChange, handleChangeMood, handleChangeOpen }: Di
         <S.EditorTab>
           <S.TabTitle htmlFor="mood">오늘의 기분</S.TabTitle>
           <S.TabSelect onClick={handleOpenModal}>
-            <S.MoodImg src={moodImgUrl[diary.feeling_code]} />
+            <S.MoodImg src={moodImgUrl[diary.feeling_code].src} alt={moodImgUrl[diary.feeling_code].alt} />
             <S.MoodSelect />
           </S.TabSelect>
         </S.EditorTab>

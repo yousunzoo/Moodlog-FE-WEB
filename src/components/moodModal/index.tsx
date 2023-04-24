@@ -14,7 +14,7 @@ function MoodModal({ handleClose, onClick }: MoodModalProps) {
       <S.MoodList>
         {moodImgUrl.map((mood, idx) => (
           <S.MoodLi key={idx} data-mood={idx} onClick={closeModal}>
-            <S.MoodImg src={mood} />
+            <S.MoodImg src={mood.src} alt={mood.alt} />
           </S.MoodLi>
         ))}
       </S.MoodList>
