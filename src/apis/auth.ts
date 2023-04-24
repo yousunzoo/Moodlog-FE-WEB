@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { AxiosRequestConfig } from 'axios'
-=======
 import { UserProfile } from '../types/user'
->>>>>>> 4c9b45d8c1dc864a37d21a0575fbfa45f79396df
 import { axiosInstance } from './axios'
 import { LoginProp, ProfileProp, RegisterProp, WithdrawelProp } from './type'
 
@@ -31,12 +27,8 @@ export const login = async (account: LoginProp) => {
 // })
 
 export const logout = async () => {
-<<<<<<< HEAD
   const res = await axiosInstance().post(`/auth/logout`)
   console.log(res.data)
-=======
-  const res = await axiosInstance().delete(`/auth/logout`)
->>>>>>> 4c9b45d8c1dc864a37d21a0575fbfa45f79396df
   return res.data
 }
 
