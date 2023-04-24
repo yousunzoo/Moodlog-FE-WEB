@@ -11,6 +11,7 @@ export const useStore = create<IUseStore>(
 
       font: 'Pretendard',
       setFont: (font: IFont) => set({ font }),
+      resetSetting: () => set({ theme: 'light', font: 'Pretendard' }),
     }),
     {
       name: 'setting',

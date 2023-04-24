@@ -8,6 +8,7 @@ export interface IUseStore {
   font: IFont
   toggleTheme: () => void
   setFont: (font: IFont) => void
+  resetSetting: () => void
 }
 export type IUsePersistStore = (
   config: StateCreator<IUseStore>,

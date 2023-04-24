@@ -1,17 +1,16 @@
 import { AxiosError } from 'axios'
-import { useMutation, useQueryClient } from 'react-query'
-
+import { useMutation } from 'react-query'
 import { withdrawal } from '../apis/auth'
-
-import { WithdrawelProp } from '../apis/type'
 import { removeToken } from '../utils/userTokenCookie'
 import { useNavigate } from 'react-router-dom'
+import useStore from '../store'
 
 export const useWithdrawel = () => {
   const navigate = useNavigate()
-
+  const { resetSetting } = useStore()
   const signinSuccess = (data: any) => {
     removeToken()
+    resetSetting()
     navigate('/login')
   }
 
