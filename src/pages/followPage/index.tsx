@@ -2,73 +2,89 @@ import { Link, useParams } from 'react-router-dom'
 import Calendars from '../../components/calendar'
 import { TopbarWrapper } from '../../styles/common'
 import * as S from './style'
-import { useQuery } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { useEffect, useState } from 'react'
-import { getOwn, getUser } from '../../apis/auth'
-import { NewUser } from '../../types'
+import { getUser } from '../../apis/auth'
+import useUserData from '../../hooks/useUserData'
+import { following as postFollow } from '../../apis/diary'
+import { FollowChild, FollowParent } from '../../types/follow'
+import { NewUser } from '../../types/user'
 
-function Follow({ follower }) {
+function Follow({ follower, following }: FollowChild) {
+  const updateMutation = useQuery(['follow'], () => postFollow(Number(follower.following.id)))
+
+  const [name, setName] = useState(['팔로잉', '팔로우'])
   return (
     <S.Follow>
       <S.FollowImg>
         {follower.following.profile_image ? <img src={follower.following.profile_image} /> : <div></div>}
       </S.FollowImg>
-      <S.FollowUserId>
+      <S.FollowUserIdLink to={`/profile/${follower.following.id}`}>
         <h1>{follower.following.email}</h1>
         <h2>{follower.following.username}</h2>
-      </S.FollowUserId>
-      <S.FollowBtn>팔로잉</S.FollowBtn>
+      </S.FollowUserIdLink>
+      <S.FollowBtn
+        onClick={() => {
+          updateMutation
+          name[0] === '팔로잉' ? setName(['팔로우', '팔로잉']) : setName(['팔로잉', '팔로우'])
+        }}
+      >
+        {following.includes(follower.following.id) ? name[1] : name[0]}
+      </S.FollowBtn>
     </S.Follow>
   )
 }
 
 function FollowPage() {
   const params = useParams()
-  const [follower, setFollower] = useState([])
+  const { own } = useUserData()
+  const [following, setFollowing] = useState<number[]>([])
+  const [follower, setFollower] = useState<FollowParent[]>([])
 
-  if (params.id) {
-    const { data, isLoading, error } = useQuery<NewUser>(
-      'user',
-      () =>
-        getUser(Number(params.id)).then((a) => {
-          return a
-        }),
-      { staleTime: 10000, cacheTime: 1000 * 40 },
-    )
+  const { data, isLoading, error } = useQuery<NewUser>(
+    ['user', { page: params.id }],
+    () =>
+      getUser(Number(params.id)).then((a) => {
+        setFollower([])
+        setFollowing([])
+        return a
+      }),
+    { staleTime: 1000 },
+  )
 
-    useEffect(() => {
-      if (typeof data === 'object') {
-        setFollower((follower) => data.follower)
+  useEffect(() => {
+    if (typeof data !== 'undefined') {
+      setFollower((follower) => data.follower)
+    }
+    if (typeof own !== 'undefined' && own?.following.length > 0) {
+      for (let followingItem of own.following) {
+        setFollowing((follower) => [...follower, followingItem.follower.id])
       }
+    }
+  }, [data])
 
-      // if (typeof data2 === 'object') {
-      //   setMe((me) => me.concat()
-      // }
-    }, [data])
-
-    return (
-      <>
-        <TopbarWrapper>
-          <S.TopBar>
-            <Link to={`/profile/${params.id}`}>
-              <img src="/public/assets/icons/close.png" />
-            </Link>
-            <div>팔로워 목록</div>
-          </S.TopBar>
-        </TopbarWrapper>
-        <S.Follows>
-          {follower.length > 0 ? (
-            follower.map((arr, i) => {
-              return <Follow key={i} follower={arr} />
-            })
-          ) : (
-            <></>
-          )}
-        </S.Follows>
-      </>
-    )
-  } else {
-    return <>/</>
-  }
+  return (
+    <>
+      <TopbarWrapper>
+        <S.TopBar>
+          <S.TopBarLink to={`/profile/${params.id}`}>닫기</S.TopBarLink>
+          <S.TopTitle>팔로워 목록</S.TopTitle>
+        </S.TopBar>
+      </TopbarWrapper>
+      <S.Follows>
+        {follower.length > 0 ? (
+          follower.map((arr, i) => {
+            if (arr.following.id && typeof own !== 'undefined' && arr.following.id === own.id) {
+              return <></>
+            } else {
+              return <Follow key={i} follower={arr} following={following} />
+            }
+          })
+        ) : (
+          <></>
+        )}
+      </S.Follows>
+    </>
+  )
 }
 export default FollowPage
