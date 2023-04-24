@@ -31,6 +31,7 @@ function Canvas({ img, saveImage }: CanvasProps) {
       image.crossOrigin = 'anonymous'
       image.src = src
       image.onload = () => {
+        console.log('dd')
         const context = canvas.getContext('2d') as CanvasRenderingContext2D
         context.drawImage(image, 0, 0, 400, 400)
       }

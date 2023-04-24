@@ -8,25 +8,30 @@ import { useMutation } from 'react-query'
 import { createComment, deleteComment, updateLike } from '../../apis/diary'
 import { useParams } from 'react-router-dom'
 import { queryClient } from '../../utils/queryClient'
+import useUserData from '../../hooks/useUserData'
 
 function Comments({ diary }: DiaryDetailProps) {
   const textarea = useRef<HTMLTextAreaElement>(null)
   const { id } = useParams()
+  const { data: user, refetch } = useUserData()
   const [comment, setComment] = useState('')
   const [showAlert, setShowAlert] = useState(false)
 
   const { mutate: likeMutate } = useMutation(() => updateLike(Number(id)), {
     onSuccess: () => {
+      refetch()
       queryClient.invalidateQueries('post')
     },
   })
   const { mutate: commentMutate } = useMutation(() => createComment({ postId: Number(id), body: comment }), {
     onSuccess: () => {
+      refetch()
       queryClient.invalidateQueries('post')
     },
   })
   const { mutate: commentDeleteMutate } = useMutation((postId: number) => deleteComment(Number(postId)), {
     onSuccess: () => {
+      refetch()
       queryClient.invalidateQueries('post')
     },
   })
@@ -63,7 +68,7 @@ function Comments({ diary }: DiaryDetailProps) {
     <S.Comments>
       <div className="interact">
         <div className="like button" onClick={handleLike}>
-          <LikeButton />
+          <LikeButton like={user?.likes.some((u) => Number(u.post.id) === Number(id))} />
           {diary.likes.length}
         </div>
         <div className="comment button" onClick={() => textarea.current?.focus()}>
@@ -86,9 +91,11 @@ function Comments({ diary }: DiaryDetailProps) {
             </div>
             <div className="comment-body">
               <p>{comment.comment}</p>
-              <span className="delete" onClick={() => commentDeleteMutate(comment.id)}>
-                삭제
-              </span>
+              {user?.id === comment.user.id && (
+                <span className="delete" onClick={() => commentDeleteMutate(comment.id)}>
+                  삭제
+                </span>
+              )}
             </div>
           </S.Comment>
         ))}

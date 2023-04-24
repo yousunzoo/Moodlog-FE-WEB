@@ -32,7 +32,7 @@ export const Comments = styled.div`
       flex-grow: 1;
       padding: 8px 10px;
       height: auto;
-      border: 1px solid ${({ theme }) => theme.brown01};
+      border: 1px solid ${({ theme }) => theme.border};
       border-radius: 5px;
       color: #333;
       &::-webkit-scrollbar {
@@ -40,7 +40,7 @@ export const Comments = styled.div`
       }
 
       &::-webkit-scrollbar-thumb {
-        background: ${({ theme }) => theme.brown02};
+        background: ${({ theme }) => theme.main02};
         border-radius: 20px;
       }
       &::-webkit-scrollbar-track {
@@ -51,8 +51,8 @@ export const Comments = styled.div`
 
     button {
       padding: 8px 10px;
-      color: ${({ theme }) => theme.white01};
-      background-color: ${({ theme }) => theme.brown01};
+      color: ${({ theme }) => theme.buttonText};
+      background-color: ${({ theme }) => theme.main02};
       border-radius: 5px;
       cursor: pointer;
     }
@@ -110,6 +110,9 @@ export const Comment = styled.div<CommentProp>`
 
     p {
       flex-grow: 1;
+      word-break: keep-all;
+      word-wrap: normal;
+      white-space: pre-wrap;
     }
 
     .delete {
