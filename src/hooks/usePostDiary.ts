@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 export const usePostDiary = (): UseMutateFunction<void, unknown, PostProp, unknown> => {
   const navigate = useNavigate()
 
-  const { mutate } = useMutation((post: PostProp) => createPost(post), {
+  const { mutate } = useMutation(createPost, {
     onSuccess: (data) => {
       navigate(`/diary/${data.id}`)
     },
