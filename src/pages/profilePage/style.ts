@@ -20,13 +20,13 @@ export const UserDetail = styled.div`
   top: 127px;
   border-radius: 10px;
   background-color: ${({ theme }) => theme.palette01};
+  color: ${({ theme }) => theme.textColor};
 `
 
 export const StyledLink = styled(Link)`
   text-decoration: none;
   width: 33.3%;
   height: 100%;
-  color: ${({ theme }) => theme.background};
 `
 
 export const UserDetailContnetText = styled.div<{ size: string }>`
@@ -36,7 +36,7 @@ export const UserDetailContnetText = styled.div<{ size: string }>`
   margin-top: ${(props) => (props.size === 'large' ? '13px' : '10px')};
   align-items: center;
   text-align: center;
-  color: ${({ theme }) => theme.white01};
+  color: ${({ theme }) => theme.background};
 `
 
 export const UserDetailIine = styled.div<{ left: string }>`
@@ -47,6 +47,7 @@ export const UserDetailIine = styled.div<{ left: string }>`
   height: 0px;
   border: 1.5px solid #4f413a;
   transform: rotate(90deg);
+  color: ${({ theme }) => theme.palette08};
 `
 
 export const UserSettingLink = styled(Link)`
@@ -57,6 +58,8 @@ export const UserSettingLink = styled(Link)`
   top: 27px;
   font-size: 0;
   text-indent: -999;
+  background-size: 30px;
+  background-image: url('/public/assets/icons/setting.png');
 `
 
 export const UserImage = styled.div`
