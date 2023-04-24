@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const ShowDiaryIcon = styled.div`
+  cursor: pointer;
   background-image: url(${({ theme }) => theme.showDiary});
   background-size: cover;
   width: 19px;
@@ -8,6 +9,7 @@ export const ShowDiaryIcon = styled.div`
 `
 
 export const FollwerIcon = styled.div`
+  cursor: pointer;
   background-image: url(${({ theme }) => theme.followers});
   background-size: cover;
   width: 30px;

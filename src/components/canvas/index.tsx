@@ -29,6 +29,7 @@ function Canvas({ img, saveImage }: CanvasProps) {
       const image = new Image()
       image.src = img
       image.onload = () => {
+        console.log('dd')
         const context = canvas.getContext('2d') as CanvasRenderingContext2D
         context.drawImage(image, 0, 0, 400, 400)
       }
