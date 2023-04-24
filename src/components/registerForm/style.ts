@@ -4,7 +4,7 @@ export const Form = styled.form``
 
 export const InputArea = styled.div`
   width: 100%;
-  height: 80px;
+  height: 90px;
 `
 
 export const Input = styled.input`
@@ -13,6 +13,7 @@ export const Input = styled.input`
   border-radius: 10px;
   border: none;
   padding: 0 20px;
+  margin-bottom: 6px;
   background-color: ${({ theme }) => theme.input};
   &::placeholder {
     color: ${({ theme }) => theme.placeholder};
@@ -23,7 +24,21 @@ export const FileInput = styled(Input)`
   display: none;
 `
 
-export const ErrorMessage = styled.div``
+export const FileLabel = styled.label`
+  background-color: ${({ theme }) => theme.main02};
+  color: ${({ theme }) => theme.buttonText};
+  padding: 8px;
+  border-radius: 10px;
+`
+
+export const FileName = styled.label`
+  padding-left: 8px;
+`
+
+export const ErrorMessage = styled.div`
+  color: ${({ theme }) => theme.main01};
+  margin-left: 20px;
+`
 
 export const ResigterButton = styled.button`
   width: 100%;
@@ -38,5 +53,8 @@ export const ProfileWrapper = styled.div`
 `
 
 export const ProfileTextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   margin-left: 20px;
 `
