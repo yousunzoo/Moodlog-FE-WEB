@@ -8,5 +8,4 @@ export const Posts = styled.div<{ height: string }>`
   left: 0px;
   top: 217px;
   overflow-y: scroll;
-  background: ${({ theme }) => theme.white02};
 `

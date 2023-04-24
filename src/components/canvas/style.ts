@@ -13,25 +13,44 @@ export const PaletteWrapper = styled.div`
 
 export const Palette = styled.div`
   width: 100%;
-  border: 2px solid ${({ theme }) => theme.grey01};
+  border: 2px solid ${({ theme }) => theme.border};
   border-radius: 20px;
+  overflow: hidden;
 `
+
 export const ColorPicker = styled.div`
   width: 100%;
   display: flex;
+  position: relative;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  border-bottom: 2px solid ${({ theme }) => theme.grey01};
+  border-bottom: 2px solid ${({ theme }) => theme.border};
+`
+
+export const DisableColorPicker = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: ${({ theme }) => theme.input};
+  span {
+    color: ${({ theme }) => theme.textColor};
+  }
 `
 export const ColorItem = styled.button`
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  border: 2px solid ${({ theme }) => theme.grey03};
+  border: 2px solid ${({ theme }) => theme.border};
   background-color: ${({ color, theme }) => theme[`palette${color}`]};
   &.active {
-    border: 3px solid ${({ theme }) => theme.brown01};
+    border: 3px solid ${({ theme }) => theme.placeholder};
+    box-sizing: content-box;
   }
 `
 
@@ -42,7 +61,7 @@ export const SizePicker = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  color: ${({ theme }) => theme.grey03};
+  color: ${({ theme }) => theme.textColor};
   font-size: 20px;
 `
 
@@ -58,7 +77,7 @@ export const Slider = styled.input`
     height: 16px;
     border-radius: 50%;
     margin-top: -5px;
-    background-color: ${({ theme }) => theme.grey04};
+    background-color: ${({ theme }) => theme.main01};
     cursor: pointer;
   }
   &::-webkit-slider-runnable-track {
@@ -66,9 +85,9 @@ export const Slider = styled.input`
     border-radius: 3px;
     background: ${({ value, theme }) =>
       value
-        ? `linear-gradient(to right, ${theme.grey04} ${Number(value) * 2}%, ${theme.grey03}
+        ? `linear-gradient(to right, ${theme.main01} ${Number(value) * 2}%, ${theme.card}
  ${Number(value) * 2}% 100%)`
-        : theme.grey03};
+        : theme.placeholder};
   }
 `
 export const SelectArea = styled.div`
@@ -90,17 +109,17 @@ export const ToolItem = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.white01};
-  border: 2px solid ${({ theme }) => theme.brown01};
-  color: ${({ theme }) => theme.brown01};
+  background-color: ${({ theme }) => theme.background};
+  border: 2px solid ${({ theme }) => theme.main01};
+  color: ${({ theme }) => theme.main01};
   border-radius: 20px;
   width: 80px;
   height: 30px;
   cursor: pointer;
   &.active {
     font-weight: 600;
-    color: ${({ theme }) => theme.white01};
-    background-color: ${({ theme }) => theme.brown01};
+    color: ${({ theme }) => theme.buttonText};
+    background-color: ${({ theme }) => theme.main01};
   }
 `
 
@@ -113,11 +132,19 @@ export const ActionItem = styled.button`
   width: 30px;
   height: 30px;
   border-radius: 15px;
-  background-color: ${({ theme }) => theme.grey03};
+  background-color: ${({ theme }) => theme.main02};
+  background-size: 18px 18px;
+  background-position: center;
+  background-repeat: no-repeat;
   font-size: 0px;
-  img {
-    width: 18px;
-    height: 18px;
+  &[data-action='undo'] {
+    background-image: url('assets/icons/prev.png');
+  }
+  &[data-action='redo'] {
+    background-image: url('assets/icons/next.png');
+  }
+  &[data-action='reset'] {
+    background-image: url('assets/icons/reset.png');
   }
 `
 
@@ -130,7 +157,7 @@ export const CanvasArea = styled.div`
 `
 
 export const Canvas = styled.canvas`
-  border: 4px solid ${({ theme }) => theme.grey01};
+  border: 4px solid ${({ theme }) => theme.border};
 `
 
 export const SelectPhotoArea = styled.div`
@@ -142,8 +169,8 @@ export const SelectPhotoArea = styled.div`
   height: 60px;
   position: absolute;
   bottom: 0;
-  background-color: ${({ theme }) => theme.white02};
-  border-top: 2px solid ${({ theme }) => theme.grey03};
+  background-color: ${({ theme }) => theme.card};
+  border-top: 2px solid ${({ theme }) => theme.border};
 `
 
 export const SelectPhotoLabel = styled.label`
@@ -154,8 +181,8 @@ export const SelectPhotoLabel = styled.label`
   width: 120px;
   height: 30px;
   border-radius: 20px;
-  background-color: ${({ theme }) => theme.brown01};
-  color: ${({ theme }) => theme.white01};
+  background-color: ${({ theme }) => theme.main01};
+  color: ${({ theme }) => theme.buttonText};
 `
 
 export const SelectPhoto = styled.input`

@@ -1,153 +1,233 @@
-import React, { ChangeEvent, MouseEvent, useEffect, useRef, useState } from 'react'
+import React, { ChangeEvent, MouseEvent, useCallback, useEffect, useRef, useState } from 'react'
 import * as S from './style'
 import palette from '../../constants/palette.json'
-import { PaletteJSON } from '../../types/createDiary'
+import { CanvasProps, PaletteJSON } from '../../types/createDiary'
+import { CanvasState } from '../../types/createDiary'
 
-function Canvas() {
-  const canvas = useRef<HTMLCanvasElement>(null)
+function Canvas({ img, saveImage }: CanvasProps) {
+  const [canvasState, setCanvasState] = useState<CanvasState>({
+    canvas: null,
+    color: '08',
+    lineWidth: 25,
+    mode: 'brush',
+  })
   const [ctx, setCtx] = useState<CanvasRenderingContext2D | undefined>(undefined)
-  const [color, setColor] = useState('08')
-  const [size, setSize] = useState(25)
-  const [mode, setMode] = useState('brush')
-  const [isMouseDown, setIsMouseDown] = useState(false)
-  const [isImage, setIsImage] = useState(false)
+  const [undoStack, setUndoStack] = useState<ImageData[]>([])
+  const [redoStack, setRedoStack] = useState<ImageData[]>([])
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const nowColor = canvasState.color
+  const nowMode = canvasState.mode
 
-  const handleMode = (e: MouseEvent<HTMLDivElement>) => {
-    if (!(e.target instanceof HTMLButtonElement)) {
+  useEffect(() => {
+    if (!canvasRef.current) return
+    const canvas = canvasRef.current
+    setCtx(() => canvas.getContext('2d') as CanvasRenderingContext2D)
+    canvas.width = 400
+    canvas.height = 400
+    setCanvasState((prevState) => ({ ...prevState, canvas }))
+    if (img) {
+      const image = new Image()
+      image.src = img
+      image.onload = () => {
+        const context = canvas.getContext('2d') as CanvasRenderingContext2D
+        context.drawImage(image, 0, 0, 400, 400)
+      }
       return
     }
-    const mode = e.target.dataset.mode || ''
-    setMode(mode)
+  }, [])
+
+  const handleActions = (e: MouseEvent<HTMLDivElement>) => {
+    if (!(e.target instanceof HTMLButtonElement)) return
+    const action = e.target.dataset.action as string
+    switch (action) {
+      case 'undo':
+        handleUndo()
+        break
+      case 'redo':
+        handleRedo()
+        break
+      case 'reset':
+        handleReset()
+        break
+    }
   }
 
-  const setImage = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleReset = () => {
+    const canvas = canvasRef.current
+    if (!canvas) return
     if (!ctx) return
-    const file = e.target.files?.[0]
-    if (!file) return
-    if (!file.type.startsWith('image/')) {
-      alert('이미지 파일만 업로드 가능합니다.')
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    setUndoStack([])
+    setRedoStack([])
+    saveImage(null)
+  }
+  const handleUndo = () => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    if (!ctx) return
+    if (undoStack.length === 0) return
+    if (undoStack.length === 1) {
+      setRedoStack((prevState) => [...prevState, undoStack[0]])
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      setUndoStack([])
       return
     }
-    console.log(file)
-    const image = new Image()
-    image.src = URL.createObjectURL(file)
-    image.onload = () => {
-      ctx.drawImage(image, 0, 0, 400, 400)
-    }
+    const imageData = undoStack[undoStack.length - 2]
+    const img = new ImageData(new Uint8ClampedArray(imageData.data), imageData.width, imageData.height)
+    ctx.putImageData(img, 0, 0)
+    setUndoStack((prevState) => {
+      const redo = prevState.pop()
+      if (redo) {
+        setRedoStack((prevState) => [...prevState, redo])
+      }
+      return [...prevState]
+    })
+  }
+  const handleRedo = () => {
+    if (redoStack.length === 0) return
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+    const imageData = redoStack[redoStack.length - 1]
+    const img = new ImageData(new Uint8ClampedArray(imageData.data), imageData.width, imageData.height)
+    ctx.putImageData(img, 0, 0)
+    setUndoStack((prevState) => [...prevState, imageData])
+    setRedoStack((prevState) => {
+      prevState.pop()
+      return [...prevState]
+    })
   }
 
-  const startDrawing = () => {
+  const handleMouseMove = (event: MouseEvent<HTMLCanvasElement>) => {
+    if (!canvasState.canvas) return
     if (!ctx) return
-    setIsMouseDown(true)
-  }
-
-  const endDrawing = () => {
-    if (!ctx) return
-
+    const { offsetX, offsetY } = event
+    const mode = canvasState.mode
     ctx.beginPath()
-    setIsMouseDown(false)
-  }
-  const handleMouseMove = ({ nativeEvent }: MouseEvent<HTMLCanvasElement>) => {
-    if (!ctx) return
-
-    const { offsetX, offsetY } = nativeEvent
-    if (!isMouseDown) {
-      ctx.beginPath()
-      ctx.moveTo(offsetX, offsetY)
-      return
-    }
-    if (isMouseDown && mode === 'brush') {
-      // 브러쉬 상태
-      ctx.strokeStyle = (palette as PaletteJSON)[color]
-      ctx.lineWidth = size
+    if (mode === 'brush') {
+      ctx.strokeStyle = (palette as PaletteJSON)[nowColor]
+      ctx.lineWidth = canvasState.lineWidth
       ctx.lineCap = 'round'
       ctx.lineJoin = 'round'
       ctx.lineTo(offsetX, offsetY)
       ctx.stroke()
     } else {
-      // 지우개 상태
-      ctx.lineWidth = size
-      ctx.lineCap = 'round'
-      ctx.lineJoin = 'round'
-      ctx.clearRect(offsetX - size / 2, offsetY - size / 2, size, size)
+      ctx.arc(offsetX, offsetY, canvasState.lineWidth / 2, 0, 2 * Math.PI)
+      ctx.globalCompositeOperation = 'destination-out'
+      ctx.fill()
+      ctx.globalCompositeOperation = 'source-over'
     }
   }
 
-  const handlePickColor = (e: MouseEvent<HTMLDivElement>) => {
+  const handleMouseUp = () => {
+    if (!canvasRef.current) return
+    if (!ctx) return
+    const imageData = ctx.getImageData(0, 0, canvasRef.current.width, canvasRef.current.height)
+    const imageDataUrl = canvasRef.current.toDataURL('image/png')
+    saveImage(imageDataUrl)
+    setUndoStack((prevState) => {
+      const newState = [...prevState, imageData]
+      return newState
+    })
+    setCanvasState((prevState) => ({ ...prevState, canvas: canvasRef.current }))
+    ctx.beginPath()
+    canvasRef.current.removeEventListener('mousemove', handleMouseMove)
+    canvasRef.current.removeEventListener('mouseup', handleMouseUp)
+  }
+
+  const handleMouseDown = (event: React.MouseEvent<HTMLCanvasElement>) => {
+    if (!canvasRef.current) return
+    setCanvasState((prevState) => ({ ...prevState }))
+    canvasRef.current.addEventListener('mousemove', handleMouseMove)
+    canvasRef.current.addEventListener('mouseup', handleMouseUp)
+  }
+
+  const handleMode = (e: MouseEvent<HTMLDivElement>) => {
     if (!(e.target instanceof HTMLButtonElement)) {
       return
     }
-    const color = e.target.dataset.color as string
-    setColor(color)
+    const mode = e.target.dataset.mode as string
+    setCanvasState({ ...canvasState, mode })
   }
 
-  useEffect(() => {
-    // @ts-ignore
-    if (canvas.current) {
-      setCtx(canvas.current.getContext('2d') as CanvasRenderingContext2D)
-      canvas.current.width = 400
-      canvas.current.height = 400
+  const handleColorChange = (event: MouseEvent<HTMLDivElement>) => {
+    if (!(event.target instanceof HTMLButtonElement)) return
+    const color = event.target.dataset['color'] as string
+    setCanvasState({ ...canvasState, color })
+  }
+
+  const handleLineWidthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const lineWidth = parseInt(event.target.value)
+    setCanvasState((prevState) => ({ ...prevState, lineWidth }))
+  }
+
+  const setImage = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!ctx) return
+    if (!canvasRef.current) return
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    const image = new Image()
+    image.src = URL.createObjectURL(file)
+    image.onload = () => {
+      ctx.drawImage(image, 0, 0, 400, 400)
+      if (!canvasRef.current) return
+      const imageData = ctx.getImageData(0, 0, canvasRef.current.width, canvasRef.current.height)
+      setUndoStack((prevState) => [...prevState, imageData])
+      saveImage(canvasRef.current.toDataURL('image/png'))
     }
-  }, [])
+  }
+
   return (
     <S.Wrapper>
       <S.PaletteWrapper>
         <S.Palette>
-          <S.ColorPicker onClick={handlePickColor}>
-            <S.ColorItem className={color === '01' ? 'active' : ''} data-color="01" color="01" />
-            <S.ColorItem className={color === '02' ? 'active' : ''} data-color="02" color="02" />
-            <S.ColorItem className={color === '03' ? 'active' : ''} data-color="03" color="03" />
-            <S.ColorItem className={color === '04' ? 'active' : ''} data-color="04" color="04" />
-            <S.ColorItem className={color === '05' ? 'active' : ''} data-color="05" color="05" />
-            <S.ColorItem className={color === '06' ? 'active' : ''} data-color="06" color="06" />
-            <S.ColorItem className={color === '07' ? 'active' : ''} data-color="07" color="07" />
-            <S.ColorItem className={color === '08' ? 'active' : ''} data-color="08" color="08" />
+          <S.ColorPicker onClick={handleColorChange}>
+            {nowMode === 'eraser' && (
+              <S.DisableColorPicker>
+                <span>지우기 모드</span>
+              </S.DisableColorPicker>
+            )}
+            <S.ColorItem className={nowColor === '01' ? 'active' : ''} data-color="01" color="01" />
+            <S.ColorItem className={nowColor === '02' ? 'active' : ''} data-color="02" color="02" />
+            <S.ColorItem className={nowColor === '03' ? 'active' : ''} data-color="03" color="03" />
+            <S.ColorItem className={nowColor === '04' ? 'active' : ''} data-color="04" color="04" />
+            <S.ColorItem className={nowColor === '05' ? 'active' : ''} data-color="05" color="05" />
+            <S.ColorItem className={nowColor === '06' ? 'active' : ''} data-color="06" color="06" />
+            <S.ColorItem className={nowColor === '07' ? 'active' : ''} data-color="07" color="07" />
+            <S.ColorItem className={nowColor === '08' ? 'active' : ''} data-color="08" color="08" />
           </S.ColorPicker>
           <S.SizePicker>
             <span>Size</span>
-            <S.Slider
-              type="range"
-              min={1}
-              max={50}
-              value={size}
-              onChange={(e) => {
-                setSize(Number(e.target.value))
-              }}
-            />
-            <span>{size}</span>
+            <S.Slider type="range" min={1} max={50} value={canvasState.lineWidth} onChange={handleLineWidthChange} />
+            <span>{canvasState.lineWidth}</span>
           </S.SizePicker>
         </S.Palette>
         <S.SelectArea>
           <S.Tools onClick={handleMode}>
-            <S.ToolItem className={mode == 'brush' ? 'active' : ''} data-mode="brush">
+            <S.ToolItem className={nowMode == 'brush' ? 'active' : ''} data-mode="brush">
               브러쉬
             </S.ToolItem>
-            <S.ToolItem className={mode == 'eraser' ? 'active' : ''} data-mode="eraser">
+            <S.ToolItem className={nowMode == 'eraser' ? 'active' : ''} data-mode="eraser">
               지우개
             </S.ToolItem>
           </S.Tools>
-          <S.Actions>
-            <S.ActionItem data-action="prev">
+          <S.Actions onClick={handleActions}>
+            <S.ActionItem data-action="undo" disabled={undoStack.length === 0}>
               이전으로
-              <img src="/assets/icons/prev.png" />
             </S.ActionItem>
-            <S.ActionItem data-action="next">
-              다음으로
-              <img src="/assets/icons/next.png" />
-            </S.ActionItem>
-            <S.ActionItem data-action="reset">
-              리셋
-              <img src="/assets/icons/reset.png" />
-            </S.ActionItem>
+            <S.ActionItem data-action="redo">다음으로</S.ActionItem>
+            <S.ActionItem data-action="reset">리셋</S.ActionItem>
           </S.Actions>
         </S.SelectArea>
       </S.PaletteWrapper>
       <S.CanvasArea>
-        <S.Canvas ref={canvas} onMouseDown={startDrawing} onMouseMove={handleMouseMove} onMouseUp={endDrawing} />
+        <S.Canvas ref={canvasRef} onMouseDown={handleMouseDown} />
       </S.CanvasArea>
       <S.SelectPhotoArea>
         <S.SelectPhotoLabel htmlFor="select-photo">사진 선택</S.SelectPhotoLabel>
-        <S.SelectPhoto id="select-photo" type="file" placeholder="사진 선택" onChange={setImage} />
+        <S.SelectPhoto id="select-photo" type="file" accept="image/*" placeholder="사진 선택" onChange={setImage} />
       </S.SelectPhotoArea>
     </S.Wrapper>
   )

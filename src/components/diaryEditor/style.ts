@@ -6,15 +6,21 @@ export const EditorTab = styled.div`
   height: 40px;
   align-items: center;
   padding: 0 25px;
-  border-bottom: 2px solid ${({ theme }) => theme.white02};
+  border-bottom: 2px solid ${({ theme }) => theme.border};
   margin-bottom: 2px;
 `
 export const TabTitle = styled.label`
   margin-right: 20px;
+  color: ${({ theme }) => theme.textColor};
 `
 export const TabInput = styled.input`
   border: none;
   outline: none;
+  background: transparent;
+  color: ${({ theme }) => theme.textColor};
+  &::placeholder {
+    color: ${({ theme }) => theme.placeholder};
+  }
 `
 
 export const TabSelect = styled.div`
@@ -34,18 +40,61 @@ export const MoodImg = styled.img`
 export const MoodSelect = styled.button`
   position: absolute;
   right: 0;
-  background-image: url('/assets/icons/down-arrow.png');
+  background-image: url(${({ theme }) => theme.downArrow});
   width: 20px;
   height: 20px;
   background-size: cover;
 `
-
+export const Img = styled.img`
+  display: block;
+  margin: 20px auto;
+  width: 375px;
+  height: 375px;
+`
 export const EditorContent = styled.textarea`
   display: block;
   width: 100%;
-  height: calc(100vh - 200px);
+  height: calc(100vh - 620px);
   padding: 25px;
   border: none;
   outline: none;
   resize: none;
+  background: transparent;
+  color: ${({ theme }) => theme.textColor};
+  &::placeholder {
+    color: ${({ theme }) => theme.placeholder};
+  }
+`
+
+export const Settings = styled.div`
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  width: 100%;
+  height: 50px;
+  padding: 0 25px;
+  align-items: center;
+  background-color: ${({ theme }) => theme.card};
+  border-top: 2px solid ${({ theme }) => theme.border};
+`
+export const SettingTitle = styled.p`
+  margin-right: 20px;
+`
+export const SettingItem = styled.button`
+  display: flex;
+  width: 80px;
+  height: 30px;
+  margin-right: 10px;
+  align-items: center;
+  justify-content: center;
+  background-color: ${({ theme }) => theme.background};
+  border: 2px solid ${({ theme }) => theme.main02};
+  color: ${({ theme }) => theme.main02};
+  border-radius: 20px;
+  cursor: pointer;
+  &.active {
+    font-weight: 600;
+    color: ${({ theme }) => theme.buttonText};
+    background-color: ${({ theme }) => theme.main02};
+  }
 `

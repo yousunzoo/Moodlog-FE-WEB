@@ -9,14 +9,14 @@ export const DiaryPost = styled(Link)`
   padding: 8px;
   text-decoration: none;
   border-radius: 10px;
-  background-color: ${({ theme }) => theme.white02};
-  color: ${({ theme }) => theme.modalBlack};
+  background-color: ${({ theme }) => theme.card};
+  color: ${({ theme }) => theme.textColor};
 `
 
 export const DiaryPostImage = styled.div`
   width: 60px;
   height: 100%;
-  background-color: #666;
+  background-color: white;
 `
 
 export const DiaryPostLetter = styled.div`
@@ -35,7 +35,7 @@ export const DiaryPostLetterContain = styled.div`
 
 export const UsernameText = styled.div`
   height: 16px;
-  top: 4px;
+  margin-bottom: 6px;
   font-weight: bold;
   font-size: 16px;
 `
@@ -53,7 +53,7 @@ export const DiaryPostDate = styled.div`
 export const DiaryPostDateContain = styled.div`
   width: 100%;
   margin: auto;
-  color: ${({ theme }) => theme.modalBlack};
+  color: ${({ theme }) => theme.main01};
 `
 
 export const PostBodyWrapper = styled.div`
