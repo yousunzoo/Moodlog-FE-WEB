@@ -24,7 +24,7 @@ function ShowDiary() {
   })
   const [showDropdown, setShowDropdown] = useState(false)
 
-  const { mutate: loginMutate } = useMutation(() => login({ email: 'test3@test.com', password: 'test1234' }), {
+  const { mutate: loginMutate } = useMutation(() => login({ email: 'test@test.com', password: 'test1234' }), {
     onSuccess: (data) => {
       setToken(data.accessToken, {
         path: '/',
@@ -60,8 +60,8 @@ function ShowDiary() {
               )}
             </div>
           </S.TopBar>
-          {/* <span onClick={() => loginMutate()}>(로그인)</span> */}
           <DiaryDetail diary={diary} />
+          {/* <span onClick={() => loginMutate()}>(로그인)</span> */}
           <Comments diary={diary} />
         </>
       ) : (
