@@ -10,6 +10,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useMutation } from 'react-query'
 import { getPost } from '../../apis/diary'
 import { useUpdateDiary } from '../../hooks/useUpdateDiary'
+import { toDataURL } from '../../utils/toDataURL'
 
 function DiaryCreatePage() {
   const { id } = useParams()

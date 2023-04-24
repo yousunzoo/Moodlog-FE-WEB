@@ -21,7 +21,7 @@ export const createPost = async (post: PostProp) => {
   return res.data
 }
 export const updatePost = async ({ post, postId }: EditProp) => {
-  const file = dataURLtoFile(post.img as string)
+  const file = post.img?.includes('https') ? post.img : dataURLtoFile(post.img as string)
   const diary = { ...post, img: file }
   const res = await axiosInstance({ multi: true }).put(`/posts/${postId}`, diary)
   return res.data
