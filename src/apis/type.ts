@@ -3,6 +3,11 @@ export interface LoginProp {
   password: string
 }
 
+export interface WithdrawelProp {
+  email: string
+  password: string
+}
+
 export interface RegisterProp extends LoginProp {
   email: string
   password: string

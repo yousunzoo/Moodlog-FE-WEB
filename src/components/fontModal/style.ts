@@ -17,20 +17,19 @@ export const FontItem = styled.li`
   padding: 20px 0;
   margin: 10px;
   color: ${({ theme }) => theme.modalText};
-  font-family: 'gangwonEdu';
   &[data-font='Pretendard'] {
     font-family: 'Pretendard';
   }
-  &[data-font='IM_Hyemin-Bold'] {
-    font-family: 'IM_Hyemin-Bold';
+  &[data-font='아임혜민'] {
+    font-family: '아임혜민';
   }
-  &[data-font='Dovemayo_gothic'] {
-    font-family: 'Dovemayo_gothic';
+  &[data-font='둘비마요고딕'] {
+    font-family: '둘비마요고딕';
   }
-  &[data-font='omyu_pretty'] {
-    font-family: 'omyu_pretty';
+  &[data-font='오뮤프리티'] {
+    font-family: '오뮤프리티';
   }
-  &[data-font='GowunBatang-Regular'] {
-    font-family: 'GowunBatang-Regular';
+  &[data-font='고운바탕'] {
+    font-family: '고운바탕';
   }
 `

@@ -1,5 +1,6 @@
+import { AxiosRequestConfig } from 'axios'
 import { axiosInstance } from './axios'
-import { LoginProp, ProfileProp, RegisterProp } from './type'
+import { LoginProp, ProfileProp, RegisterProp, WithdrawelProp } from './type'
 
 export const register = async (account: RegisterProp) => {
   const res = await axiosInstance({ multi: true }).post(`/auth/register`, account)
@@ -43,7 +44,7 @@ export const logout = async () => {
 // })
 
 export const withdrawal = async () => {
-  const res = await axiosInstance().delete(`/auth/withdrawal`)
+  const res = await axiosInstance().delete('/auth/withdrawal')
   console.log(res.data)
   return res.data
 }
