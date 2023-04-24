@@ -35,6 +35,19 @@ function RegisterForm() {
     registerUser(formData)
   }
 
+  const handleChangeFile = (e) => {
+    const {
+      target: { files },
+    } = e
+    const file = files[0]
+    setImgName(file.name)
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => {
+      setImgFile(reader.result as string)
+    }
+  }
+
   return (
     <>
       <S.Form onSubmit={handleSubmit((data) => handleSubmitUserInfo(data))}>
@@ -104,33 +117,27 @@ function RegisterForm() {
         <S.ProfileWrapper>
           <Profile img={imgFile} />
           <S.ProfileTextWrapper>
-            <label htmlFor="file">프로필 이미지 등록</label>
-            <S.FileInput
-              id="file"
-              type="file"
-              {...register('profile_image', {
-                onChange: (e) => {
-                  const {
-                    target: { files },
-                  } = e
-                  const file = files[0]
-                  setImgName(file.name)
-                  const reader = new FileReader()
-                  reader.readAsDataURL(file)
-                  reader.onload = () => {
-                    setImgFile(reader.result as string)
-                  }
-                },
-              })}
-              accept="image/*"
-            />
-            <div>
-              <div>파일이름</div>
-              <span>{imgName}</span>
-            </div>
+            <S.FileLabel htmlFor="file">
+              프로필 이미지 등록
+              <S.FileInput
+                id="file"
+                type="file"
+                {...register('profile_image', {
+                  onChange: (e) => {
+                    handleChangeFile(e)
+                  },
+                })}
+                accept="image/*"
+              />
+            </S.FileLabel>
+            <S.FileName>
+              <span>파일 이름 {imgName}</span>
+            </S.FileName>
           </S.ProfileTextWrapper>
         </S.ProfileWrapper>
-        <S.ResigterButton type="submit">회원가입</S.ResigterButton>
+        <S.ResigterButton onClick={handleChangeFile} type="submit">
+          회원가입
+        </S.ResigterButton>
       </S.Form>
       <Alert isOpen={isOpen} onClose={() => navigate('/')} message="로그인 성공" />
     </>
