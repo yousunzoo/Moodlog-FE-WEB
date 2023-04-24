@@ -1,28 +1,22 @@
+import { Link } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 
-// posts 컴포넌트
-export const Posts = styled.div<{ height: string }>`
-  position: absolute;
-  width: 100%;
-  height: ${(props) => props.height};
-  left: 0px;
-  top: 217px;
-  overflow-y: scroll;
-  background: ${({ theme }) => theme.white02};
-`
-
 // post 컴포넌트
-export const DiaryPost = styled.div`
+export const DiaryPost = styled(Link)`
   display: flex;
-  width: calc(100% - 50px);
-  height: 60px;
-  margin: 10px 25px;
+  height: 70px;
+  margin: 10px auto;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 10px;
+  background-color: ${({ theme }) => theme.card};
+  color: ${({ theme }) => theme.textColor};
 `
 
 export const DiaryPostImage = styled.div`
   width: 60px;
   height: 100%;
-  background-color: #666;
+  background-color: white;
 `
 
 export const DiaryPostLetter = styled.div`
@@ -39,13 +33,19 @@ export const DiaryPostLetterContain = styled.div`
   margin: auto 20px;
 `
 
+export const UsernameText = styled.div`
+  height: 16px;
+  margin-bottom: 6px;
+  font-weight: bold;
+  font-size: 16px;
+`
+
 export const DiaryPostDate = styled.div`
   width: 60px;
   height: 100%;
   font-style: normal;
   font-weight: 600;
   font-size: 28px;
-  line-height: 30px;
   align-items: center;
   text-align: center;
 `
@@ -53,5 +53,14 @@ export const DiaryPostDate = styled.div`
 export const DiaryPostDateContain = styled.div`
   width: 100%;
   margin: auto;
-  color: ${({ theme }) => theme.modalBlack};
+  color: ${({ theme }) => theme.main01};
+`
+
+export const PostBodyWrapper = styled.div`
+  height: 36px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `

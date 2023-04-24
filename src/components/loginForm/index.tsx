@@ -1,8 +1,7 @@
-import axios from 'axios'
 import { useState } from 'react'
-import { useCookies } from 'react-cookie'
 import * as S from './style'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { useLoginUser } from '../../hooks/useLogin'
 
 interface UserInput {
   email: string
@@ -11,10 +10,10 @@ interface UserInput {
 
 function LoginForm() {
   const [userInput, setUserInput] = useState<UserInput>({ email: '', password: '' })
-  const [cookies, setCookie, removeCookie] = useCookies()
-  const navigate = useNavigate()
+  const [isShownPasswrod, setIsShownPassword] = useState(false)
+  const { mutate: loginUser, isError } = useLoginUser()
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setUserInput({
       ...userInput,
@@ -22,32 +21,47 @@ function LoginForm() {
     })
   }
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    loginUser(userInput)
+  }
 
-    try {
-      const response = await axios.post('http://localhost:3000/auth/login', userInput)
-      // setCookie('accessToken', response.data['accessToken'], { path: '/' })
-      // 백엔드가 진짜라면 userId 쿠키에 필요없음, 어차피 accessToken 에 담겨있음
-      // setCookie('userId', response.data['user']['id'], { path: '/' })
-
-      navigate('/') // 홈으로 이동합니다.
-    } catch (error) {
-      alert('아이디와 비밀번호를 확인해주세요.')
-      setUserInput({ email: '', password: '' })
-      console.error(error)
-    }
+  const handleTogglePassword = () => {
+    setIsShownPassword(!isShownPasswrod)
   }
 
   return (
-    <S.Form onSubmit={onSubmit}>
-      <S.Logo src="assets/icons/logo.png" alt="Logo" />
-      <S.Input type="email" name="email" placeholder="사용자 이메일" onChange={onChange} value={userInput.email} />
-      <S.Input type="password" name="password" placeholder="비밀번호" onChange={onChange} value={userInput.password} />
-      <S.Button type="submit">로그인</S.Button>
-      <S.Signup>
-        아직 회원이 아니신가요? <S.Span>회원가입</S.Span>
-      </S.Signup>
+    <S.Form onSubmit={handleSubmit}>
+      <S.Label>
+        <S.Input
+          type="email"
+          name="email"
+          placeholder="사용자 이메일"
+          onChange={handleChange}
+          value={userInput.email}
+        />
+      </S.Label>
+
+      <S.Label>
+        <S.Input
+          type={isShownPasswrod ? 'text' : 'password'}
+          name="password"
+          placeholder="비밀번호"
+          onChange={handleChange}
+          value={userInput.password}
+        />
+        <S.PasswordButton type="button" onClick={handleTogglePassword} isShown={isShownPasswrod} />
+      </S.Label>
+      <S.ErrorWrapper>
+        {isError && <S.ErrorMessage>사용자의 이메일 혹은 비밀번호를 확인해주세요.</S.ErrorMessage>}
+      </S.ErrorWrapper>
+      <S.SigninButton type="submit">로그인</S.SigninButton>
+      <S.SignupWrapper>
+        아직 회원이 아니신가요?
+        <Link to="/register">
+          <S.SignupButton>회원가입</S.SignupButton>
+        </Link>
+      </S.SignupWrapper>
     </S.Form>
   )
 }

@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
   font-size: 20px;
 `
 export const Title = styled.h2`
-  color: ${({ theme }) => theme.black};
+  color: ${({ theme }) => theme.textColor};
   position: absolute;
   left: 0;
   right: 0;
@@ -21,14 +21,20 @@ export const Title = styled.h2`
 `
 
 export const Btn = styled.button`
-  color: ${({ theme }) => theme.grey03};
+  color: ${({ theme }) => theme.placeholder};
   cursor: pointer;
+  display: block;
+  width: 40px;
+  height: 30px;
 `
 
 export const CloseBtn = styled(Btn)`
   font-size: 0px;
-  img {
-    width: 24px;
-    height: 24px;
-  }
+  width: 24px;
+  background-image: url(${({ theme }) => theme.close});
+  background-size: contain;
+  background-repeat: no-repeat;
+`
+export const PrevBtn = styled(CloseBtn)`
+  background-image: url(${({ theme }) => theme.back});
 `

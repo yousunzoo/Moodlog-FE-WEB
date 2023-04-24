@@ -1,11 +1,11 @@
 import React from 'react'
 import * as S from './style'
 
-interface Props {
+export interface LogoProps {
   size: number
 }
 
-function Logo({ size }: Props) {
+function Logo({ size }: LogoProps) {
   return <S.Logo size={size} />
 }
 

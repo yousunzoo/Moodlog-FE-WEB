@@ -1,9 +1,9 @@
 import styled from 'styled-components'
+import { LogoProps } from '.'
 
-export const Logo = styled.div<{ size: number }>`
+export const Logo = styled.div<LogoProps>`
   width: ${({ size }) => size}px;
   height: ${({ size }) => size}px;
-  margin: auto;
-  background-image: url('../../../public/assets/icons/logo.png');
+  background-image: url(${({ theme }) => theme.logo});
   background-size: cover;
 `

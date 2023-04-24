@@ -20,7 +20,7 @@ export const DiaryDetail = styled.div`
     line-height: 1.4;
 
     .day {
-      color: ${({ theme }) => theme.grey03};
+      color: ${({ theme }) => theme.main01};
     }
   }
 

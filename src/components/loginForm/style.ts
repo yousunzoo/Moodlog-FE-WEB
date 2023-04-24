@@ -8,50 +8,69 @@ export const Container = styled.div`
 
 export const Form = styled.form`
   /* position: absolute; */
-  top: 50%;
-  /* left: 50%;
-  transform: translate(-50%, -50%); */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem;
-  border-radius: 4px;
 `
 
 export const Input = styled.input`
+  font-size: 20px;
   padding: 0.5rem;
-  border: 1px solid #ccc;
   border-radius: 10px;
   margin-bottom: 1rem;
   width: 100%;
   height: 60px;
-  background-color: #f8f8f8;
+  background-color: ${({ theme }) => theme.input};
+  border: none;
+  padding: 0 20px;
+  &::placeholder {
+    color: ${({ theme }) => theme.placeholder};
+  }
 `
 
-export const Button = styled.button`
-  background-color: #998c84;
-  color: #fff;
-  padding: 0.5rem;
+export const SigninButton = styled.button`
+  font-size: 20px;
+  margin: 20px 0;
+  background-color: ${({ theme }) => theme.main01};
+  color: ${({ theme }) => theme.buttonText};
   border: none;
   border-radius: 10px;
-  margin: 20px;
   cursor: pointer;
   width: 100%;
   height: 50px;
 `
 
-export const Logo = styled.img`
-  margin: 20px;
-  width: 250px;
-  height: 250px;
+export const SignupWrapper = styled.div`
+  text-align: center;
+  font-size: 16px;
 `
 
-export const Signup = styled.p`
-  font-size: 12px;
-`
-
-export const Span = styled.span`
-  color: #a36856;
+export const SignupButton = styled.button`
+  font-weight: bold;
+  color: ${({ theme }) => theme.main01};
   margin: 0 10px;
   cursor: pointer;
+`
+
+export const PasswordButton = styled.button<{ isShown: boolean }>`
+  width: 30px;
+  height: 30px;
+  background-image: ${({ isShown }) =>
+    isShown
+      ? `url('../../../public/assets/icons/show-password.png')`
+      : `url('../../../public/assets/icons/hide-password.png')`};
+  background-size: cover;
+  background-color: transparent;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 18px;
+`
+
+export const Label = styled.label`
+  position: relative;
+`
+
+export const ErrorMessage = styled.span`
+  color: ${({ theme }) => theme.main01};
+`
+export const ErrorWrapper = styled.div`
+  height: 20px;
 `
