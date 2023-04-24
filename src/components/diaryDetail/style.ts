@@ -44,7 +44,7 @@ export const DiaryDetail = styled.div`
   }
 
   .auth {
-    color: ${({ theme }) => theme.grey03};
+    color: #aaa;
     font-size: 14px;
     text-align: right;
   }
