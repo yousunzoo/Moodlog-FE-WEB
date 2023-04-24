@@ -1,5 +1,6 @@
 import React from 'react'
 import * as S from './style'
+import { Link } from 'react-router-dom'
 
 export interface LogoProps {
   size: number
@@ -7,7 +8,11 @@ export interface LogoProps {
 }
 
 function Logo({ size, isCenter }: LogoProps) {
-  return <S.Logo size={size} isCenter={isCenter} />
+  return (
+    <Link to={'/'}>
+      <S.Logo size={size} isCenter={isCenter} />
+    </Link>
+  )
 }
 
 export default Logo
