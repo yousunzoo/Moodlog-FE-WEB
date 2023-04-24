@@ -1,6 +1,4 @@
 import styled from 'styled-components'
-import closeIcon from '/assets/icons/close.png'
-import backIcon from '/assets/icons/back.png'
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -13,7 +11,7 @@ export const Wrapper = styled.div`
   font-size: 20px;
 `
 export const Title = styled.h2`
-  color: ${({ theme }) => theme.black};
+  color: ${({ theme }) => theme.textColor};
   position: absolute;
   left: 0;
   right: 0;
@@ -23,7 +21,7 @@ export const Title = styled.h2`
 `
 
 export const Btn = styled.button`
-  color: ${({ theme }) => theme.grey03};
+  color: ${({ theme }) => theme.placeholder};
   cursor: pointer;
   display: block;
   width: 40px;
@@ -32,11 +30,11 @@ export const Btn = styled.button`
 
 export const CloseBtn = styled(Btn)`
   font-size: 0px;
-  width: 30px;
-  background-image: url(${closeIcon});
+  width: 24px;
+  background-image: url(${({ theme }) => theme.close});
   background-size: contain;
   background-repeat: no-repeat;
 `
 export const PrevBtn = styled(CloseBtn)`
-  background-image: url(${backIcon});
+  background-image: url(${({ theme }) => theme.back});
 `

@@ -15,7 +15,7 @@ export const TopBar = styled(TopbarWrapper)`
   position: absolute;
   top: 0;
   left: 0;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.background};
 
   .right,
   .left,
@@ -40,8 +40,8 @@ export const TopBar = styled(TopbarWrapper)`
       right: 10px;
       width: 80px;
       text-align: center;
-      background-color: ${({ theme }) => theme.white01};
-      border: 1px solid ${({ theme }) => theme.grey01};
+      background-color: ${({ theme }) => theme.modalBackground};
+      border: 1px solid ${({ theme }) => theme.border};
       border-radius: 5px;
       li {
         padding: 8px 10px;
@@ -51,10 +51,10 @@ export const TopBar = styled(TopbarWrapper)`
         }
 
         &.delete {
-          color: ${({ theme }) => theme.palette01};
+          color: ${({ theme }) => theme.main01};
         }
         &:hover {
-          background-color: ${({ theme }) => theme.white02};
+          background-color: ${({ theme }) => theme.modalBackground};
         }
       }
     }
