@@ -6,9 +6,6 @@ import DiaryDetail from '../../components/diaryDetail'
 import Loading from '../../components/common/loading'
 import PrevButton from '../../components/common/button/prevButton'
 import DotsButton from '../../components/common/button/dotsButton'
-import { login } from '../../apis/auth'
-import { setToken } from '../../utils/userTokenCookie'
-import { AxiosError } from 'axios'
 import Comments from '../../components/comments'
 import { useState } from 'react'
 
@@ -23,18 +20,6 @@ function ShowDiary() {
     },
   })
   const [showDropdown, setShowDropdown] = useState(false)
-
-  const { mutate: loginMutate } = useMutation(() => login({ email: 'test3@test.com', password: 'test1234' }), {
-    onSuccess: (data) => {
-      setToken(data.accessToken, {
-        path: '/',
-        maxAge: data.content.exp - data.content.iat,
-      })
-    },
-    onError: (err: AxiosError) => {
-      console.log(err)
-    },
-  })
 
   if (error) return <>error</>
   return (
@@ -52,7 +37,14 @@ function ShowDiary() {
               </span>
               {showDropdown && (
                 <ul className="dropdown">
-                  <li className="edit">수정</li>
+                  <li
+                    className="edit"
+                    onClick={() => {
+                      navigate(`/diaryCreate/${id}`)
+                    }}
+                  >
+                    수정
+                  </li>
                   <li className="delete" onClick={() => mutate()}>
                     삭제
                   </li>
@@ -60,7 +52,6 @@ function ShowDiary() {
               )}
             </div>
           </S.TopBar>
-          {/* <span onClick={() => loginMutate()}>(로그인)</span> */}
           <DiaryDetail diary={diary} />
           <Comments diary={diary} />
         </>

@@ -6,9 +6,9 @@ import ProfilePage from '../pages/profilePage'
 import RegisterPage from '../pages/registerPage'
 import SettingPage from '../pages/settingPage'
 import DiaryPage from '../pages/diaryPage'
-// import DiaryDetailPage from '../pages/diaryDetailPage'
 import DiaryCreatePage from '../pages/diaryCreatePage'
 import Layout from '../components/common/layout'
+import ShowDiary from '../pages/showDiaryPage'
 // import CalendarPage from '../pages/calendarPage'
 import ProtectedRouter from './ProtectedRouter'
 
@@ -27,7 +27,8 @@ function Router() {
             <Route path="/setting" element={<SettingPage />} />
             <Route path="/diary" element={<DiaryPage />} />
             <Route path="/diaryCreate" element={<DiaryCreatePage />} />
-            {/* <Route path="/diary/:id" element={<DiaryDetailPage />} /> */}
+            <Route path="/diaryCreate/:id" element={<DiaryCreatePage />} />
+            <Route path="/diary/:id" element={<ShowDiary />} />
           </Route>
         </Route>
       </Routes>

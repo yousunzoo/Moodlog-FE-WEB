@@ -42,4 +42,10 @@ export const DiaryDetail = styled.div`
       line-height: 1.4;
     }
   }
+
+  .auth {
+    color: #aaa;
+    font-size: 14px;
+    text-align: right;
+  }
 `
