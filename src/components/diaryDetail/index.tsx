@@ -20,6 +20,7 @@ function DiaryDetail({ diary }: DiaryDetailProps) {
         {diary.img === '' ? null : <img src={diary.img} alt={diary.title} />}
         <p>{diary.body}</p>
       </div>
+      <div className="auth">작성자 : {diary.user.username}</div>
     </S.DiaryDetail>
   )
 }
