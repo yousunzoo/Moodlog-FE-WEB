@@ -27,7 +27,7 @@ export const login = async (account: LoginProp) => {
 // })
 
 export const logout = async () => {
-  const res = await axiosInstance().delete(`/auth/logout`)
+  const res = await axiosInstance().post(`/auth/logout`)
   console.log(res.data)
   return res.data
 }
