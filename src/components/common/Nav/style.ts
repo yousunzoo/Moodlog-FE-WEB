@@ -11,7 +11,17 @@ export const Wrapper = styled.div`
   align-items: center;
 `
 
-export const NavItem = styled.img`
+export const NavItem = styled.div`
+  &[data-action='home'] {
+    background-image: url(${({ theme }) => theme.home});
+  }
+  &[data-action='write'] {
+    background-image: url(${({ theme }) => theme.write});
+  }
+  &[data-action='followers'] {
+    background-image: url(${({ theme }) => theme.followers});
+  }
+  background-size: cover;
   width: 37px;
   height: 33px;
 `
