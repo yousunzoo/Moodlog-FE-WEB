@@ -5,7 +5,7 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import { ProfileTypes } from '../../types/setting'
 import { useEditProfile } from '../../hooks/useEditProfile'
 
-function ProfileModal({ handleClose }: any) {
+function ProfileModal({ handleClose }: { handleClose?: () => void }) {
   const { data } = useQuery('profile', () => getMyProfile(), {
     refetchOnWindowFocus: false,
   })
@@ -49,6 +49,7 @@ function ProfileModal({ handleClose }: any) {
 
     // @ts-ignore
     editProfile(data)
+    // @ts-ignore
     handleClose()
   }
   useEffect(() => {

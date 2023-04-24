@@ -9,6 +9,7 @@ import Alert from '../../components/common/alert'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useMutation } from 'react-query'
 import { getPost } from '../../apis/diary'
+import { useUpdateDiary } from '../../hooks/useUpdateDiary'
 
 function DiaryCreatePage() {
   const { id } = useParams()
@@ -25,7 +26,7 @@ function DiaryCreatePage() {
   const [isAlertOpen, setIsAlertOpen] = useState(false)
   const navigate = useNavigate()
   const postDiary = usePostDiary()
-
+  const updateDiary = useUpdateDiary()
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target
     setDiary({
@@ -71,6 +72,10 @@ function DiaryCreatePage() {
         if (!diary.title || !diary.body) {
           setMessage('제목과 내용을 입력해주세요')
           setIsAlertOpen(true)
+          return
+        }
+        if (id) {
+          updateDiary({ post: diary, postId: Number(id) })
           return
         }
         postDiary(diary as PostProp)

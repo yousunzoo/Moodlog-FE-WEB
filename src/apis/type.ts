@@ -1,3 +1,5 @@
+import { Diary } from '../types/createDiary'
+
 export interface LoginProp {
   email: string
   password: string
@@ -32,4 +34,9 @@ export interface PostProp {
   img: string
   feeling_code: 1 | 2 | 3 | 4 | 5 | 6
   open: boolean
+}
+
+export interface EditProp {
+  post: Diary
+  postId: number
 }

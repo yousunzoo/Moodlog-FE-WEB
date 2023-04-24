@@ -5,6 +5,7 @@ import * as S from './style'
 function FontModal({ handleClose, handleChangeFont }: FontModalProps) {
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     handleChangeFont(e)
+    // @ts-ignore
     handleClose()
   }
   return (
