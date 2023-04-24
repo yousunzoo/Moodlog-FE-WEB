@@ -8,7 +8,6 @@ import { usePosts } from '../../hooks/usePosts'
 
 function HomePage() {
   const { posts } = usePosts()
-  console.log({ posts })
   return (
     <>
       <TopbarWrapper>
