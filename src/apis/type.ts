@@ -17,7 +17,7 @@ export interface RegisterProp extends LoginProp {
 
 export interface ProfileProp {
   username: string
-  profile_image: string
+  profile_image?: File[]
   profile_message: string
 }
 

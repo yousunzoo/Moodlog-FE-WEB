@@ -4,11 +4,10 @@ import { AxiosError } from 'axios'
 import { editProfile } from '../apis/auth'
 
 interface FormData {
-  username: string
-  profile_image: string
+  img: string | File[]
   profile_message: string
+  username: string
 }
-
 export const useEditProfile = (): UseMutateFunction<void, unknown, FormData, unknown> => {
   const { mutate } = useMutation((formData: FormData) => editProfile(formData), {
     onSuccess: (data) => {
