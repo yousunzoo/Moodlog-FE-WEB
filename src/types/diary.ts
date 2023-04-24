@@ -6,12 +6,14 @@ export interface DiaryResponse {
   img: string
   open: boolean
   user: UserResponse
-  likes: {
-    id: number
-    createdAt: string
-    updatedAt: string
-  }[]
+  likes: LikesResponse[]
   comments: CommentsResponse[]
+  createdAt: string
+  updatedAt: string
+}
+
+export interface LikesResponse {
+  id: number
   createdAt: string
   updatedAt: string
 }
