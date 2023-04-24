@@ -20,7 +20,7 @@ export const DiaryDetail = styled.div`
     line-height: 1.4;
 
     .day {
-      color: ${({ theme }) => theme.main01};
+      color: #aaa;
     }
   }
 
@@ -41,5 +41,11 @@ export const DiaryDetail = styled.div`
       text-align: center;
       line-height: 1.4;
     }
+  }
+
+  .auth {
+    color: #aaa;
+    font-size: 14px;
+    text-align: right;
   }
 `

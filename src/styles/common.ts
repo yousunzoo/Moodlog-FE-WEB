@@ -9,6 +9,7 @@ export const TopbarWrapper = styled.div`
   position: relative;
   padding: 0 25px;
   font-size: 20px;
+  border-bottom: 2px solid ${({ theme }) => theme.border};
 `
 
 export const ModalWrapper = styled.div`
