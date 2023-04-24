@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, useEffect, useState } from 'react'
+import { ChangeEvent, MouseEvent, useEffect, useState } from 'react'
 import TopBar from '../../components/topBar'
 import Canvas from '../../components/canvas'
 import DiaryEditor from '../../components/diaryEditor'
@@ -89,21 +89,14 @@ function DiaryCreatePage() {
   }
 
   useEffect(() => {
-    if (id) mutate()
-  }, [id])
-
+    if (!id) return
+    mutate()
+    setStep('second')
+  }, [])
   useEffect(() => {
-    if (curDiary) {
-      setDiary({
-        title: curDiary.title,
-        body: curDiary.body,
-        img: curDiary.img,
-        feeling_code: curDiary.feeling_code,
-        open: curDiary.open,
-      })
-    }
+    if (!curDiary) return
+    setDiary({ ...curDiary })
   }, [curDiary])
-
   return (
     <>
       <TopBar step={step} changeStep={changeStep} />
