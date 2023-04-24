@@ -10,10 +10,8 @@ function calendarPage() {
     <>
       <TopbarWrapper>
         <S.TopBar>
-          <Link to={`/profile/${params.id}`}>
-            <img src="/public/assets/icons/close.png" />
-          </Link>
-          <div>캘린더</div>
+          <S.TopBarLink to={`/profile/${params.id}`}></S.TopBarLink>
+          <S.TopTitle>캘린더</S.TopTitle>
         </S.TopBar>
       </TopbarWrapper>
       <Calendars />
