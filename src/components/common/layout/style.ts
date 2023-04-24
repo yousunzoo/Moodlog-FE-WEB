@@ -1,11 +1,16 @@
 import styled from 'styled-components'
+import { IFont } from '../../../types/store'
 
-export const Wrapper = styled.section`
+interface ButtonProps {
+  font: IFont
+}
+export const Wrapper = styled.section<ButtonProps>`
   width: 425px;
   height: 100vh;
   background-color: ${({ theme }) => theme.background};
   position: relative;
   * {
-    font-family: 'Dovemayo_gothic';
+    font-family: ${({ font }) => font};
   }
+  transition: background-color 0.1s ease-in;
 `
