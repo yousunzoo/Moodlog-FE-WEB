@@ -1,11 +1,12 @@
 import styled from 'styled-components'
 
 export const DiaryDetail = styled.div`
-  padding: 60px 25px 0px;
+  padding: 80px 25px 0px;
 
   .mood {
     display: flex;
     justify-content: center;
+
     img {
       width: 60px;
       height: 60px;

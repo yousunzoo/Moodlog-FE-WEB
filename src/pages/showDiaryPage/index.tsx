@@ -24,7 +24,7 @@ function ShowDiary() {
       navigate('/')
     },
   })
-  console.log(user)
+  // console.log(user)
 
   if (isLoading) return <Loading />
   if (error) return <>error</>
