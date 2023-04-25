@@ -16,6 +16,7 @@ export const TabTitle = styled.label`
 export const TabInput = styled.input`
   border: none;
   outline: none;
+  flex: 1;
   background: transparent;
   color: ${({ theme }) => theme.textColor};
   &::placeholder {
@@ -40,10 +41,13 @@ export const MoodImg = styled.img`
 export const MoodSelect = styled.button`
   position: absolute;
   right: 0;
-  background-image: url(${({ theme }) => theme.downArrow});
   width: 20px;
   height: 20px;
-  background-size: cover;
+  color: ${({ theme }) => theme.textColor};
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 `
 export const Img = styled.img`
   display: block;
@@ -60,6 +64,7 @@ export const EditorContent = styled.textarea`
   outline: none;
   resize: none;
   background: transparent;
+  line-height: 1.6;
   color: ${({ theme }) => theme.textColor};
   &::placeholder {
     color: ${({ theme }) => theme.placeholder};

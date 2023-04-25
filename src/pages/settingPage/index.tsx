@@ -1,19 +1,14 @@
-import React from 'react'
 import { TopbarWrapper } from '../../styles/common'
-import { CloseBtn, Title } from '../../components/topBar/style'
-import { useNavigate } from 'react-router-dom'
+import { Title } from '../../components/topBar/style'
 import Nav from '../../components/common/Nav'
 import Settings from '../../components/settings'
+import CloseButton from '../../components/common/button/closeButton'
 
 function SettingPage() {
-  const navigate = useNavigate()
-  const handleClick = () => {
-    navigate(-1)
-  }
   return (
     <div>
       <TopbarWrapper>
-        <CloseBtn onClick={handleClick}>닫기</CloseBtn>
+        <CloseButton />
         <Title>설정</Title>
       </TopbarWrapper>
       <Settings />

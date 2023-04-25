@@ -30,11 +30,13 @@ export const Btn = styled.button`
 
 export const CloseBtn = styled(Btn)`
   font-size: 0px;
-  width: 24px;
-  background-image: url(${({ theme }) => theme.close});
-  background-size: contain;
+  width: 30px;
+  height: 30px;
   background-repeat: no-repeat;
+  color: ${({ theme }) => theme.textColor};
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 `
-export const PrevBtn = styled(CloseBtn)`
-  background-image: url(${({ theme }) => theme.back});
-`
+export const PrevBtn = styled(CloseBtn)``

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
@@ -19,10 +20,14 @@ export const FileButton = styled.button`
   color: ${({ theme }) => theme.buttonText};
 `
 
-export const CloseButton = styled.button`
+export const CloseButton = styled(Link)`
+  display: block;
   width: 30px;
   height: 30px;
   transform: translateY(50%);
-  background-image: url(${({ theme }) => theme.close});
-  background-size: cover;
+  color: ${({ theme }) => theme.textColor};
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 `
