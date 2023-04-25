@@ -7,14 +7,14 @@ import { useEffect, useState } from 'react'
 import { getUser } from '../../apis/auth'
 import useUserData from '../../hooks/useUserData'
 import { following as postFollow } from '../../apis/diary'
-import { FollowChild, FollowParent } from '../../types/follow'
+import { FollowChild, FollowParent, FollowingParent } from '../../types/follow'
 import { NewUser } from '../../types/user'
 import Loading from '../../components/common/loading'
 
 function Follow({ follower, following }: FollowChild) {
-  const updateMutation = useQuery(['follow'], () => postFollow(Number(follower.following.id)))
+  const updateMutation = useQuery('follow', () => postFollow(Number(follower.following.id)))
+  const [name, setName] = useState(['팔로우', '팔로잉'])
 
-  const [name, setName] = useState(['팔로잉', '팔로우'])
   return (
     <S.Follow>
       <S.FollowImg>
@@ -38,7 +38,8 @@ function Follow({ follower, following }: FollowChild) {
 
 function FollowPage() {
   const params = useParams()
-  const { own } = useUserData()
+  const { data: own } = useUserData()
+
   const [following, setFollowing] = useState<number[]>([])
   const [follower, setFollower] = useState<FollowParent[]>([])
 
@@ -46,20 +47,21 @@ function FollowPage() {
     ['user', { page: params.id }],
     () =>
       getUser(Number(params.id)).then((a) => {
-        setFollower([])
-        setFollowing([])
         return a
       }),
     { staleTime: 1000 },
   )
 
   useEffect(() => {
+    // 내가 방문한 페이지의 유저를 팔로잉한 사람들의 데이터
     if (typeof data !== 'undefined') {
       setFollower((follower) => data.follower)
     }
-    if (typeof own !== 'undefined' && own?.following.length > 0) {
-      for (let followingItem of own.following) {
-        setFollowing((follower) => [...follower, followingItem.follower.id])
+    //
+    if (typeof own !== 'undefined') {
+      setFollowing([])
+      for (const followingData of own.following) {
+        setFollowing((following) => [...following, followingData.follower.id])
       }
     }
   }, [data])
@@ -75,17 +77,13 @@ function FollowPage() {
         </S.TopBar>
       </TopbarWrapper>
       <S.Follows>
-        {follower.length > 0 ? (
-          follower.map((arr, i) => {
-            if (arr.following.id && typeof own !== 'undefined' && arr.following.id === own.id) {
-              return <></>
-            } else {
-              return <Follow key={i} follower={arr} following={following} />
-            }
-          })
-        ) : (
-          <></>
-        )}
+        {follower.map((arr, i) => {
+          if (arr.following.id && typeof own !== 'undefined' && arr.following.id === own.id) {
+            return <></>
+          } else {
+            return <Follow key={i} follower={arr} following={following} />
+          }
+        })}
       </S.Follows>
     </>
   )

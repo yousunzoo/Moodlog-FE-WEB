@@ -63,6 +63,7 @@ export const FollowUserIdLink = styled(Link)`
   width: 180px;
   height: 40px;
   margin: auto 25px;
+  color: ${({ theme }) => theme.modalText};
   h1 {
     font-style: normal;
     font-weight: 400;
