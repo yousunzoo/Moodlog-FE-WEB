@@ -7,6 +7,7 @@ const getAxiosInstance = (option?: { multi?: boolean }) => {
     headers: {
       'Content-Type': 'application/json',
     },
+    withCredentials: true,
   }
 
   const instance = axios.create(config)
