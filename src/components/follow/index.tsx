@@ -24,6 +24,7 @@ function Follow({ follower, following }: FollowProp) {
         <h2>{follower.following.username}</h2>
       </S.FollowUserIdLink>
       <S.FollowBtn
+        opacity={name[0] === '팔로우' ? 1 : 0.8}
         onClick={() => {
           updateMutation
           name[0] === '팔로잉' ? setName(['팔로우', '팔로잉']) : setName(['팔로잉', '팔로우'])
