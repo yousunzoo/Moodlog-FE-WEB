@@ -1,6 +1,4 @@
 import * as S from './style'
-import { RiUser3Line } from 'react-icons/ri'
-import { SlNote } from 'react-icons/sl'
 import { HiOutlineHome, HiOutlinePencilAlt, HiOutlineUser } from 'react-icons/hi'
 function Nav() {
   return (
@@ -19,3 +17,4 @@ function Nav() {
 }
 
 export default Nav
+
