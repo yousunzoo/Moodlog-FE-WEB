@@ -46,9 +46,9 @@ export const TopBar = styled(TopbarWrapper)`
       border-radius: 5px;
 
       li {
-        padding: 8px 10px;
+        padding: 10px;
         color: #333;
-
+        font-size: 16px;
         &::selection {
           background-color: transparent;
         }

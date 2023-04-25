@@ -29,12 +29,10 @@ export const lightTheme: DefaultTheme = {
   followers: '/assets/icons/light-followers.png',
   hidePw: '/assets/icons/light-hide-password.png',
   showPw: '/assets/icons/light-show-password.png',
-  home: '/assets/icons/light-home-nav.png',
   like: '/assets/icons/light-like.png',
   logo: '/assets/icons/light-logo.png',
   showDiary: '/assets/icons/light-show-diary.png',
   bubble: '/assets/icons/light-speech-bubble.png',
-  user: '/assets/icons/light-user.png',
   write: '/assets/icons/light-write-nav.png',
   icons: '#333333',
 }
