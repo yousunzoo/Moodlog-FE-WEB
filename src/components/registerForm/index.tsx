@@ -35,11 +35,11 @@ function RegisterForm() {
     registerUser(formData)
   }
 
-  const handleChangeFile = (e) => {
+  const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { files },
     } = e
-    const file = files[0]
+    const file = (files as FileList)[0]
     setImgName(file.name)
     const reader = new FileReader()
     reader.readAsDataURL(file)
@@ -65,7 +65,7 @@ function RegisterForm() {
             })}
             placeholder="사용하실 이메일을 입력해주세요"
           />
-          <S.ErrorMessage>{errors.email?.message}</S.ErrorMessage>
+          <S.ErrorMessage>{errors.email?.message as string}</S.ErrorMessage>
         </S.InputArea>
         <S.InputArea>
           <label htmlFor="username" />
@@ -77,7 +77,7 @@ function RegisterForm() {
             })}
             placeholder="사용하실 이름을 입력해주세요"
           />
-          <S.ErrorMessage>{errors.username?.message}</S.ErrorMessage>
+          <S.ErrorMessage>{errors.username?.message as string}</S.ErrorMessage>
         </S.InputArea>
         <S.InputArea>
           <label htmlFor="password" />
@@ -93,7 +93,7 @@ function RegisterForm() {
             })}
             placeholder="사용하실 비밀번호를을 입력해주세요"
           />
-          <S.ErrorMessage>{errors.password?.message}</S.ErrorMessage>
+          <S.ErrorMessage>{errors.password?.message as string}</S.ErrorMessage>
         </S.InputArea>
         <S.InputArea>
           <label htmlFor="passwordConfirm" />
@@ -112,7 +112,7 @@ function RegisterForm() {
               },
             })}
           />
-          <S.ErrorMessage>{errors.passwordConfirm?.message}</S.ErrorMessage>
+          <S.ErrorMessage>{errors.passwordConfirm?.message as string}</S.ErrorMessage>
         </S.InputArea>
         <S.ProfileWrapper>
           <Profile img={imgFile} />
@@ -135,9 +135,7 @@ function RegisterForm() {
             </S.FileName>
           </S.ProfileTextWrapper>
         </S.ProfileWrapper>
-        <S.ResigterButton onClick={handleChangeFile} type="submit">
-          회원가입
-        </S.ResigterButton>
+        <S.ResigterButton type="submit">회원가입</S.ResigterButton>
       </S.Form>
       <Alert isOpen={isOpen} onClose={() => navigate('/')} message="로그인 성공" />
     </>
