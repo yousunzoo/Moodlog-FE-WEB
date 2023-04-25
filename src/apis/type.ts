@@ -32,7 +32,7 @@ export interface PostProp {
   title: string
   body: string
   img: string
-  feeling_code: 1 | 2 | 3 | 4 | 5 | 6
+  feeling_code: 0 | 1 | 2 | 3 | 4 | 5
   open: boolean
 }
 

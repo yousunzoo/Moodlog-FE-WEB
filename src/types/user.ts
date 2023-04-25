@@ -10,7 +10,7 @@ export interface UserProfile {
   likes: UserLikes[]
   following: {
     id: number
-    follwer: UserFollow
+    follower: UserFollow
   }[]
   follower: {
     id: number

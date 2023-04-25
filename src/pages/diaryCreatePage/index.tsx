@@ -37,6 +37,7 @@ function DiaryCreatePage() {
   }
   const handleChangeMood = (e: MouseEvent<HTMLLIElement>) => {
     const { mood } = e.currentTarget.dataset
+
     setDiary({
       ...diary,
       feeling_code: Number(mood),
