@@ -10,15 +10,15 @@ function Nav() {
   return (
     <S.Wrapper>
       <Link to="/">
-        <S.NavItem src="../../../public/assets/icons/home-nav.png" />
+        <S.NavItem data-action="home" />
       </Link>
 
       <Link to="/diaryCreate">
-        <S.NavItem src="../../../public/assets/icons/write-nav.png" />
+        <S.NavItem data-action="write" />
       </Link>
 
       <Link to={typeof own === 'undefined' ? `/` : `/profile/${Number(own.id)}`}>
-        <S.NavItem src="../../../public/assets/icons/user.png" />
+        <S.NavItem data-action="followers" />
       </Link>
     </S.Wrapper>
   )

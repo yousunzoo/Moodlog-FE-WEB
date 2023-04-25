@@ -11,7 +11,6 @@ export const Wrapper = styled.section<ButtonProps>`
   position: relative;
   * {
     font-family: ${({ font }) => font};
-    color: ${({ theme }) => theme.textColor};
   }
   transition: background-color 0.1s ease-in;
 `
