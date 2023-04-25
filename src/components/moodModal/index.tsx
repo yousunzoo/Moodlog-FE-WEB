@@ -6,6 +6,7 @@ function MoodModal({ handleClose, onClick }: MoodModalProps) {
   const closeModal = (e: React.MouseEvent<HTMLLIElement>) => {
     e.stopPropagation()
     onClick(e)
+    // @ts-ignore
     handleClose()
   }
   return (
