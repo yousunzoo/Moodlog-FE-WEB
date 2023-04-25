@@ -14,6 +14,7 @@ import FollowPage from '../pages/followPage'
 import ShowDiary from '../pages/showDiaryPage'
 // import CalendarPage from '../pages/calendarPage'
 import UserdataRouter from './UserdataRouter'
+import SearchPage from '../pages/searchPage'
 
 function Router() {
   return (
@@ -25,6 +26,7 @@ function Router() {
           <Route element={<UserdataRouter />}>
             <Route element={<ProtectedRouter />}>
               <Route path="/" element={<HomePage />} />
+              <Route path="/search" element={<SearchPage />} />
               <Route path="/profile/:id" element={<ProfilePage />} />
               <Route path="/calendar/:id" element={<CalendarPage />} />
               <Route path="/follow/:id" element={<FollowPage />} />
