@@ -1,5 +1,4 @@
 import { Link, useParams } from 'react-router-dom'
-import Calendars from '../../components/calendar'
 import { TopbarWrapper } from '../../styles/common'
 import * as S from './style'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
