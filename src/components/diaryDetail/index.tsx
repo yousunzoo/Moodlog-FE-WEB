@@ -13,7 +13,7 @@ function DiaryDetail({ diary }: DiaryDetailProps) {
   return (
     <S.DiaryDetail>
       <div className="mood">
-        <img src={moodImgUrl[diary.feeling_code]} alt="" />
+        <img src={moodImgUrl[diary.feeling_code].src} alt={moodImgUrl[diary.feeling_code].alt} />
       </div>
       <div className="date">
         <span>{useDateForm(diary.createdAt).date}</span>

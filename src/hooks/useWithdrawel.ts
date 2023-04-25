@@ -14,7 +14,7 @@ export const useWithdrawel = () => {
     navigate('/login')
   }
 
-  const { mutate, isError } = useMutation(() => withdrawal(), {
+  const { mutate, isError } = useMutation(withdrawal, {
     onSuccess: (data) => {
       signinSuccess(data)
     },
