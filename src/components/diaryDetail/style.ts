@@ -19,9 +19,9 @@ export const DiaryDetail = styled.div`
     align-items: center;
     margin-top: 10px;
     line-height: 1.4;
-
+    color: ${({ theme }) => theme.textColor};
     .day {
-      color: #aaa;
+      color: ${({ theme }) => theme.main01};
     }
   }
 

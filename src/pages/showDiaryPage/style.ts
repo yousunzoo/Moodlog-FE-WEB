@@ -30,6 +30,7 @@ export const TopBar = styled(TopbarWrapper)`
     font-size: 18px;
     font-weight: 700;
     cursor: default;
+    color: ${({ theme }) => theme.textColor};
   }
 
   .right {
