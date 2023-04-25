@@ -6,7 +6,8 @@ import Nav from '../../components/common/Nav'
 import { Posts } from '../../components/common/post/posts'
 import { usePosts } from '../../hooks/usePosts'
 import useUserData from '../../hooks/useUserData'
-
+import { HiOutlineUsers } from 'react-icons/hi'
+import { BsBookmarkHeart } from 'react-icons/md'
 type FilterOption = 'ALL' | 'FOLLOWER' | 'LIKES'
 
 function HomePage() {
@@ -51,8 +52,12 @@ function HomePage() {
       <TopbarWrapper>
         <Logo size={120} isCenter={false} />
         <S.IconWrapper>
-          <S.FollwerIcon onClick={() => changeFilterOption('FOLLOWER')} />
-          <S.ShowDiaryIcon onClick={() => changeFilterOption('LIKES')} />
+          <S.FollwerIcon onClick={() => changeFilterOption('FOLLOWER')}>
+            <HiOutlineUsers />
+          </S.FollwerIcon>
+          <S.ShowDiaryIcon onClick={() => changeFilterOption('LIKES')}>
+            <BsBookmarkHeart />
+          </S.ShowDiaryIcon>
         </S.IconWrapper>
       </TopbarWrapper>
       <S.ContentWrapper>
