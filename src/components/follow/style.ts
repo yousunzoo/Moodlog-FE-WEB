@@ -45,11 +45,12 @@ export const FollowUserIdLink = styled(Link)`
   }
 `
 
-export const FollowBtn = styled.button`
+export const FollowBtn = styled.button<{ opacity: number }>`
   width: 100px;
   height: 30px;
-  background: ${({ theme }) => theme.main02};
   color: ${({ theme }) => theme.background};
+  background-color: ${({ theme }) => theme.main02};
+  opacity: ${({ opacity }) => opacity};
   border-radius: 10px;
   margin: auto;
 `
