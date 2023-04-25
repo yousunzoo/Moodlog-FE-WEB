@@ -46,7 +46,6 @@ function Calendars() {
         formatDay={(locale, date) => moment(date).format('DD')}
         value={value}
         className="mx-auto w-full text-sm border-b"
-        // onClickDay={(postId, console.log(postId))}
         tileContent={({ date, view }) => {
           if (mark.find((x) => x === moment(date).format('YYYY-MM-DD'))) {
             let index = mark.findIndex((x) => x === moment(date).format('YYYY-MM-DD'))

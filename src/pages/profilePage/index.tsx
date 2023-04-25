@@ -32,7 +32,6 @@ function UserDetails({ name, number, link }: UserStyle) {
 function ProfilePage() {
   const params = useParams()
   const { data: own, refetch } = useUserData()
-  console.log(own)
   const [post, setPost] = useState<NewPost[]>([])
   const [like, setLike] = useState<number>(0)
   const [follower, setFollower] = useState<FollowParent[]>([])
