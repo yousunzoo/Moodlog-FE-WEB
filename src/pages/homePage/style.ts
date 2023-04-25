@@ -2,18 +2,24 @@ import styled from 'styled-components'
 
 export const ShowDiaryIcon = styled.div`
   cursor: pointer;
-  background-image: url(${({ theme }) => theme.showDiary});
-  background-size: cover;
-  width: 19px;
-  height: 24px;
-`
-
-export const FollwerIcon = styled.div`
-  cursor: pointer;
-  background-image: url(${({ theme }) => theme.followers});
-  background-size: cover;
   width: 30px;
   height: 30px;
+  color: ${({ theme }) => theme.icons};
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+`
+
+export const FollwerIcon = styled.button`
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  color: ${({ theme }) => theme.icons};
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 `
 
 export const IconWrapper = styled.div`
