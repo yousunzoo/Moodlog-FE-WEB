@@ -5,7 +5,7 @@ import useUserData from '../../../hooks/useUserData'
 import { useMutation } from 'react-query'
 
 function Nav() {
-  const { data: user, own } = useUserData()
+  const { data: own } = useUserData()
 
   return (
     <S.Wrapper>

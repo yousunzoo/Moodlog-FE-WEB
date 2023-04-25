@@ -7,6 +7,7 @@ import { getUser } from '../../apis/auth'
 import { Link, useParams } from 'react-router-dom'
 import { DiaryResponse } from '../../types/diary'
 import { NewUser } from '../../types/user'
+import Loading from '../common/loading'
 
 function Calendars() {
   const [value, onChange] = useState<Date>(new Date())
@@ -35,6 +36,8 @@ function Calendars() {
       }
     }
   }, [data])
+
+  if (!data) return <Loading />
 
   return (
     <div>

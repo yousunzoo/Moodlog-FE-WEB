@@ -8,14 +8,5 @@ export default function useUserData() {
     enabled: false,
   })
 
-  const { data: own } = useQuery(
-    'own',
-    () =>
-      getMyProfile().then((a) => {
-        return a
-      }),
-    { staleTime: 1000, cacheTime: 100 * 40 },
-  )
-
-  return { data, refetch, own }
+  return { data, refetch }
 }

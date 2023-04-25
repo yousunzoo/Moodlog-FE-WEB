@@ -9,6 +9,7 @@ import useUserData from '../../hooks/useUserData'
 import { following as postFollow } from '../../apis/diary'
 import { FollowChild, FollowParent } from '../../types/follow'
 import { NewUser } from '../../types/user'
+import Loading from '../../components/common/loading'
 
 function Follow({ follower, following }: FollowChild) {
   const updateMutation = useQuery(['follow'], () => postFollow(Number(follower.following.id)))
@@ -62,6 +63,8 @@ function FollowPage() {
       }
     }
   }, [data])
+
+  if (!data) return <Loading />
 
   return (
     <>
