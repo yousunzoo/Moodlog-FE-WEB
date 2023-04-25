@@ -1,4 +1,17 @@
-import { DiaryResponse, UserResponse } from './diary'
+import { DiaryResponse, LikesResponse, NewPost, UserResponse } from './diary'
+import { FollowParent, FollowingParent } from './follow'
+
+export interface NewUser {
+  id: number
+  email: string
+  username: string
+  profile_image: string
+  profile_message: string
+  post: NewPost[]
+  following: FollowingParent[]
+  follower: FollowParent[]
+  likes: LikesResponse[]
+}
 
 export interface UserProfile {
   id: number
@@ -43,4 +56,5 @@ export interface UserFollow {
   username: string
   profile_image: string
   profile_message: string
+  email: string
 }

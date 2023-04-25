@@ -48,6 +48,7 @@ export const DiaryPostDate = styled.div`
   font-size: 28px;
   align-items: center;
   text-align: center;
+  color: ${({ theme }) => theme.palette01};
 `
 
 export const DiaryPostDateContain = styled.div`

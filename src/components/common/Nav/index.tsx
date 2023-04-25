@@ -1,8 +1,12 @@
 import React from 'react'
 import * as S from './style'
 import { Link } from 'react-router-dom'
+import useUserData from '../../../hooks/useUserData'
+import { useMutation } from 'react-query'
 
 function Nav() {
+  const { data: own } = useUserData()
+
   return (
     <S.Wrapper>
       <Link to="/">
@@ -13,7 +17,7 @@ function Nav() {
         <S.NavItem data-action="write" />
       </Link>
 
-      <Link to="/profile">
+      <Link to={typeof own === 'undefined' ? `/` : `/profile/${Number(own.id)}`}>
         <S.NavItem data-action="followers" />
       </Link>
     </S.Wrapper>
