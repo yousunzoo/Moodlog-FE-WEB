@@ -17,7 +17,7 @@ function ShowDiary() {
   const { data: user } = useUserData()
   const [showDropdown, setShowDropdown] = useState(false)
 
-  const { isLoading, error, data: diary } = useQuery(['post', id], () => getPost(Number(id)), {})
+  const { error, data: diary } = useQuery(['post', id], () => getPost(Number(id)), {})
 
   const { mutate } = useMutation(() => deletsPost(Number(id)), {
     onSuccess: () => {
@@ -26,7 +26,6 @@ function ShowDiary() {
   })
   // console.log(user)
 
-  if (isLoading) return <Loading />
   if (error) return <>error</>
   return (
     <S.DiaryWrapper>

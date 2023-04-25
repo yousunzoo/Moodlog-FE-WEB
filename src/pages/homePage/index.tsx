@@ -17,15 +17,25 @@ function HomePage() {
   const filteredPosts = () => {
     if (!user) return
 
+    const sortedPosts = posts.sort((a, b) => {
+      if (a.id > b.id) {
+        return -1
+      } else {
+        return 1
+      }
+    })
+
     const following = user?.following
     const likes = user?.likes
 
     if (postFilter === 'FOLLOWER') {
-      return posts.filter((post) => following?.some((follow) => Number(follow.follower.id) === Number(post.user.id)))
+      return sortedPosts.filter((post) =>
+        following?.some((follow) => Number(follow.follower.id) === Number(post.user.id)),
+      )
     } else if (postFilter === 'LIKES') {
-      return posts.filter((post) => likes?.some((like) => Number(like.post.id) === Number(post.id)))
+      return sortedPosts.filter((post) => likes?.some((like) => Number(like.post.id) === Number(post.id)))
     } else {
-      return posts
+      return sortedPosts
     }
   }
 
