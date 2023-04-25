@@ -9,8 +9,9 @@ export const useStore = create<IUseStore>(
       theme: 'light',
       toggleTheme: () => set({ theme: get().theme === 'light' ? 'dark' : 'light' }),
 
-      font: 'pretendard',
+      font: 'Pretendard',
       setFont: (font: IFont) => set({ font }),
+      resetSetting: () => set({ theme: 'light', font: 'Pretendard' }),
     }),
     {
       name: 'setting',

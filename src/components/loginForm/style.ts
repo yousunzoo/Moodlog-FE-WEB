@@ -52,10 +52,7 @@ export const SignupButton = styled.button`
 export const PasswordButton = styled.button<{ isShown: boolean }>`
   width: 30px;
   height: 30px;
-  background-image: ${({ isShown }) =>
-    isShown
-      ? `url('../../../public/assets/icons/show-password.png')`
-      : `url('../../../public/assets/icons/hide-password.png')`};
+  background-image: url(${({ isShown, theme }) => (isShown ? theme.showPw : theme.hidePw)});
   background-size: cover;
   background-color: transparent;
   position: absolute;

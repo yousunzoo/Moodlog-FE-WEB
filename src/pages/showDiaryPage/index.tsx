@@ -1,6 +1,6 @@
 import * as S from './style'
 import { useMutation, useQuery } from 'react-query'
-import { useNavigate, useParams, useOutletContext } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { deletsPost, getPost } from '../../apis/diary'
 import DiaryDetail from '../../components/diaryDetail'
 import Loading from '../../components/common/loading'
@@ -24,7 +24,7 @@ function ShowDiary() {
       navigate('/')
     },
   })
-  console.log(user)
+  // console.log(user)
 
   if (isLoading) return <Loading />
   if (error) return <>error</>
@@ -33,7 +33,7 @@ function ShowDiary() {
       {diary ? (
         <>
           <S.TopBar>
-            <span className="left" onClick={() => navigate(-1)}>
+            <span className="left" onClick={() => navigate('/')}>
               <PrevButton />
             </span>
             <h2>{diary.title}</h2>

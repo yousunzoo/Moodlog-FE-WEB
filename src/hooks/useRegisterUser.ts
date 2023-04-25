@@ -1,4 +1,4 @@
-import { UseMutateFunction, useMutation, useQueryClient } from 'react-query'
+import { UseMutateFunction, useMutation } from 'react-query'
 import { AxiosError } from 'axios'
 
 import { register } from '../apis/auth'
