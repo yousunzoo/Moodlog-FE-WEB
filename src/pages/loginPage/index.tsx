@@ -6,7 +6,7 @@ import Logo from '../../components/common/logo'
 function LoginPage() {
   return (
     <S.Wrapper>
-      <Logo size={250} />
+      <Logo size={250} isCenter={true} />
       <LoginForm />
     </S.Wrapper>
   )

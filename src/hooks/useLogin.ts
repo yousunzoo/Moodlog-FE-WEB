@@ -8,17 +8,18 @@ import { login } from '../apis/auth'
 import { LoginProp } from '../apis/type'
 import { setToken } from '../utils/userTokenCookie'
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 
 export const useLoginUser = () => {
+  const [isOpen, setIsOpen] = useState(false)
   const queryClient = useQueryClient()
-  const navigate = useNavigate()
 
   const signinSuccess = (data: any) => {
     setToken(data.accessToken, {
       path: '/',
       maxAge: data.content.exp - data.content.iat,
     })
-    navigate('/')
+    setIsOpen(true)
   }
 
   const { mutate, isError } = useMutation((user: LoginProp) => login(user), {
@@ -30,5 +31,5 @@ export const useLoginUser = () => {
     },
   })
 
-  return { mutate, isError, signinSuccess }
+  return { mutate, isError, signinSuccess, isOpen }
 }

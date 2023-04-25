@@ -1,6 +1,6 @@
 import { UserProfile } from '../types/user'
 import { axiosInstance } from './axios'
-import { LoginProp, ProfileProp, RegisterProp } from './type'
+import { LoginProp, ProfileProp, RegisterProp, WithdrawelProp } from './type'
 
 export const register = async (account: RegisterProp) => {
   const res = await axiosInstance({ multi: true }).post(`/auth/register`, account)
@@ -28,18 +28,9 @@ export const login = async (account: LoginProp) => {
 
 export const logout = async () => {
   const res = await axiosInstance().post(`/auth/logout`)
+  console.log(res.data)
   return res.data
 }
-
-// 로그아웃 시 cookie에 token을 삭제해야함. 아래와 같이 작성 ! (확인 후 이 주석은 지워주세요요)
-// const { mutate: loginMutate } = useMutation(() => login({ email: 'test@test.com', password: 'test1234' }), {
-//   onSuccess: (data) => {
-//     removeToken()
-//   },
-//   onError: (err: AxiosError) => {
-//     console.log(err);
-//   },
-// })
 
 export const withdrawal = async () => {
   const res = await axiosInstance().delete(`/auth/withdrawal`)

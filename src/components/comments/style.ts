@@ -34,7 +34,7 @@ export const Comments = styled.div`
       height: auto;
       border: 1px solid ${({ theme }) => theme.border};
       border-radius: 5px;
-
+      color: #333;
       &::-webkit-scrollbar {
         width: 4px;
       }

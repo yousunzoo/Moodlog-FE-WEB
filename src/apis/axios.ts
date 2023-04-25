@@ -3,9 +3,10 @@ import { getToken } from '../utils/userTokenCookie'
 
 const getAxiosInstance = (option?: { multi?: boolean }) => {
   const config: AxiosRequestConfig = {
-    baseURL: 'http://localhost:3000',
+    baseURL: '/api',
     headers: {
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
     },
     withCredentials: true,
   }

@@ -27,9 +27,10 @@ function Canvas({ img, saveImage }: CanvasProps) {
     setCanvasState((prevState) => ({ ...prevState, canvas }))
     if (img) {
       const image = new Image()
-      image.src = img
+      const src = img.includes('https') ? img + '?timestamp=' + new Date().getTime() : img
+      image.crossOrigin = 'anonymous'
+      image.src = src
       image.onload = () => {
-        console.log('dd')
         const context = canvas.getContext('2d') as CanvasRenderingContext2D
         context.drawImage(image, 0, 0, 400, 400)
       }
