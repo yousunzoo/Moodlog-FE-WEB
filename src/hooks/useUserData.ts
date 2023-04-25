@@ -1,5 +1,6 @@
 import { useQuery } from 'react-query'
 import { getMyProfile } from '../apis/auth'
+import { useEffect } from 'react'
 
 export default function useUserData() {
   const { data, refetch } = useQuery(['user'], () => getMyProfile(), {

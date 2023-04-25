@@ -8,9 +8,11 @@ import SettingPage from '../pages/settingPage'
 import DiaryPage from '../pages/diaryPage'
 import DiaryCreatePage from '../pages/diaryCreatePage'
 import Layout from '../components/common/layout'
+import CalendarPage from '../pages/calendarPage'
+import ProtectedRouter from './ProtectedRouter'
+import FollowPage from '../pages/followPage'
 import ShowDiary from '../pages/showDiaryPage'
 // import CalendarPage from '../pages/calendarPage'
-import ProtectedRouter from './ProtectedRouter'
 import UserdataRouter from './UserdataRouter'
 
 function Router() {
@@ -20,12 +22,12 @@ function Router() {
         <Route path="/" element={<Layout />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/profile/:id" element={<ProfilePage />} />
-          {/* <Route path="/calendar/:id" element={<CalendarPage />} /> */}
           <Route element={<UserdataRouter />}>
             <Route element={<ProtectedRouter />}>
               <Route path="/" element={<HomePage />} />
-              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/profile/:id" element={<ProfilePage />} />
+              <Route path="/calendar/:id" element={<CalendarPage />} />
+              <Route path="/follow/:id" element={<FollowPage />} />
               <Route path="/setting" element={<SettingPage />} />
               <Route path="/diary" element={<DiaryPage />} />
               <Route path="/diaryCreate" element={<DiaryCreatePage />} />
