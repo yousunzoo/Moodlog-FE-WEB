@@ -24,11 +24,11 @@ function DiaryEditor({ diary, onChange, handleChangeMood, handleChangeOpen }: Di
         <S.EditorTab>
           <S.TabTitle htmlFor="mood">오늘의 기분</S.TabTitle>
           <S.TabSelect onClick={handleOpenModal}>
-            <S.MoodImg src={moodImgUrl[diary.feeling_code]} />
+            <S.MoodImg src={moodImgUrl[diary.feeling_code].src} alt={moodImgUrl[diary.feeling_code].alt} />
             <S.MoodSelect />
           </S.TabSelect>
         </S.EditorTab>
-        <S.Img src={diary.img as string} alt="그림" />
+        <S.Img src={diary.img} alt="그림" />
         <S.EditorContent id="body" placeholder="내용을 입력해주세요" value={diary.body} onChange={onChange} />
         <S.Settings onClick={handleChangeOpen}>
           <S.SettingTitle>공개 여부</S.SettingTitle>

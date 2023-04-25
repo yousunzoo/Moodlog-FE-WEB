@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const Comments = styled.div`
   padding: 20px;
 
+  color: ${({ theme }) => theme.textColor};
   .interact {
     display: flex;
     align-items: center;
@@ -27,7 +28,6 @@ export const Comments = styled.div`
       border: none;
       outline: none;
       resize: none;
-
       display: block;
       flex-grow: 1;
       padding: 8px 10px;

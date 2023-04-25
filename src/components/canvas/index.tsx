@@ -22,8 +22,11 @@ function Canvas({ img, saveImage }: CanvasProps) {
     if (!canvasRef.current) return
     const canvas = canvasRef.current
     setCtx(() => canvas.getContext('2d') as CanvasRenderingContext2D)
+    if (!ctx) return
     canvas.width = 400
     canvas.height = 400
+    ctx.fillStyle = '#FFFFFF'
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
     setCanvasState((prevState) => ({ ...prevState, canvas }))
     if (img) {
       const image = new Image()
@@ -36,7 +39,7 @@ function Canvas({ img, saveImage }: CanvasProps) {
       }
       return
     }
-  }, [])
+  }, [ctx])
 
   const handleActions = (e: MouseEvent<HTMLDivElement>) => {
     if (!(e.target instanceof HTMLButtonElement)) return

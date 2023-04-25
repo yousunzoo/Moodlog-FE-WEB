@@ -1,5 +1,5 @@
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
-
 export const Wrapper = styled.div`
   position: fixed;
   bottom: 0px;
@@ -11,17 +11,16 @@ export const Wrapper = styled.div`
   align-items: center;
 `
 
-export const NavItem = styled.div`
-  &[data-action='home'] {
-    background-image: url(${({ theme }) => theme.home});
-  }
-  &[data-action='write'] {
-    background-image: url(${({ theme }) => theme.write});
-  }
-  &[data-action='followers'] {
-    background-image: url(${({ theme }) => theme.followers});
-  }
+export const NavItem = styled(NavLink)`
   background-size: cover;
-  width: 37px;
-  height: 33px;
+  width: 36px;
+  height: 36px;
+  color: ${({ theme }) => theme.icons};
+  &.active {
+    color: ${({ theme }) => theme.main01};
+  }
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 `

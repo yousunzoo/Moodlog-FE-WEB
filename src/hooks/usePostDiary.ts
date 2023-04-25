@@ -9,7 +9,7 @@ export const usePostDiary = (): UseMutateFunction<void, unknown, PostProp, unkno
   const navigate = useNavigate()
   const { refetch } = useUserData()
 
-  const { mutate } = useMutation((post: PostProp) => createPost(post), {
+  const { mutate } = useMutation(createPost, {
     onSuccess: (data) => {
       refetch()
       navigate(`/diary/${data.id}`)
