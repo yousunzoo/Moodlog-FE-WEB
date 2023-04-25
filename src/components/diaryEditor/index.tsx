@@ -28,7 +28,7 @@ function DiaryEditor({ diary, onChange, handleChangeMood, handleChangeOpen }: Di
             <S.MoodSelect />
           </S.TabSelect>
         </S.EditorTab>
-        <S.Img src={diary.img as string} alt="그림" />
+        <S.Img src={diary.img} alt="그림" />
         <S.EditorContent id="body" placeholder="내용을 입력해주세요" value={diary.body} onChange={onChange} />
         <S.Settings onClick={handleChangeOpen}>
           <S.SettingTitle>공개 여부</S.SettingTitle>

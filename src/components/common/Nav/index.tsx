@@ -1,21 +1,19 @@
-import React from 'react'
 import * as S from './style'
-import { Link } from 'react-router-dom'
-
+import { RiUser3Line } from 'react-icons/ri'
+import { SlNote } from 'react-icons/sl'
+import { HiOutlineHome, HiOutlinePencilAlt, HiOutlineUser } from 'react-icons/hi'
 function Nav() {
   return (
     <S.Wrapper>
-      <Link to="/">
-        <S.NavItem data-action="home" />
-      </Link>
-
-      <Link to="/diaryCreate">
-        <S.NavItem data-action="write" />
-      </Link>
-
-      <Link to="/profile">
-        <S.NavItem data-action="followers" />
-      </Link>
+      <S.NavItem to="/" data-action="home">
+        <HiOutlineHome />
+      </S.NavItem>
+      <S.NavItem to="/diaryCreate" data-action="write">
+        <HiOutlinePencilAlt />
+      </S.NavItem>
+      <S.NavItem to="/user" data-action="followers">
+        <HiOutlineUser />
+      </S.NavItem>
     </S.Wrapper>
   )
 }

@@ -36,6 +36,7 @@ export const lightTheme: DefaultTheme = {
   bubble: '/assets/icons/light-speech-bubble.png',
   user: '/assets/icons/light-user.png',
   write: '/assets/icons/light-write-nav.png',
+  icons: '#333333',
 }
 
 export const darkTheme: DefaultTheme = {
@@ -74,4 +75,5 @@ export const darkTheme: DefaultTheme = {
   bubble: '/assets/icons/dark-speech-bubble.png',
   user: '/assets/icons/dark-user.png',
   write: '/assets/icons/dark-write-nav.png',
+  icons: '#FFFFFF',
 }
