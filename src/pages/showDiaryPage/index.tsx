@@ -9,6 +9,7 @@ import DotsButton from '../../components/common/button/dotsButton'
 import Comments from '../../components/comments'
 import { useState } from 'react'
 import useUserData from '../../hooks/useUserData'
+import { queryClient } from '../../utils/queryClient'
 
 function ShowDiary() {
   const navigate = useNavigate()
@@ -17,10 +18,11 @@ function ShowDiary() {
   const { data: user } = useUserData()
   const [showDropdown, setShowDropdown] = useState(false)
 
-  const { error, data: diary } = useQuery(['post', id], () => getPost(Number(id)), {})
+  const { error, data: diary } = useQuery(['post', id], () => getPost(Number(id)))
 
   const { mutate } = useMutation(() => deletsPost(Number(id)), {
     onSuccess: () => {
+      queryClient.setQueryData(['post', id], mutate)
       navigate('/')
     },
   })

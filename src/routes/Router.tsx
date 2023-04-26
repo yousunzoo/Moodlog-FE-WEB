@@ -35,8 +35,8 @@ function Router() {
 
               <Route element={<DiaryCreateProtected />}>
                 <Route path="/diaryCreate" element={<DiaryCreatePage />} />
-                <Route path="/diaryCreate/:id" element={<DiaryCreatePage />} />
               </Route>
+              <Route path="/diaryCreate/:id" element={<DiaryCreatePage />} />
 
               <Route path="/diary" element={<DiaryPage />} />
 
