@@ -41,7 +41,7 @@ function ProfilePage() {
       getUser(Number(params.id)).then((a) => {
         return a
       }),
-    { staleTime: 1000, cacheTime: 1000 * 20 },
+    { staleTime: 10000, cacheTime: 10000 * 20 },
   )
 
   useEffect(() => {
@@ -51,6 +51,19 @@ function ProfilePage() {
       setFollower((follower) => data.follower)
     }
   }, [data])
+
+  const filteredPosts = () => {
+    if (!post) return
+
+    const sortedPosts = post.sort((a, b) => {
+      if (a.id > b.id) {
+        return -1
+      } else {
+        return 1
+      }
+    })
+    return sortedPosts
+  }
 
   if (!data) return <Loading />
 
@@ -87,7 +100,7 @@ function ProfilePage() {
       </S.UserProfile>
       {/* 유저 다이어리 */}
       <S.Postss>
-        <Posts posts={post} isShownUsername={false} />
+        <Posts posts={filteredPosts() || post} isShownUsername={false} />
       </S.Postss>
       <Nav />
     </div>

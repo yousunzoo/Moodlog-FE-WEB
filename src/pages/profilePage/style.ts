@@ -111,4 +111,8 @@ export const Postss = styled.div`
   width: 88%;
   margin: 0 6% 0 6%;
   overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `

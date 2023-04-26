@@ -60,3 +60,16 @@ export const Follows = styled.div`
   height: calc(100% - 140px);
   width: 100%;
 `
+
+export const FollowNotBtn = styled.div`
+  width: 100px;
+  height: 30px;
+  color: ${({ theme }) => theme.background};
+  background-color: #442f11;
+  border-radius: 10px;
+  margin: auto;
+  display: flex;
+  p {
+    margin: auto;
+  }
+`

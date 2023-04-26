@@ -10,7 +10,7 @@ import { following as postFollow } from '../../apis/diary'
 import { FollowParent, FollowingParent } from '../../types/follow'
 import { NewUser } from '../../types/user'
 import Loading from '../../components/common/loading'
-import FollowList from '../../components/follow'
+import FollowList from '../../components/follow/follows'
 
 function FollowPage() {
   const params = useParams()
@@ -19,13 +19,10 @@ function FollowPage() {
   const [following, setFollowing] = useState<number[]>([])
   const [follower, setFollower] = useState<FollowParent[]>([])
 
-  const { data, isLoading, error } = useQuery<NewUser>(
-    ['user', { page: params.id }],
-    () =>
-      getUser(Number(params.id)).then((a) => {
-        return a
-      }),
-    { staleTime: 1000 },
+  const { data, isLoading, error } = useQuery<NewUser>(['user', { page: params.id }], () =>
+    getUser(Number(params.id)).then((a) => {
+      return a
+    }),
   )
 
   useEffect(() => {
@@ -42,8 +39,7 @@ function FollowPage() {
     }
   }, [data])
 
-  if (!data) return <Loading />
-  if (!own) return <Loading />
+  if (!data || !own) return <Loading />
 
   return (
     <>
