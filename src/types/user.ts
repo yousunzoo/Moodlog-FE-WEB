@@ -58,3 +58,5 @@ export interface UserFollow {
   profile_message: string
   email: string
 }
+
+export type SearchedUserResponse = UserFollow
