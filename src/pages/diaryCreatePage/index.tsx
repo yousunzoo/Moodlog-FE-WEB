@@ -10,7 +10,6 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useMutation } from 'react-query'
 import { getPost } from '../../apis/diary'
 import { useUpdateDiary } from '../../hooks/useUpdateDiary'
-import { toDataURL } from '../../utils/toDataURL'
 
 function DiaryCreatePage() {
   const { id } = useParams()
@@ -53,7 +52,8 @@ function DiaryCreatePage() {
     })
   }
   const changeStep = (e: MouseEvent<HTMLDivElement>) => {
-    if (!(e.target instanceof HTMLButtonElement)) return
+    if (!(e.target instanceof HTMLButtonElement || SVGElement)) return
+    console.log(typeof e.target.dataset)
     const step = e.target.dataset.step as string
     switch (step) {
       case 'cancel':

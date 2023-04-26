@@ -71,6 +71,7 @@ export const Slider = styled.input`
   right: 0;
   margin: auto;
   width: 240px;
+  background-color: transparent;
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 16px;

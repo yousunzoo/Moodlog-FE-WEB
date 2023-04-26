@@ -4,6 +4,7 @@ import { getMyProfile } from '../../apis/auth'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { ProfileTypes } from '../../types/setting'
 import { useEditProfile } from '../../hooks/useEditProfile'
+import Loading from '../common/loading'
 
 function ProfileModal({ handleClose }: { handleClose?: () => void }) {
   const { data } = useQuery('profile', () => getMyProfile(), {
@@ -49,8 +50,7 @@ function ProfileModal({ handleClose }: { handleClose?: () => void }) {
 
     // @ts-ignore
     editProfile(data)
-    // @ts-ignore
-    handleClose()
+    if (handleClose) handleClose()
   }
   useEffect(() => {
     if (!data) return
@@ -61,7 +61,7 @@ function ProfileModal({ handleClose }: { handleClose?: () => void }) {
     })
     setImgUrl(data.profile_image)
   }, [data])
-  if (!data) return
+  if (!data) return <Loading />
   return (
     <S.ProfileWrapper>
       <S.ProfileHeader>

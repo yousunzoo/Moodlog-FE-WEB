@@ -9,6 +9,7 @@ export const UserProfile = styled.div`
   width: 100%;
   height: 217px;
   background: ${({ theme }) => theme.white01};
+  color: ${({ theme }) => theme.textColor};
 `
 
 export const UserDetail = styled.div`
@@ -19,24 +20,23 @@ export const UserDetail = styled.div`
   left: 25px;
   top: 127px;
   border-radius: 10px;
-  background-color: ${({ theme }) => theme.palette01};
-  color: ${({ theme }) => theme.textColor};
+  background-color: ${({ theme }) => theme.main01};
 `
 
 export const StyledLink = styled(Link)`
   text-decoration: none;
   width: 33.3%;
   height: 100%;
+  color: ${({ theme }) => theme.buttonText};
 `
 
 export const UserDetailContnetText = styled.div<{ size: string }>`
   font-style: normal;
-  font-weight: ${(props) => (props.size === 'large' ? 600 : 500)};
-  font-size: ${(props) => (props.size === 'large' ? '20px' : '14px')};
+  font-weight: ${(props) => (props.size === 'large' ? 500 : 400)};
+  font-size: ${(props) => (props.size === 'large' ? '18px' : '12px')};
   margin-top: ${(props) => (props.size === 'large' ? '13px' : '10px')};
   align-items: center;
   text-align: center;
-  color: ${({ theme }) => theme.background};
 `
 
 export const UserDetailIine = styled.div<{ left: string }>`
@@ -45,9 +45,9 @@ export const UserDetailIine = styled.div<{ left: string }>`
   top: 33px;
   width: 35px;
   height: 0px;
-  border: 1.5px solid #4f413a;
+  border: 1.5px solid ${({ theme }) => theme.buttonText};
+  border-radius: 1px;
   transform: rotate(90deg);
-  color: ${({ theme }) => theme.palette08};
 `
 
 export const UserSettingLink = styled(Link)`
@@ -59,7 +59,11 @@ export const UserSettingLink = styled(Link)`
   font-size: 0;
   text-indent: -999;
   background-size: 30px;
-  background-image: url('/public/assets/icons/setting.png');
+  color: ${({ theme }) => theme.textColor};
+  svg {
+    width: 30px;
+    height: 30px;
+  }
 `
 
 export const UserImage = styled.div`
@@ -88,7 +92,6 @@ export const UserName = styled.div`
   font-weight: 400;
   font-size: 24px;
   line-height: 29px;
-  color: ${({ theme }) => theme.modalBlack};
 `
 
 export const UserIntro = styled.div`

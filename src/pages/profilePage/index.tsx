@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import * as S from './style'
 import { Posts } from '../../components/common/post/posts'
-import axios from 'axios'
-import { useMutation, useQuery } from 'react-query'
-import { axiosInstance } from '../../apis/axios'
-import { getMyProfile, getUser } from '../../apis/auth'
+import { useQuery } from 'react-query'
+import { getUser } from '../../apis/auth'
 import Nav from '../../components/common/Nav'
 import { useParams } from 'react-router-dom'
 import useUserData from '../../hooks/useUserData'
-import { queryClient } from '../../utils/queryClient'
 import { NewUser } from '../../types/user'
 import { NewPost } from '../../types/diary'
 import { FollowParent } from '../../types/follow'
 import Loading from '../../components/common/loading'
+import { MdSettings } from 'react-icons/md'
 
 interface UserStyle {
   name: string
@@ -72,7 +70,10 @@ function ProfilePage() {
       {/* 유저 프로필 */}
       <S.UserProfile>
         {typeof own !== 'undefined' && Number(own.id) === Number(data.id) ? (
-          <S.UserSettingLink to={'/setting'}>설정</S.UserSettingLink>
+          <S.UserSettingLink to={'/setting'}>
+            설정
+            <MdSettings />
+          </S.UserSettingLink>
         ) : (
           <></>
         )}

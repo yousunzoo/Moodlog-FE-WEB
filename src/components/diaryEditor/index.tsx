@@ -4,6 +4,7 @@ import Modal from '../common/modal'
 import { moodImgUrl } from '../../constants/moodImgUrl'
 import MoodModal from '../moodModal'
 import { DiaryEditorProps } from '../../types/createDiary'
+import { FaChevronDown } from 'react-icons/fa'
 
 function DiaryEditor({ diary, onChange, handleChangeMood, handleChangeOpen }: DiaryEditorProps) {
   const [isOpen, setIsOpen] = useState(false)
@@ -25,10 +26,12 @@ function DiaryEditor({ diary, onChange, handleChangeMood, handleChangeOpen }: Di
           <S.TabTitle htmlFor="mood">오늘의 기분</S.TabTitle>
           <S.TabSelect onClick={handleOpenModal}>
             <S.MoodImg src={moodImgUrl[diary.feeling_code].src} alt={moodImgUrl[diary.feeling_code].alt} />
-            <S.MoodSelect />
+            <S.MoodSelect>
+              <FaChevronDown />
+            </S.MoodSelect>
           </S.TabSelect>
         </S.EditorTab>
-        <S.Img src={diary.img} alt="그림" />
+        <S.Img src={diary.img || '/assets/preload.png'} alt="그림" />
         <S.EditorContent id="body" placeholder="내용을 입력해주세요" value={diary.body} onChange={onChange} />
         <S.Settings onClick={handleChangeOpen}>
           <S.SettingTitle>공개 여부</S.SettingTitle>

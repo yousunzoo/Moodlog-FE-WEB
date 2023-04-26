@@ -14,6 +14,8 @@ import FollowPage from '../pages/followPage'
 import ShowDiary from '../pages/showDiaryPage'
 // import CalendarPage from '../pages/calendarPage'
 import UserdataRouter from './UserdataRouter'
+import SearchPage from '../pages/searchPage'
+import DiaryCreateProtected from './DiaryCreateProtected'
 
 function Router() {
   return (
@@ -25,13 +27,19 @@ function Router() {
           <Route element={<UserdataRouter />}>
             <Route element={<ProtectedRouter />}>
               <Route path="/" element={<HomePage />} />
+              <Route path="/search" element={<SearchPage />} />
               <Route path="/profile/:id" element={<ProfilePage />} />
               <Route path="/calendar/:id" element={<CalendarPage />} />
               <Route path="/follow/:id" element={<FollowPage />} />
               <Route path="/setting" element={<SettingPage />} />
+
+              <Route element={<DiaryCreateProtected />}>
+                <Route path="/diaryCreate" element={<DiaryCreatePage />} />
+                <Route path="/diaryCreate/:id" element={<DiaryCreatePage />} />
+              </Route>
+
               <Route path="/diary" element={<DiaryPage />} />
-              <Route path="/diaryCreate" element={<DiaryCreatePage />} />
-              <Route path="/diaryCreate/:id" element={<DiaryCreatePage />} />
+
               <Route path="/diary/:id" element={<ShowDiary />} />
             </Route>
           </Route>
