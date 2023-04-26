@@ -9,7 +9,7 @@ export interface LogoProps {
 
 function Logo({ size, isCenter }: LogoProps) {
   return (
-    <Link to={'/'}>
+    <Link to="/">
       <S.Logo size={size} isCenter={isCenter} />
     </Link>
   )
