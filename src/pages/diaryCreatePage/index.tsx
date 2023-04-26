@@ -52,8 +52,7 @@ function DiaryCreatePage() {
     })
   }
   const changeStep = (e: MouseEvent<HTMLDivElement>) => {
-    if (!(e.target instanceof HTMLButtonElement || SVGElement)) return
-    console.log(typeof e.target.dataset)
+    if (!(e.target instanceof HTMLButtonElement || e.target instanceof SVGElement)) return
     const step = e.target.dataset.step as string
     switch (step) {
       case 'cancel':
