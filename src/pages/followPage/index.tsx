@@ -10,6 +10,7 @@ import { FollowParent, FollowingParent } from '../../types/follow'
 import { NewUser } from '../../types/user'
 import Loading from '../../components/common/loading'
 import FollowList from '../../components/follow/follows'
+import { MdClose } from 'react-icons/md'
 
 function FollowPage() {
   const params = useParams()
@@ -44,7 +45,9 @@ function FollowPage() {
     <>
       <TopbarWrapper>
         <S.TopBar>
-          <S.TopBarLink to={`/profile/${params.id}`}>닫기</S.TopBarLink>
+          <S.TopBarLink to={`/profile/${params.id}`}>
+            <MdClose />
+          </S.TopBarLink>
           <S.TopTitle>팔로워 목록</S.TopTitle>
         </S.TopBar>
       </TopbarWrapper>

@@ -11,6 +11,7 @@ import { NewPost } from '../../types/diary'
 import { FollowParent } from '../../types/follow'
 import Loading from '../../components/common/loading'
 import { MdSettings } from 'react-icons/md'
+import { MdClose } from 'react-icons/md'
 
 interface UserStyle {
   name: string

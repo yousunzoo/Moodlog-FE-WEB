@@ -8,12 +8,14 @@ export const TopBar = styled.div`
   background-image: url('/public/assets/icons/setting.png');
 `
 export const TopBarLink = styled(Link)`
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   font-size: 0;
   text-indent: -999;
-  background-size: 25px;
-  background-image: url(${({ theme }) => theme.close});
+  svg {
+    width: 30px;
+    height: 30px;
+  }
 `
 
 export const TopTitle = styled.div`
