@@ -10,8 +10,10 @@ import { getUser } from '../../apis/auth'
 import Loading from '../common/loading'
 
 function Follow({ follower, following }: FollowProp) {
-  console.log(follower, following)
-  const updateMutation = useQuery('follow', () => postFollow(Number(follower.following.id)))
+  const { refetch } = useUserData()
+  const updateMutation = useQuery('follow', () => postFollow(Number(follower.following.id)), {
+    onSuccess: () => refetch(),
+  })
   const [name, setName] = useState(['팔로우', '팔로잉'])
 
   return (
@@ -20,11 +22,11 @@ function Follow({ follower, following }: FollowProp) {
         {follower.following.profile_image ? <img src={follower.following.profile_image} /> : <div></div>}
       </S.FollowImg>
       <S.FollowUserIdLink to={`/profile/${follower.following.id}`}>
-        <h1>{follower.following.email}</h1>
         <h2>{follower.following.username}</h2>
+        <h3>{follower.following.email}</h3>
       </S.FollowUserIdLink>
       <S.FollowBtn
-        opacity={name[0] === '팔로우' ? 1 : 0.8}
+        opacity={name[0] === '팔로우' ? 1 : 0.7}
         onClick={() => {
           updateMutation
           name[0] === '팔로잉' ? setName(['팔로우', '팔로잉']) : setName(['팔로잉', '팔로우'])

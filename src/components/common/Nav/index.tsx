@@ -1,6 +1,6 @@
 import useUserData from '../../../hooks/useUserData'
 import * as S from './style'
-import { HiOutlineHome, HiOutlinePencilAlt, HiOutlineUser } from 'react-icons/hi'
+import { HiOutlineHome, HiOutlinePencilAlt, HiOutlineUser, HiOutlineSearch } from 'react-icons/hi'
 function Nav() {
   const { data: own } = useUserData()
   return (
@@ -13,6 +13,9 @@ function Nav() {
       </S.NavItem>
       <S.NavItem to={typeof own === 'undefined' ? `/` : `/profile/${Number(own.id)}`} data-action="followers">
         <HiOutlineUser />
+      </S.NavItem>
+      <S.NavItem to={'/search'} data-action="search">
+        <HiOutlineSearch />
       </S.NavItem>
     </S.Wrapper>
   )
