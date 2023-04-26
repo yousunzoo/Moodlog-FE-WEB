@@ -3,6 +3,7 @@ import * as S from './style'
 import { Link, useNavigate } from 'react-router-dom'
 import { useLoginUser } from '../../hooks/useLogin'
 import Alert from '../common/alert'
+import { BiShow, BiHide } from 'react-icons/bi'
 
 interface UserInput {
   email: string
@@ -11,7 +12,7 @@ interface UserInput {
 
 function LoginForm() {
   const [userInput, setUserInput] = useState<UserInput>({ email: '', password: '' })
-  const [isShownPasswrod, setIsShownPassword] = useState(false)
+  const [isShownPassword, setIsShownPassword] = useState(false)
 
   const { mutate: loginUser, isError, isOpen } = useLoginUser()
   const navigate = useNavigate()
@@ -30,7 +31,7 @@ function LoginForm() {
   }
 
   const handleTogglePassword = () => {
-    setIsShownPassword(!isShownPasswrod)
+    setIsShownPassword(!isShownPassword)
   }
 
   return (
@@ -48,13 +49,15 @@ function LoginForm() {
 
         <S.Label>
           <S.Input
-            type={isShownPasswrod ? 'text' : 'password'}
+            type={isShownPassword ? 'text' : 'password'}
             name="password"
             placeholder="비밀번호"
             onChange={handleChange}
             value={userInput.password}
           />
-          <S.PasswordButton type="button" onClick={handleTogglePassword} isShown={isShownPasswrod} />
+          <S.PasswordButton type="button" onClick={handleTogglePassword}>
+            {isShownPassword ? <BiShow /> : <BiHide />}
+          </S.PasswordButton>
         </S.Label>
         <S.ErrorWrapper>
           {isError && <S.ErrorMessage>사용자의 이메일 혹은 비밀번호를 확인해주세요.</S.ErrorMessage>}

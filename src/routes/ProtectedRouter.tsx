@@ -10,7 +10,6 @@ function ProtectedRouter() {
 
   const queryClient = useQueryClient()
   const isAuthenticated = verifyToken()
-  const token = getToken()
   const navigate = useNavigate()
 
   useEffect(() => {

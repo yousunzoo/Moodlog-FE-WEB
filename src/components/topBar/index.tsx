@@ -1,6 +1,8 @@
 import React from 'react'
 import * as S from './style'
 import { TopbarProps } from '../../types/createDiary'
+import { MdClose } from 'react-icons/md'
+import { HiOutlineArrowLeft } from 'react-icons/hi'
 
 function TopBar({ step, changeStep }: TopbarProps) {
   if (step === 'first') {
@@ -8,7 +10,10 @@ function TopBar({ step, changeStep }: TopbarProps) {
       <>
         <S.Wrapper onClick={changeStep}>
           <S.Title>그리기</S.Title>
-          <S.CloseBtn data-step="cancel">취소</S.CloseBtn>
+          <S.CloseBtn>
+            취소
+            <MdClose data-step="cancel" />
+          </S.CloseBtn>
           <S.Btn data-step="next">다음</S.Btn>
         </S.Wrapper>
       </>
@@ -18,7 +23,10 @@ function TopBar({ step, changeStep }: TopbarProps) {
     <>
       <S.Wrapper onClick={changeStep}>
         <S.Title>일기 작성</S.Title>
-        <S.PrevBtn data-step="prev">이전</S.PrevBtn>
+        <S.PrevBtn>
+          이전
+          <HiOutlineArrowLeft data-step="prev" />
+        </S.PrevBtn>
         <S.Btn data-step="submit">완료</S.Btn>
       </S.Wrapper>
     </>
