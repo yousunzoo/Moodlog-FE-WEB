@@ -137,7 +137,7 @@ function RegisterForm() {
         </S.ProfileWrapper>
         <S.ResigterButton type="submit">회원가입</S.ResigterButton>
       </S.Form>
-      <Alert isOpen={isOpen} onClose={() => navigate('/')} message="로그인 성공" />
+      <Alert isOpen={isOpen} onClose={() => navigate('/')} message="회원가입 성공" />
     </>
   )
 }
