@@ -1,4 +1,4 @@
-import { UserProfile } from '../types/user'
+import { SearchedUserResponse, UserProfile } from '../types/user'
 import { axiosInstance } from './axios'
 import { LoginProp, ProfileProp, RegisterProp, WithdrawelProp } from './type'
 
@@ -45,7 +45,8 @@ export const getMyProfile = async () => {
 }
 
 export const searchUser = async (query: string) => {
-  const res = await axiosInstance().get(`/auth/search/${query}`)
+  const res = await axiosInstance().get<SearchedUserResponse[]>(`/auth/search/${query}`)
+  return res.data
 }
 
 export const editProfile = async (profile: ProfileProp) => {
