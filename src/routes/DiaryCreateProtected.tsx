@@ -20,7 +20,7 @@ function DiaryCreateProtected() {
     console.log(posts)
     const today = new Date()
     const sortedPosts = posts.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
-    setIsTodayCreatedPost(today.getDate() === Number(sortedPosts[0].createdAt.slice(8, 10)))
+    setIsTodayCreatedPost
   }
 
   return (
