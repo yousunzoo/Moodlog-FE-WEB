@@ -18,6 +18,7 @@ export const Input = styled.input`
   width: 100%;
   height: 60px;
   background-color: ${({ theme }) => theme.input};
+  color: ${({ theme }) => theme.textColor};
   border: none;
   padding: 0 20px;
   &::placeholder {
@@ -40,6 +41,7 @@ export const SigninButton = styled.button`
 export const SignupWrapper = styled.div`
   text-align: center;
   font-size: 16px;
+  color: ${({ theme }) => theme.placeholder};
 `
 
 export const SignupButton = styled.button`
@@ -49,16 +51,18 @@ export const SignupButton = styled.button`
   cursor: pointer;
 `
 
-export const PasswordButton = styled.button<{ isShown: boolean }>`
+export const PasswordButton = styled.button`
   width: 30px;
   height: 30px;
-  background-image: url(${({ isShown, theme }) => (isShown ? theme.showPw : theme.hidePw)});
-  background-size: cover;
-  background-color: transparent;
   position: absolute;
+  color: ${({ theme }) => theme.textColor};
   top: 50%;
   transform: translateY(-50%);
   right: 18px;
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 `
 
 export const Label = styled.label`

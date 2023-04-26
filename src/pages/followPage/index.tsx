@@ -1,5 +1,4 @@
 import { Link, useParams } from 'react-router-dom'
-import Calendars from '../../components/calendar'
 import { TopbarWrapper } from '../../styles/common'
 import * as S from './style'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
@@ -7,34 +6,10 @@ import { useEffect, useState } from 'react'
 import { getUser } from '../../apis/auth'
 import useUserData from '../../hooks/useUserData'
 import { following as postFollow } from '../../apis/diary'
-import { FollowChild, FollowParent, FollowingParent } from '../../types/follow'
+import { FollowParent, FollowingParent } from '../../types/follow'
 import { NewUser } from '../../types/user'
 import Loading from '../../components/common/loading'
-
-function Follow({ follower, following }: FollowChild) {
-  const updateMutation = useQuery('follow', () => postFollow(Number(follower.following.id)))
-  const [name, setName] = useState(['팔로우', '팔로잉'])
-
-  return (
-    <S.Follow>
-      <S.FollowImg>
-        {follower.following.profile_image ? <img src={follower.following.profile_image} /> : <div></div>}
-      </S.FollowImg>
-      <S.FollowUserIdLink to={`/profile/${follower.following.id}`}>
-        <h1>{follower.following.email}</h1>
-        <h2>{follower.following.username}</h2>
-      </S.FollowUserIdLink>
-      <S.FollowBtn
-        onClick={() => {
-          updateMutation
-          name[0] === '팔로잉' ? setName(['팔로우', '팔로잉']) : setName(['팔로잉', '팔로우'])
-        }}
-      >
-        {following.includes(follower.following.id) ? name[1] : name[0]}
-      </S.FollowBtn>
-    </S.Follow>
-  )
-}
+import FollowList from '../../components/follow'
 
 function FollowPage() {
   const params = useParams()
@@ -67,6 +42,7 @@ function FollowPage() {
   }, [data])
 
   if (!data) return <Loading />
+  if (!own) return <Loading />
 
   return (
     <>
@@ -76,15 +52,7 @@ function FollowPage() {
           <S.TopTitle>팔로워 목록</S.TopTitle>
         </S.TopBar>
       </TopbarWrapper>
-      <S.Follows>
-        {follower.map((arr, i) => {
-          if (arr.following.id && typeof own !== 'undefined' && arr.following.id === own.id) {
-            return <></>
-          } else {
-            return <Follow key={i} follower={arr} following={following} />
-          }
-        })}
-      </S.Follows>
+      <FollowList following={following} follower={follower} own={own.id} />
     </>
   )
 }

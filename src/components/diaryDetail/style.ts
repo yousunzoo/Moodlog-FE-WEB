@@ -41,6 +41,7 @@ export const DiaryDetail = styled.div`
     p {
       text-align: center;
       line-height: 1.4;
+      color: ${({ theme }) => theme.textColor};
     }
   }
 

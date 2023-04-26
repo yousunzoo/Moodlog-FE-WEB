@@ -1,3 +1,4 @@
+import { NewUser } from './user'
 import { UserFollow } from './user'
 
 export interface FollowParent {
@@ -5,12 +6,18 @@ export interface FollowParent {
   following: UserFollow
 }
 
-export interface FollowChild {
+export interface FollowProp {
   follower: {
     id: number
     following: UserFollow
   }
   following: number[]
+}
+
+export interface FollowListProp {
+  following: number[]
+  follower: FollowParent[]
+  own: number | undefined
 }
 
 export interface FollowingParent {

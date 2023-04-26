@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
+import { persist } from 'zustand/middleware'
 import { IFont, IUsePersistStore, IUseStore } from '../types/store'
 
 export const useStore = create<IUseStore>(

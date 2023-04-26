@@ -3,6 +3,7 @@ import * as S from './style'
 import { Link, useNavigate } from 'react-router-dom'
 import { useLoginUser } from '../../hooks/useLogin'
 import Alert from '../common/alert'
+import { BiShow, BiHide } from 'react-icons/bi'
 
 interface UserInput {
   email: string
@@ -54,7 +55,9 @@ function LoginForm() {
             onChange={handleChange}
             value={userInput.password}
           />
-          <S.PasswordButton type="button" onClick={handleTogglePassword} isShown={isShownPassword} />
+          <S.PasswordButton type="button" onClick={handleTogglePassword}>
+            {isShownPassword ? <BiShow /> : <BiHide />}
+          </S.PasswordButton>
         </S.Label>
         <S.ErrorWrapper>
           {isError && <S.ErrorMessage>사용자의 이메일 혹은 비밀번호를 확인해주세요.</S.ErrorMessage>}
