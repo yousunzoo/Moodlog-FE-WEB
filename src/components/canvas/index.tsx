@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, useCallback, useEffect, useRef, useState } from 'react'
+import React, { ChangeEvent, MouseEvent, useEffect, useRef, useState } from 'react'
 import * as S from './style'
 import palette from '../../constants/palette.json'
 import { CanvasProps, PaletteJSON } from '../../types/createDiary'
@@ -61,7 +61,8 @@ function Canvas({ img, saveImage }: CanvasProps) {
     const canvas = canvasRef.current
     if (!canvas) return
     if (!ctx) return
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.fillStyle = '#FFFFFF'
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
     setUndoStack([])
     setRedoStack([])
     saveImage(null)
@@ -104,10 +105,11 @@ function Canvas({ img, saveImage }: CanvasProps) {
     })
   }
 
-  const handleMouseMove = (event: MouseEvent<HTMLCanvasElement>) => {
+  const handleMouseMove: any = (event: MouseEvent<HTMLCanvasElement, MouseEvent>) => {
     if (!canvasState.canvas) return
     if (!ctx) return
-    const { offsetX, offsetY } = event
+    const rect = canvasRef.current?.getBoundingClientRect()
+    const { clientX, clientY } = event
     const mode = canvasState.mode
     ctx.beginPath()
     if (mode === 'brush') {
@@ -115,13 +117,15 @@ function Canvas({ img, saveImage }: CanvasProps) {
       ctx.lineWidth = canvasState.lineWidth
       ctx.lineCap = 'round'
       ctx.lineJoin = 'round'
-      ctx.lineTo(offsetX, offsetY)
+      ctx.lineTo(clientX - rect!.left, clientY - rect!.top)
       ctx.stroke()
     } else {
-      ctx.arc(offsetX, offsetY, canvasState.lineWidth / 2, 0, 2 * Math.PI)
-      ctx.globalCompositeOperation = 'destination-out'
-      ctx.fill()
-      ctx.globalCompositeOperation = 'source-over'
+      ctx.strokeStyle = '#FFFFFF'
+      ctx.lineWidth = canvasState.lineWidth
+      ctx.lineCap = 'round'
+      ctx.lineJoin = 'round'
+      ctx.lineTo(clientX - rect!.left, clientY - rect!.top)
+      ctx.stroke()
     }
   }
 
