@@ -1,22 +1,22 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react'
-import * as S from './style'
-import TopBar from './../../components/topBar/index'
-import PrevButton from '../../components/common/button/prevButton'
+import { ChangeEvent, useState } from 'react'
 import { useNavigate } from 'react-router'
-import Nav from '../../components/common/Nav'
 import { useMutation } from 'react-query'
 import { searchUser } from '../../apis/auth'
+import debounce from 'lodash/debounce'
 import SearchedUser from '../../components/searchedUser'
+import PrevButton from '../../components/common/button/prevButton'
+import Nav from '../../components/common/Nav'
+import * as S from './style'
 
 function SearchPage() {
   const navigate = useNavigate()
   const [searchQeury, setSearchQuery] = useState('')
   const { mutate, data: results, isError } = useMutation(() => searchUser(searchQeury))
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChange = debounce((e: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value)
     mutate()
-  }
+  }, 300)
 
   return (
     <>
