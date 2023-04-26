@@ -12,6 +12,7 @@ export interface FollowProp {
     following: UserFollow
   }
   following: number[]
+  own: number
 }
 
 export interface FollowListProp {

@@ -31,14 +31,14 @@ export const FollowUserIdLink = styled(Link)`
   height: 40px;
   margin: auto 25px;
   color: ${({ theme }) => theme.modalText};
-  h2 {
-    font-weight: 700;
-    font-size: 20px;
+  h1 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
     line-height: 27px;
   }
-
-  h3 {
-    color: #aaa;
+  h2 {
+    font-style: normal;
     font-weight: 400;
     font-size: 16px;
     line-height: 19px;
@@ -55,8 +55,15 @@ export const FollowBtn = styled.button<{ opacity: number }>`
   margin: auto;
 `
 
-export const Follows = styled.div`
-  margin-top: 20px;
-  height: calc(100% - 140px);
-  width: 100%;
+export const FollowNotBtn = styled.div`
+  width: 100px;
+  height: 30px;
+  color: ${({ theme }) => theme.background};
+  background-color: #d7973e;
+  border-radius: 10px;
+  margin: auto;
+  display: flex;
+  p {
+    margin: auto;
+  }
 `
