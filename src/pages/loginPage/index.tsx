@@ -1,7 +1,15 @@
 import React from 'react'
+import LoginForm from '../../components/loginForm'
+import * as S from './style'
+import Logo from '../../components/common/logo'
 
 function LoginPage() {
-  return <div> LoginPage</div>
+  return (
+    <S.Wrapper>
+      <Logo size={250} isCenter={true} />
+      <LoginForm />
+    </S.Wrapper>
+  )
 }
 
 export default LoginPage
