@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query'
 import * as S from './style'
 import { following as postFollow } from '../../../apis/diary'
-import { FollowListProp, FollowParent, FollowProp } from '../../../types/follow'
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { FollowProp } from '../../../types/follow'
+import { useState } from 'react'
+import useUserData from '../../../hooks/useUserData'
 
 function Follow({ follower, following, own }: FollowProp) {
   // follower는 유저에 관한 객체형식의 데이터이며,
@@ -14,6 +14,7 @@ function Follow({ follower, following, own }: FollowProp) {
   const addFollow = () => postFollow(Number(follower.following.id))
   // 팔로잉 버튼 클릭시 데이터 갱신까지 시간이 걸릴 경우를 대비하여 프론트 내에서 임의 구현
   const [name, setName] = useState(['팔로우', '팔로잉'])
+  const { refetch } = useUserData()
 
   return (
     <S.Follow>
@@ -32,13 +33,13 @@ function Follow({ follower, following, own }: FollowProp) {
             following={name[0] === '팔로우' ? true : false}
             onClick={() => {
               // 버튼 클릭 시 팔로잉, 팔로우 변경 및 팔로우 함수 호출
-              name[0] === '팔로잉' ? setName(['팔로우', '팔로잉']) : setName(['팔로잉', '팔로우'])
               addFollow()
+              refetch
             }}
           >
             {
               // 팔로우인지 팔로잉인지에 따라 텍스트 변경
-              following.includes(follower.following.id) ? name[1] : name[0]
+              following.includes(follower.following.id) ? name[0] : name[1]
             }
           </S.FollowBtn>
         ) : (
