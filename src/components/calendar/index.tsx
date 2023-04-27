@@ -36,6 +36,7 @@ function Calendars() {
       }
     }
   }, [data])
+  console.log(feeling)
 
   if (!data) return <></>
 
@@ -54,7 +55,7 @@ function Calendars() {
                 <Link to={`/diary/${postId[index]}`}>
                   <div className="flex justify-center items-center absoluteDiv">
                     <div className="dot">
-                      <img src={`/assets/icons/mood-0${Number(feeling[index])}.png`} width="auto" />
+                      <img src={`/assets/icons/mood-0${Number(feeling[index] + 1)}.png`} width="auto" />
                     </div>
                   </div>
                 </Link>
