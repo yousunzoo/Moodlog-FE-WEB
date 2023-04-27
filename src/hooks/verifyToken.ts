@@ -22,11 +22,13 @@ function verifyToken() {
 
   const refreshResult = useQuery(['auth', 'refresh'], refresh, {
     onSuccess: (data) => {
-      setToken(data.accessToken, {
-        path: '/',
-        maxAge: data.content.exp - data.content.iat,
-      })
-      setIsAuthenticated('SUCCESS')
+      if (data.content) {
+        setToken(data.accessToken, {
+          path: '/',
+          maxAge: data.content.exp - data.content.iat,
+        })
+        setIsAuthenticated('SUCCESS')
+      }
     },
     onError: () => {
       setIsAuthenticated('FAILED')

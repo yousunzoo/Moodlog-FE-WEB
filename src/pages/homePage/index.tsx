@@ -17,7 +17,7 @@ function HomePage() {
 
   const filteredPosts = () => {
     if (!user) return
-
+    if (typeof posts !== 'object') return
     const sortedPosts = posts.sort((a, b) => {
       if (a.id > b.id) {
         return -1
