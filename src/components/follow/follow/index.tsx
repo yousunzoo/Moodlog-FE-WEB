@@ -1,9 +1,8 @@
 import { useQuery } from 'react-query'
 import * as S from './style'
 import { following as postFollow } from '../../../apis/diary'
-import { FollowListProp, FollowParent, FollowProp } from '../../../types/follow'
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { FollowProp } from '../../../types/follow'
+import { useState } from 'react'
 import useUserData from '../../../hooks/useUserData'
 
 function Follow({ follower, following, own }: FollowProp) {
@@ -23,15 +22,15 @@ function Follow({ follower, following, own }: FollowProp) {
         {follower.following.profile_image ? <img src={follower.following.profile_image} /> : <div></div>}
       </S.FollowImg>
       <S.FollowUserIdLink to={`/profile/${follower.following.id}`}>
-        <h1>{follower.following.email}</h1>
-        <h2>{follower.following.username}</h2>
+        <p className="email">{follower.following.email}</p>
+        <p className="username">{follower.following.username}</p>
       </S.FollowUserIdLink>
       {
         // 상대를 팔로잉한 사람이 본인인지 아닌지에 따라
         own !== Number(follower.following.id) ? (
           <S.FollowBtn
             // 팔로잉인지 팔로우인지에 따라 투명도 변경
-            opacity={name[0] === '팔로잉' ? 0.8 : 1}
+            following={name[0] === '팔로우' ? true : false}
             onClick={() => {
               // 버튼 클릭 시 팔로잉, 팔로우 변경 및 팔로우 함수 호출
               addFollow()
