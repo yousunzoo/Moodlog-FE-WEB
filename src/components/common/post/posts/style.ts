@@ -9,3 +9,10 @@ export const Posts = styled.div<{ height: string }>`
   top: 217px;
   overflow-y: scroll;
 `
+export const NoPosts = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: ${({ theme }) => theme.placeholder};
+`

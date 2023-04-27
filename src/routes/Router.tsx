@@ -16,6 +16,7 @@ import ShowDiary from '../pages/showDiaryPage'
 import UserdataRouter from './UserdataRouter'
 import SearchPage from '../pages/searchPage'
 import DiaryCreateProtected from './DiaryCreateProtected'
+import NotFound from '../pages/notFoundPage'
 
 function Router() {
   return (
@@ -43,6 +44,7 @@ function Router() {
               <Route path="/diary/:id" element={<ShowDiary />} />
             </Route>
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -64,7 +64,7 @@ function ProfilePage() {
     return sortedPosts
   }
 
-  if (!data) return <Loading />
+  if (!data) return <></>
 
   return (
     <div>

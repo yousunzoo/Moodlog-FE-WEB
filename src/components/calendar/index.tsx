@@ -37,7 +37,7 @@ function Calendars() {
     }
   }, [data])
 
-  if (!data) return <Loading />
+  if (!data) return <></>
 
   return (
     <div>
