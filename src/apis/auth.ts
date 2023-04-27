@@ -45,7 +45,7 @@ export const getMyProfile = async () => {
 }
 
 export const searchUser = async (query: string) => {
-  const res = await axiosInstance().get<SearchedUserResponse[]>(`/auth/search/${query}`)
+  const res = await axiosInstance().post<SearchedUserResponse[]>(`/auth/search`, { query })
   return res.data
 }
 
