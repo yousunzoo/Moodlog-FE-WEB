@@ -1,5 +1,5 @@
 import * as S from './style'
-import { useMutation, useQuery } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { useNavigate, useParams } from 'react-router'
 import { deletsPost, getPost } from '../../apis/diary'
 import DiaryDetail from '../../components/diaryDetail'
@@ -9,24 +9,30 @@ import DotsButton from '../../components/common/button/dotsButton'
 import Comments from '../../components/comments'
 import { useState } from 'react'
 import useUserData from '../../hooks/useUserData'
-import { queryClient } from '../../utils/queryClient'
 
 function ShowDiary() {
   const navigate = useNavigate()
   const { id } = useParams()
 
+  const queryClient = useQueryClient()
   const { data: user } = useUserData()
+
   const [showDropdown, setShowDropdown] = useState(false)
 
   const { error, data: diary } = useQuery(['post', id], () => getPost(Number(id)))
 
   const { mutate } = useMutation(() => deletsPost(Number(id)), {
     onSuccess: () => {
-      queryClient.setQueryData(['post', id], mutate)
+      // const data = queryClient.getQueriesData(['user', 'profile', `${user.id}`])
+      // const posts = data[0][1].post
+      // queryClient.setQueryData(
+      //   ['user', 'profile', `${user.id}`],
+      //   posts.filter((post) => post.id !== Number(id)),
+      // )
+      queryClient.invalidateQueries(['user'], { refetchInactive: true })
       navigate('/')
     },
   })
-  // console.log(user)
 
   if (error) return <>error</>
   return (
