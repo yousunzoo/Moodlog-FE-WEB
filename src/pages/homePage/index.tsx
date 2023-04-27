@@ -31,7 +31,7 @@ function HomePage() {
 
     if (postFilter === 'FOLLOWER') {
       return sortedPosts.filter((post) =>
-        following?.some((follow) => Number(follow.follower.id) === Number(post.user.id)),
+        following?.some((follow) => Number(follow.follower.id) === Number(post.user?.id)),
       )
     } else if (postFilter === 'LIKES') {
       return sortedPosts.filter((post) => likes?.some((like) => Number(like.post.id) === Number(post.id)))
