@@ -69,11 +69,11 @@ function Comments({ diary }: DiaryDetailProps) {
       <div className="interact">
         <div className="like button" onClick={handleLike}>
           <LikeButton like={user?.likes.some((u) => Number(u.post.id) === Number(id))} />
-          {diary.likes.length}
+          {diary.likes?.length}
         </div>
         <div className="comment button" onClick={() => textarea.current?.focus()}>
           <SpeechBubbleButton />
-          {diary.comments.length}
+          {diary.comments?.length}
         </div>
       </div>
       <form className="create-comment" onSubmit={(e) => commentSubmit(e)}>
