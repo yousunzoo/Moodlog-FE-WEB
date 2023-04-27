@@ -14,7 +14,7 @@ function FollowList({ following, follower, own }: FollowListProp) {
         if (arr.following.id && typeof own === 'undefined') {
           return <></>
         } else {
-          return <Follow key={i} follower={arr} following={following} own={own} />
+          return <Follow key={i} follower={arr} following={following} own={Number(own)} />
         }
       })}
     </S.Follows>

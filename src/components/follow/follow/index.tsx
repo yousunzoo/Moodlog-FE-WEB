@@ -31,7 +31,7 @@ function Follow({ follower, following, own }: FollowProp) {
         own !== Number(follower.following.id) ? (
           <S.FollowBtn
             // 팔로잉인지 팔로우인지에 따라 투명도 변경
-            opacity={name[0] === '팔로우' ? 0.8 : 1}
+            opacity={name[0] === '팔로잉' ? 0.8 : 1}
             onClick={() => {
               // 버튼 클릭 시 팔로잉, 팔로우 변경 및 팔로우 함수 호출
               addFollow()
@@ -40,7 +40,7 @@ function Follow({ follower, following, own }: FollowProp) {
           >
             {
               // 팔로우인지 팔로잉인지에 따라 텍스트 변경
-              following.includes(follower.following.id) ? name[1] : name[0]
+              following.includes(follower.following.id) ? name[0] : name[1]
             }
           </S.FollowBtn>
         ) : (
