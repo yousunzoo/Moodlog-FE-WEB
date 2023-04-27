@@ -23,8 +23,8 @@ function DiaryDetail({ diary }: DiaryDetailProps) {
         {diary.img === '' ? null : <img src={diary.img} alt={diary.title} />}
         <p>{diary.body}</p>
       </div>
-      <div className="auth" onClick={() => navigate(`/profile/${diary.user.id}`)}>
-        작성자 : {diary.user.username}
+      <div className="auth" onClick={() => navigate(`/profile/${diary.user?.id}`)}>
+        작성자 : {diary.user?.username}
       </div>
     </S.DiaryDetail>
   )
