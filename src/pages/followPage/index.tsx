@@ -39,7 +39,7 @@ function FollowPage() {
     }
   }, [data])
 
-  if (!data || !own) return <Loading />
+  if (!data || !own) return <></>
 
   return (
     <>
