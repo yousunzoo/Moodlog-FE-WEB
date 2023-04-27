@@ -13,8 +13,11 @@ function SearchPage() {
   const [searchQeury, setSearchQuery] = useState('')
   const { mutate, data: results, isError } = useMutation(() => searchUser(searchQeury))
 
-  const onChange = debounce((e: ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value)
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value.trim())
+  }
+
+  const deboundedMutate = debounce(() => {
     mutate()
   }, 300)
 
@@ -29,11 +32,19 @@ function SearchPage() {
       </S.TopBar>
       <S.ContentWrapper>
         <div className="search-form">
-          <input type="text" onChange={(e) => onChange(e)} value={searchQeury} placeholder="유저이름으로 검색" />
+          <input
+            type="text"
+            onChange={(e) => {
+              onChange(e)
+              deboundedMutate()
+            }}
+            value={searchQeury}
+            placeholder="유저이름으로 검색"
+          />
         </div>
         {searchQeury === '' ? (
           <div className="message">검색어를 입력해주세요</div>
-        ) : isError ? (
+        ) : results?.length === 0 ? (
           <div className="message">검색 결과가 없습니다</div>
         ) : (
           <div className="search-results">
