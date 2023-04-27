@@ -16,7 +16,7 @@ export function Post({ post, isShownUsername }: ContainerProp) {
         <img src={post.img} width="100%" />
       </S.DiaryPostImage>
       <S.DiaryPostLetter>
-        {isShownUsername ? (
+        {isShownUsername && typeof post.user !== 'undefined' ? (
           <S.DiaryPostLetterContain>
             <S.UsernameText>{post.user.username}</S.UsernameText>
             <S.PostBodyWrapper>{post.body}</S.PostBodyWrapper>
