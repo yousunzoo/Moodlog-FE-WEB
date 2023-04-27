@@ -5,16 +5,15 @@ import Alert from '../components/common/alert'
 
 import { UserProfile } from '../types/user'
 import { useQueryClient } from 'react-query'
+import useUserData from '../hooks/useUserData'
 
 function DiaryCreateProtected() {
   const [isTodayCreatedPost, setIsTodayCreatedPost] = useState(false)
   const navigate = useNavigate()
 
-  const queryClient = useQueryClient()
-  // ['user', 'profile', '4']
-  const user: UserProfile | undefined = queryClient.getQueryData('user')
+  const { data: user } = useUserData()
 
-  console.log(user)
+  // const data: UserProfile | undefined = queryClient.getQueryData(['user', 'profile', `${user.id}`])
 
   useEffect(() => {
     if (user?.post.length > 0) {
