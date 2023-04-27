@@ -15,6 +15,7 @@ export const Input = styled.input`
   padding: 0 20px;
   margin-bottom: 6px;
   background-color: ${({ theme }) => theme.input};
+  color: ${({ theme }) => theme.textColor};
   &::placeholder {
     color: ${({ theme }) => theme.placeholder};
   }
@@ -29,10 +30,13 @@ export const FileLabel = styled.label`
   color: ${({ theme }) => theme.buttonText};
   padding: 8px;
   border-radius: 10px;
+  cursor: pointer;
 `
 
 export const FileName = styled.label`
   padding-left: 8px;
+  margin-top: 6px;
+  color: ${({ theme }) => theme.placeholder};
 `
 
 export const ErrorMessage = styled.div`
