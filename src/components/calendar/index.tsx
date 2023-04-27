@@ -54,7 +54,7 @@ function Calendars() {
                 <Link to={`/diary/${postId[index]}`}>
                   <div className="flex justify-center items-center absoluteDiv">
                     <div className="dot">
-                      <img src={'/public/assets/icons/mood-0' + `${feeling[index]}` + '.png'} width="auto" />
+                      <img src={`/assets/icons/mood-0${Number(feeling[index])}.png`} width="auto" />
                     </div>
                   </div>
                 </Link>
