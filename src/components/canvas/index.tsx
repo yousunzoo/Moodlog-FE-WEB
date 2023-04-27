@@ -74,7 +74,8 @@ function Canvas({ img, saveImage }: CanvasProps) {
     if (undoStack.length === 0) return
     if (undoStack.length === 1) {
       setRedoStack((prevState) => [...prevState, undoStack[0]])
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      ctx.fillStyle = '#FFFFFF'
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
       setUndoStack([])
       return
     }
