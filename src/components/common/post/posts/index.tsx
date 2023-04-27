@@ -9,7 +9,7 @@ interface ConatinerPorps {
 }
 
 export function Posts({ posts, isShownUsername }: ConatinerPorps) {
-  if (!posts) return <S.NoPosts>아직 작성한 다이어리가 없습니다.</S.NoPosts>
+  if (!posts || typeof posts !== 'object') return <S.NoPosts>아직 작성한 다이어리가 없습니다.</S.NoPosts>
   return (
     <>
       {posts.map((post) => {

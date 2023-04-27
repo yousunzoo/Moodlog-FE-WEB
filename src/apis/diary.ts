@@ -10,7 +10,6 @@ export const getPosts = async () => {
 
 export const getPost = async (id: number) => {
   const res = await axiosInstance().get<DiaryResponse>(`/posts/${id}`)
-  console.log(res.data)
   return res.data
 }
 
