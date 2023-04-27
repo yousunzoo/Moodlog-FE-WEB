@@ -7,9 +7,12 @@ import SearchedUser from '../../components/searchedUser'
 import PrevButton from '../../components/common/button/prevButton'
 import Nav from '../../components/common/Nav'
 import * as S from './style'
+import { SearchedUserResponse } from '../../types/user'
+import useUserData from '../../hooks/useUserData'
 
 function SearchPage() {
   const navigate = useNavigate()
+  const { data: myData } = useUserData()
   const [searchQeury, setSearchQuery] = useState('')
   const { mutate, data: results, isError } = useMutation(() => searchUser(searchQeury))
 
@@ -20,6 +23,27 @@ function SearchPage() {
   const deboundedMutate = debounce(() => {
     mutate()
   }, 300)
+
+  function sortResults() {
+    if (!results) return
+
+    const sortedResults = results?.sort((a, b) => {
+      if (a.username < b.username) {
+        return -1
+      } else {
+        return 1
+      }
+    })
+
+    // const idx = sortedResults?.findIndex((result) => result.id === myData?.id)
+    // if (idx !== -1) {
+    //   const tmp = sortedResults?[idx]
+    //   sortedResults.splice(Number(idx), 1)
+    //   sortedResults.unshift(tmp)
+    // }
+
+    return sortedResults as SearchedUserResponse[]
+  }
 
   return (
     <>
@@ -48,7 +72,7 @@ function SearchPage() {
           <div className="message">검색 결과가 없습니다</div>
         ) : (
           <div className="search-results">
-            {results && results.map((result) => <SearchedUser key={result.id} user={result} />)}
+            {results && sortResults()?.map((result) => <SearchedUser key={result.id} user={result} />)}
           </div>
         )}
       </S.ContentWrapper>

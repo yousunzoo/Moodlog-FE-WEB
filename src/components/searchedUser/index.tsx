@@ -37,9 +37,11 @@ function SearchedUser({ user }: SearchedUserProps) {
         <h2>{user.username}</h2>
         <h3>{user.email}</h3>
       </S.FollowUserIdLink>
-      <S.FollowBtn opacity={followToggle === '팔로잉' ? 0.7 : 1} onClick={() => mutate()}>
-        {followToggle}
-      </S.FollowBtn>
+      {myData?.id !== user.id && (
+        <S.FollowBtn opacity={followToggle === '팔로잉' ? 0.7 : 1} onClick={() => mutate()}>
+          {followToggle}
+        </S.FollowBtn>
+      )}
     </S.User>
   )
 }
