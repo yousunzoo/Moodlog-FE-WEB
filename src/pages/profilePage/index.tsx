@@ -35,7 +35,7 @@ function ProfilePage() {
   const [like, setLike] = useState<number>(0)
   const [follower, setFollower] = useState<FollowParent[]>([])
   const { data, isLoading, error } = useQuery<NewUser>(
-    ['user', { page: params.id }],
+    ['user', 'profile', params.id],
     () =>
       getUser(Number(params.id)).then((a) => {
         return a
