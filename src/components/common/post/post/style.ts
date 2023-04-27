@@ -4,10 +4,11 @@ import styled, { css } from 'styled-components'
 // post 컴포넌트
 export const DiaryPost = styled(Link)`
   display: flex;
-  height: 70px;
+  height: auto;
   margin: 10px auto;
   padding: 8px;
   text-decoration: none;
+  align-items: center;
   border-radius: 10px;
   background-color: ${({ theme }) => theme.card};
   color: ${({ theme }) => theme.textColor};

@@ -5,13 +5,14 @@ export const TopBar = styled.div`
   display: flex;
   width: 100%;
   flex-direction: row;
-  background-image: url('/public/assets/icons/setting.png');
+  color: ${({ theme }) => theme.textColor};
 `
 export const TopBarLink = styled(Link)`
   width: 30px;
   height: 30px;
   font-size: 0;
   text-indent: -999;
+  color: ${({ theme }) => theme.textColor};
   svg {
     width: 30px;
     height: 30px;
