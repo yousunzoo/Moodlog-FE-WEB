@@ -21,25 +21,25 @@ function Canvas({ img, saveImage }: CanvasProps) {
   useEffect(() => {
     if (!canvasRef.current) return
     const canvas = canvasRef.current
-    setCtx(() => canvas.getContext('2d') as CanvasRenderingContext2D)
-    if (!ctx) return
+    const context = canvas.getContext('2d') as CanvasRenderingContext2D
     canvas.width = 400
     canvas.height = 400
-    ctx.fillStyle = '#FFFFFF'
-    ctx.fillRect(0, 0, canvas.width, canvas.height)
+    context.fillStyle = '#FFFFFF'
+    context.fillRect(0, 0, canvas.width, canvas.height)
     setCanvasState((prevState) => ({ ...prevState, canvas }))
+    setCtx(context)
     if (img) {
       const image = new Image()
       const src = img.includes('https') ? img + '?timestamp=' + new Date().getTime() : img
       image.crossOrigin = 'anonymous'
       image.src = src
       image.onload = () => {
-        const context = canvas.getContext('2d') as CanvasRenderingContext2D
         context.drawImage(image, 0, 0, 400, 400)
+        setCtx(context)
       }
       return
     }
-  }, [ctx])
+  }, [canvasRef])
 
   const handleActions = (e: MouseEvent<HTMLDivElement>) => {
     if (!(e.target instanceof HTMLButtonElement)) return

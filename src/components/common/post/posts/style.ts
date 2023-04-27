@@ -11,8 +11,10 @@ export const Posts = styled.div<{ height: string }>`
 `
 export const NoPosts = styled.div`
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 100%;
+  height: auto;
+  left: 0px;
+  top: 217px;
+  text-align: center;
   color: ${({ theme }) => theme.placeholder};
 `
