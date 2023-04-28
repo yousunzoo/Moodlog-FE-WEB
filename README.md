@@ -11,6 +11,7 @@
 ---
 
 ## 📋프로젝트 소개
+![MoodLog pptx](https://user-images.githubusercontent.com/112364408/235094770-6d27f5cc-6334-4616-9add-f896bf51be19.png)
 
 무드로그는 다양한 무드 아이콘과 함께
 나의 하루를 그림으로 기록할 수 있는 소셜 네트워크 서비스입니다.
