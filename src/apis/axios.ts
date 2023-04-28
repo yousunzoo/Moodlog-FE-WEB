@@ -13,9 +13,6 @@ const getAxiosInstance = (option?: { multi?: boolean }) => {
 
   const instance = axios.create(config)
 
-  // instance.defaults.timeout = 3000
-
-  //요청보낼 때 쿠키에있는 엑세스토큰을 가져와서 헤더에 셋
   instance.interceptors.request.use(
     (request) => {
       const token = getToken()

@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Calendar from 'react-calendar'
 import './calendar.css'
 import moment from 'moment'
 import { useQuery } from 'react-query'
 import { getUser } from '../../apis/auth'
 import { Link, useParams } from 'react-router-dom'
-import { DiaryResponse } from '../../types/diary'
 import { NewUser } from '../../types/user'
-import Loading from '../common/loading'
 
 function Calendars() {
   const [value, onChange] = useState<Date>(new Date())
   const [mark, setMark] = useState<string[]>([])
-  // const [post, setPost] = useState<NewPost[]>([])
   const [postId, setPostId] = useState<number[]>([])
   const [feeling, setFeeling] = useState<number[]>([])
 

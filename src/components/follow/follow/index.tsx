@@ -1,4 +1,3 @@
-import { useQuery } from 'react-query'
 import * as S from './style'
 import { following as postFollow } from '../../../apis/diary'
 import { FollowProp } from '../../../types/follow'

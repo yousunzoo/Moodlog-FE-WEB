@@ -1,4 +1,3 @@
-import React from 'react'
 import * as S from './style'
 import { DiaryResponse } from '../../../../types/diary'
 
@@ -8,8 +7,8 @@ interface ContainerProp {
 }
 
 export function Post({ post, isShownUsername }: ContainerProp) {
-  const month = post.createdAt.split('-')
-  const day = month[2].split('T')
+  const month = String(new Date(post.createdAt).getMonth() + 1).padStart(2, '0')
+  const day = new Date(post.createdAt).getDate()
   return (
     <S.DiaryPost to={`/diary/${post.id}`}>
       <S.DiaryPostImage>
@@ -29,9 +28,9 @@ export function Post({ post, isShownUsername }: ContainerProp) {
       </S.DiaryPostLetter>
       <S.DiaryPostDate>
         <S.DiaryPostDateContain>
-          {month[1]}
+          {month}
           <br />
-          {day[0]}
+          {day}
         </S.DiaryPostDateContain>
       </S.DiaryPostDate>
     </S.DiaryPost>
