@@ -88,9 +88,9 @@
 
 ```
 1. $ git clone https://github.com/REACT-2/Moodlog-FE-WEB.git
-2. cd Moodlog-FE-WEB
-3. yarn
-4. yarn dev
+2. $ cd Moodlog-FE-WEB
+3. $ yarn
+4. $ yarn dev
 ```
 
 ---
