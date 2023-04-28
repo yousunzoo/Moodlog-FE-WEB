@@ -3,26 +3,25 @@ import { Outlet, useNavigate } from 'react-router-dom'
 
 import Alert from '../components/common/alert'
 
-import { queryClient } from '../utils/queryClient'
-import { UserProfile } from '../types/user'
+import useUserData from '../hooks/useUserData'
 
 function DiaryCreateProtected() {
   const [isTodayCreatedPost, setIsTodayCreatedPost] = useState(false)
   const navigate = useNavigate()
 
-  const user: UserProfile | undefined = queryClient.getQueryData('user')
-  console.log('ww', user)
+  const { data: user } = useUserData()
 
   useEffect(() => {
-    if (user!.post.length > 0) {
+    if (!user) return
+    if (user.post.length > 0) {
       todayCreatedPost()
     }
-  }, [isTodayCreatedPost, user!.post])
+  }, [isTodayCreatedPost, user?.post])
 
   const todayCreatedPost = () => {
     const today = new Date()
-    const sortedPosts = user!.post.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
-    setIsTodayCreatedPost(today.getDate() === Number(sortedPosts[0].createdAt.slice(8, 10)))
+    const sortedPosts = user?.post.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
+    setIsTodayCreatedPost(today.getDate() === Number(sortedPosts?.[0].createdAt.slice(8, 10)))
   }
 
   return (

@@ -35,6 +35,7 @@ function Follow({ follower, following, own }: FollowProp) {
               // 버튼 클릭 시 팔로잉, 팔로우 변경 및 팔로우 함수 호출
               addFollow()
               refetch
+              name[0] === '팔로우' ? setName(['팔로잉', '팔로우']) : setName(['팔로우', '팔로잉'])
             }}
           >
             {

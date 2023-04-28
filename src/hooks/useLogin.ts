@@ -15,11 +15,14 @@ export const useLoginUser = () => {
   const queryClient = useQueryClient()
 
   const signinSuccess = (data: any) => {
-    setToken(data.accessToken, {
-      path: '/',
-      maxAge: data.content.exp - data.content.iat,
-    })
-    setIsOpen(true)
+    console.log(data)
+    if (data.content) {
+      setToken(data.accessToken, {
+        path: '/',
+        maxAge: data.content.exp - data.content.iat,
+      })
+      setIsOpen(true)
+    }
   }
 
   const { mutate, isError } = useMutation((user: LoginProp) => login(user), {

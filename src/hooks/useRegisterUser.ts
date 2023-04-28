@@ -11,7 +11,7 @@ interface FormData {
   username: string
 }
 
-export const useRegisterUser = (): UseMutateFunction<void, unknown, FormData, unknown> => {
+export const useRegisterUser = () => {
   const { signinSuccess, isOpen } = useLoginUser()
   const { mutate: registerUser } = useMutation((formData: FormData) => register(formData), {
     onSuccess: (data) => {
