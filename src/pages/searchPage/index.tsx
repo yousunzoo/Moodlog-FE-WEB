@@ -12,7 +12,6 @@ import useUserData from '../../hooks/useUserData'
 
 function SearchPage() {
   const navigate = useNavigate()
-  const { data: myData } = useUserData()
   const [searchQeury, setSearchQuery] = useState('')
   const { mutate, data: results, isError } = useMutation(() => searchUser(searchQeury))
 
