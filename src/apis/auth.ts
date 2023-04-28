@@ -1,6 +1,6 @@
 import { SearchedUserResponse, UserProfile } from '../types/user'
 import { axiosInstance } from './axios'
-import { LoginProp, ProfileProp, RegisterProp, WithdrawelProp } from './type'
+import { LoginProp, ProfileProp, RegisterProp } from './type'
 
 export const register = async (account: RegisterProp) => {
   const res = await axiosInstance({ multi: true }).post(`/auth/register`, account)

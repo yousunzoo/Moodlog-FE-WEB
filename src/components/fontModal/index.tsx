@@ -1,4 +1,3 @@
-import useStore from '../../store'
 import { FontModalProps } from '../../types/setting'
 import * as S from './style'
 
