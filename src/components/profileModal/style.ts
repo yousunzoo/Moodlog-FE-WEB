@@ -26,7 +26,7 @@ export const UsernameLabel = styled.label`
   width: 100px;
   line-height: 30px;
   margin-right: 20px;
-  color: ${({ theme }) => theme.placeholder};
+  color: ${({ theme: { mode } }) => mode.placeholder};
 `
 export const UsernameInput = styled.input`
   border: none;
@@ -35,7 +35,7 @@ export const UsernameInput = styled.input`
   height: 30px;
   padding: 0 10px;
   font-size: 18px;
-  border-bottom: 2px solid ${({ theme }) => theme.main02};
+  border-bottom: 2px solid ${({ theme: { mode } }) => mode.main02};
   margin-bottom: 20px;
 `
 export const Buttons = styled.div`
@@ -53,8 +53,8 @@ export const SelectPhotoLabel = styled.label`
   height: 30px;
   border-radius: 20px;
   margin-right: 16px;
-  background-color: ${({ theme }) => theme.main01};
-  color: ${({ theme }) => theme.buttonText};
+  background-color: ${({ theme: { mode } }) => mode.main01};
+  color: ${({ theme: { mode } }) => mode.buttonText};
 `
 
 export const DeleteButton = styled.button`
@@ -65,8 +65,8 @@ export const DeleteButton = styled.button`
   width: 60px;
   height: 30px;
   border-radius: 20px;
-  background-color: ${({ theme }) => theme.main02};
-  color: ${({ theme }) => theme.buttonText};
+  background-color: ${({ theme: { mode } }) => mode.main02};
+  color: ${({ theme: { mode } }) => mode.buttonText};
 `
 export const SelectPhoto = styled.input`
   display: none;
@@ -88,7 +88,7 @@ export const MessageInput = styled.textarea`
   display: block;
   flex: 1;
   line-height: 1.4;
-  border-bottom: 2px solid ${({ theme }) => theme.main02};
+  border-bottom: 2px solid ${({ theme: { mode } }) => mode.main02};
 `
 
 export const SubmitButton = styled.button`
@@ -100,7 +100,7 @@ export const SubmitButton = styled.button`
   width: 100%;
   height: 50px;
   border-radius: 10px;
-  background-color: ${({ theme }) => theme.main01};
-  color: ${({ theme }) => theme.buttonText};
+  background-color: ${({ theme: { mode } }) => mode.main01};
+  color: ${({ theme: { mode } }) => mode.buttonText};
   font-size: 18px;
 `

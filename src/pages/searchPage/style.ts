@@ -17,7 +17,7 @@ export const TopBar = styled(TopbarWrapper)`
     font-size: 18px;
     font-weight: 700;
     cursor: default;
-    color: ${({ theme }) => theme.textColor};
+    color: ${({ theme: { mode } }) => mode.textColor};
   }
 `
 
@@ -40,19 +40,20 @@ export const ContentWrapper = styled.div`
       width: 100%;
       height: 40px;
       font-size: 16px;
-      background-color: ${({ theme }) => theme.input};
+      color: ${({ theme: { mode } }) => mode.textColor};
+      background-color: ${({ theme: { mode } }) => mode.input};
       outline: none;
       border: none;
       border-radius: 10px;
 
       &::placeholder {
-        color: ${({ theme }) => theme.placeholder};
+        color: ${({ theme: { mode } }) => mode.placeholder};
       }
     }
   }
 
   .message {
-    color: ${({ theme }) => theme.main01};
+    color: ${({ theme: { mode } }) => mode.main01};
     text-align: center;
   }
 

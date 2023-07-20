@@ -26,7 +26,7 @@ export const FollowUserIdLink = styled(Link)`
   height: 40px;
   margin: auto 25px;
   text-decoration: none;
-  color: ${({ theme }) => theme.modalText};
+  color: ${({ theme: { mode } }) => mode.textColor};
 
   h2 {
     font-weight: 700;
@@ -45,9 +45,9 @@ export const FollowUserIdLink = styled(Link)`
 export const FollowBtn = styled.button<{ opacity: number }>`
   width: 100px;
   height: 30px;
-  color: ${({ theme }) => theme.background};
+  color: ${({ theme: { mode } }) => mode.background};
   opacity: ${({ opacity }) => opacity};
-  background-color: ${({ theme }) => theme.main02};
+  background-color: ${({ theme: { mode } }) => mode.main02};
   border-radius: 10px;
   margin: auto;
 `

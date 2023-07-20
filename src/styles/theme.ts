@@ -1,4 +1,4 @@
-import { DefaultTheme } from 'styled-components'
+import { Defaulttheme : {mode}} from 'styled-components'
 
 export const lightTheme: DefaultTheme = {
   background: '#FFFFFF',

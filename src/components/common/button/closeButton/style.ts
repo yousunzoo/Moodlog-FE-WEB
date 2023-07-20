@@ -6,7 +6,7 @@ export const Button = styled.div`
   left: 20px;
   width: 30px;
   height: 30px;
-  color: ${({ theme }) => theme.textColor};
+  color: ${({ theme: { mode } }) => mode.textColor};
   svg {
     width: 100%;
     height: 100%;

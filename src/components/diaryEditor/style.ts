@@ -6,21 +6,21 @@ export const EditorTab = styled.div`
   height: 40px;
   align-items: center;
   padding: 0 25px;
-  border-bottom: 2px solid ${({ theme }) => theme.border};
+  border-bottom: 2px solid ${({ theme: { mode } }) => mode.border};
   margin-bottom: 2px;
 `
 export const TabTitle = styled.label`
   margin-right: 20px;
-  color: ${({ theme }) => theme.textColor};
+  color: ${({ theme: { mode } }) => mode.textColor};
 `
 export const TabInput = styled.input`
   border: none;
   outline: none;
   flex: 1;
   background: transparent;
-  color: ${({ theme }) => theme.textColor};
+  color: ${({ theme: { mode } }) => mode.textColor};
   &::placeholder {
-    color: ${({ theme }) => theme.placeholder};
+    color: ${({ theme: { mode } }) => mode.placeholder};
   }
 `
 
@@ -43,7 +43,7 @@ export const MoodSelect = styled.button`
   right: 0;
   width: 20px;
   height: 20px;
-  color: ${({ theme }) => theme.textColor};
+  color: ${({ theme: { mode } }) => mode.textColor};
   svg {
     width: 100%;
     height: 100%;
@@ -65,9 +65,9 @@ export const EditorContent = styled.textarea`
   resize: none;
   background: transparent;
   line-height: 1.6;
-  color: ${({ theme }) => theme.textColor};
+  color: ${({ theme: { mode } }) => mode.textColor};
   &::placeholder {
-    color: ${({ theme }) => theme.placeholder};
+    color: ${({ theme: { mode } }) => mode.placeholder};
   }
 `
 
@@ -79,8 +79,8 @@ export const Settings = styled.div`
   height: 50px;
   padding: 0 25px;
   align-items: center;
-  background-color: ${({ theme }) => theme.card};
-  border-top: 2px solid ${({ theme }) => theme.border};
+  background-color: ${({ theme: { mode } }) => mode.card};
+  border-top: 2px solid ${({ theme: { mode } }) => mode.border};
 `
 export const SettingTitle = styled.p`
   margin-right: 20px;
@@ -92,14 +92,14 @@ export const SettingItem = styled.button`
   margin-right: 10px;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.background};
-  border: 2px solid ${({ theme }) => theme.main02};
-  color: ${({ theme }) => theme.main02};
+  background-color: ${({ theme: { mode } }) => mode.background};
+  border: 2px solid ${({ theme: { mode } }) => mode.main02};
+  color: ${({ theme: { mode } }) => mode.main02};
   border-radius: 20px;
   cursor: pointer;
   &.active {
     font-weight: 600;
-    color: ${({ theme }) => theme.buttonText};
-    background-color: ${({ theme }) => theme.main02};
+    color: ${({ theme: { mode } }) => mode.buttonText};
+    background-color: ${({ theme: { mode } }) => mode.main02};
   }
 `

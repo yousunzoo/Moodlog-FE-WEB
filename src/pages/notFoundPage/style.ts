@@ -2,7 +2,7 @@ import styled from 'styled-components'
 export const Container = styled.div`
   width: 100%;
   height: 100%;
-  color: ${({ theme }) => theme.textColor};
+  color: ${({ theme: { mode } }) => mode.textColor};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,7 +11,7 @@ export const Container = styled.div`
   svg {
     width: 160px;
     height: 160px;
-    color: ${({ theme }) => theme.placeholder};
+    color: ${({ theme: { mode } }) => mode.placeholder};
   }
 `
 

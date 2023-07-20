@@ -1,7 +1,7 @@
 import { StateCreator } from 'zustand'
 import { PersistOptions } from 'zustand/middleware'
 
-export type IFont = 'Pretendard' | '아임혜민' | '둘비마요고딕' | '오뮤프리티' | '고운바탕'
+export type IFont = 'Pretendard' | 'hyemin' | 'dulbi' | 'ohmyu' | 'goun'
 export type ITheme = 'light' | 'dark'
 export interface IUseStore {
   theme: ITheme

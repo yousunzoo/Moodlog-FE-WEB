@@ -16,20 +16,20 @@ export const FontItem = styled.li`
   cursor: pointer;
   padding: 20px 0;
   margin: 10px;
-  color: ${({ theme }) => theme.modalText};
+  color: ${({ theme: { mode } }) => mode.modalText};
   &[data-font='Pretendard'] {
     font-family: 'Pretendard';
   }
-  &[data-font='아임혜민'] {
-    font-family: '아임혜민';
+  &[data-font='hyemin'] {
+    font-family: 'hyemin';
   }
-  &[data-font='둘비마요고딕'] {
-    font-family: '둘비마요고딕';
+  &[data-font='dulbi'] {
+    font-family: 'dulbi';
   }
-  &[data-font='오뮤프리티'] {
-    font-family: '오뮤프리티';
+  &[data-font='ohmyu'] {
+    font-family: 'ohmyu';
   }
-  &[data-font='고운바탕'] {
-    font-family: '고운바탕';
+  &[data-font='goun'] {
+    font-family: 'goun';
   }
 `

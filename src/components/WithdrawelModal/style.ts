@@ -17,32 +17,32 @@ export const GuideText = styled.p`
   line-height: 1.6;
   margin-bottom: 20px;
   span {
-    color: ${({ theme }) => theme.main01};
+    color: ${({ theme: { mode } }) => mode.main01};
   }
 `
 
 export const WithdrawelInput = styled.input`
   width: 100%;
   height: 50px;
-  background-color: ${({ theme }) => theme.input};
+  background-color: ${({ theme: { mode } }) => mode.input};
   border: none;
   padding: 0 20px;
   border-radius: 10px;
   margin-bottom: 6px;
   &::placeholder {
-    color: ${({ theme }) => theme.placeholder};
+    color: ${({ theme: { mode } }) => mode.placeholder};
   }
 `
 export const ErrorText = styled.p`
-  color: ${({ theme }) => theme.main01};
+  color: ${({ theme: { mode } }) => mode.main01};
   margin-bottom: 20px;
   padding: 0 10px;
 `
 export const WithdrawelButton = styled.button`
   width: 100%;
   height: 50px;
-  background-color: ${({ theme }) => theme.main01};
-  color: ${({ theme }) => theme.buttonText};
+  background-color: ${({ theme: { mode } }) => mode.main01};
+  color: ${({ theme: { mode } }) => mode.buttonText};
   border-radius: 10px;
   font-size: 18px;
 `

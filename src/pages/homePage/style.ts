@@ -4,7 +4,7 @@ export const ShowDiaryIcon = styled.div`
   cursor: pointer;
   width: 30px;
   height: 30px;
-  color: ${({ theme }) => theme.icons};
+  color: ${({ theme: { mode } }) => mode.icons};
   svg {
     width: 100%;
     height: 100%;
@@ -15,7 +15,7 @@ export const FollwerIcon = styled.button`
   cursor: pointer;
   width: 30px;
   height: 30px;
-  color: ${({ theme }) => theme.icons};
+  color: ${({ theme: { mode } }) => mode.icons};
   svg {
     width: 100%;
     height: 100%;

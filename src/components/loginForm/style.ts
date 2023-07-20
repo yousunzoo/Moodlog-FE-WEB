@@ -17,20 +17,20 @@ export const Input = styled.input`
   margin-bottom: 1rem;
   width: 100%;
   height: 60px;
-  background-color: ${({ theme }) => theme.input};
-  color: ${({ theme }) => theme.textColor};
+  background-color: ${({ theme: { mode } }) => mode.input};
+  color: ${({ theme: { mode } }) => mode.textColor};
   border: none;
   padding: 0 20px;
   &::placeholder {
-    color: ${({ theme }) => theme.placeholder};
+    color: ${({ theme: { mode } }) => mode.placeholder};
   }
 `
 
 export const SigninButton = styled.button`
   font-size: 20px;
   margin: 20px 0;
-  background-color: ${({ theme }) => theme.main01};
-  color: ${({ theme }) => theme.buttonText};
+  background-color: ${({ theme: { mode } }) => mode.main01};
+  color: ${({ theme: { mode } }) => mode.buttonText};
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -41,12 +41,12 @@ export const SigninButton = styled.button`
 export const SignupWrapper = styled.div`
   text-align: center;
   font-size: 16px;
-  color: ${({ theme }) => theme.placeholder};
+  color: ${({ theme: { mode } }) => mode.placeholder};
 `
 
 export const SignupButton = styled.button`
   font-weight: bold;
-  color: ${({ theme }) => theme.main01};
+  color: ${({ theme: { mode } }) => mode.main01};
   margin: 0 10px;
   cursor: pointer;
 `
@@ -55,7 +55,7 @@ export const PasswordButton = styled.button`
   width: 30px;
   height: 30px;
   position: absolute;
-  color: ${({ theme }) => theme.textColor};
+  color: ${({ theme: { mode } }) => mode.textColor};
   top: 50%;
   transform: translateY(-50%);
   right: 18px;
@@ -70,7 +70,7 @@ export const Label = styled.label`
 `
 
 export const ErrorMessage = styled.span`
-  color: ${({ theme }) => theme.main01};
+  color: ${({ theme: { mode } }) => mode.main01};
 `
 export const ErrorWrapper = styled.div`
   height: 20px;

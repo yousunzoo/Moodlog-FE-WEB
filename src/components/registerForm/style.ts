@@ -14,9 +14,9 @@ export const Input = styled.input`
   border: none;
   padding: 0 20px;
   margin-bottom: 6px;
-  background-color: ${({ theme }) => theme.input};
+  background-color: ${({ theme: { mode } }) => mode.input};
   &::placeholder {
-    color: ${({ theme }) => theme.placeholder};
+    color: ${({ theme: { mode } }) => mode.placeholder};
   }
 `
 
@@ -25,8 +25,8 @@ export const FileInput = styled(Input)`
 `
 
 export const FileLabel = styled.label`
-  background-color: ${({ theme }) => theme.main02};
-  color: ${({ theme }) => theme.buttonText};
+  background-color: ${({ theme: { mode } }) => mode.main02};
+  color: ${({ theme: { mode } }) => mode.buttonText};
   padding: 8px;
   border-radius: 10px;
 `
@@ -36,16 +36,16 @@ export const FileName = styled.label`
 `
 
 export const ErrorMessage = styled.div`
-  color: ${({ theme }) => theme.main01};
+  color: ${({ theme: { mode } }) => mode.main01};
   margin-left: 20px;
 `
 
 export const ResigterButton = styled.button`
   width: 100%;
-  background-color: ${({ theme }) => theme.main01};
+  background-color: ${({ theme: { mode } }) => mode.main01};
   border-radius: 10px;
   height: 50px;
-  color: ${({ theme }) => theme.buttonText};
+  color: ${({ theme: { mode } }) => mode.buttonText};
 `
 export const ProfileWrapper = styled.div`
   display: flex;

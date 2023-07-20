@@ -16,8 +16,8 @@ export const FileButton = styled.button`
   left: 50%;
   transform: translateX(-50%);
   border-radius: 10px;
-  background-color: ${({ theme }) => theme.main01};
-  color: ${({ theme }) => theme.buttonText};
+  background-color: ${({ theme: { mode } }) => mode.main01};
+  color: ${({ theme: { mode } }) => mode.buttonText};
 `
 
 export const CloseButton = styled(Link)`
@@ -25,7 +25,7 @@ export const CloseButton = styled(Link)`
   width: 30px;
   height: 30px;
   transform: translateY(50%);
-  color: ${({ theme }) => theme.textColor};
+  color: ${({ theme: { mode } }) => mode.textColor};
   svg {
     width: 100%;
     height: 100%;

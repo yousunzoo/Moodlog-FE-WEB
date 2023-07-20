@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
   font-size: 20px;
 `
 export const Title = styled.h2`
-  color: ${({ theme }) => theme.textColor};
+  color: ${({ theme: { mode } }) => mode.textColor};
   position: absolute;
   left: 0;
   right: 0;
@@ -21,7 +21,7 @@ export const Title = styled.h2`
 `
 
 export const Btn = styled.button`
-  color: ${({ theme }) => theme.placeholder};
+  color: ${({ theme: { mode } }) => mode.placeholder};
   cursor: pointer;
   display: block;
   width: 40px;
@@ -33,7 +33,7 @@ export const CloseBtn = styled(Btn)`
   width: 30px;
   height: 30px;
   background-repeat: no-repeat;
-  color: ${({ theme }) => theme.textColor};
+  color: ${({ theme: { mode } }) => mode.textColor};
   svg {
     width: 100%;
     height: 100%;

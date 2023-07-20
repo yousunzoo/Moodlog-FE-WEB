@@ -21,7 +21,7 @@ export const FollowImg = styled.div`
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background-color: ${({ theme }) => theme.placeholder};
+    background-color: ${({ theme: { mode } }) => mode.placeholder};
   }
 `
 
@@ -30,7 +30,7 @@ export const FollowUserIdLink = styled(Link)`
   width: 180px;
   height: 40px;
   margin: auto 25px;
-  color: ${({ theme }) => theme.modalText};
+  color: ${({ theme: { mode } }) => mode.modalText};
   h2 {
     font-weight: 700;
     font-size: 20px;
@@ -48,8 +48,8 @@ export const FollowUserIdLink = styled(Link)`
 export const FollowBtn = styled.button<{ opacity: number }>`
   width: 100px;
   height: 30px;
-  color: ${({ theme }) => theme.background};
-  background-color: ${({ theme }) => theme.main02};
+  color: ${({ theme: { mode } }) => mode.background};
+  background-color: ${({ theme: { mode } }) => mode.main02};
   opacity: ${({ opacity }) => opacity};
   border-radius: 10px;
   margin: auto;
@@ -64,7 +64,7 @@ export const Follows = styled.div`
 export const FollowNotBtn = styled.div`
   width: 100px;
   height: 30px;
-  color: ${({ theme }) => theme.background};
+  color: ${({ theme: { mode } }) => mode.background};
   background-color: #442f11;
   border-radius: 10px;
   margin: auto;

@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   bottom: 0px;
   width: 425px;
   height: 60px;
-  background: ${({ theme }) => theme.background};
+  background: ${({ theme: { mode } }) => mode.background};
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -15,9 +15,9 @@ export const NavItem = styled(NavLink)`
   background-size: cover;
   width: 36px;
   height: 36px;
-  color: ${({ theme }) => theme.icons};
+  color: ${({ theme: { mode } }) => mode.icons};
   &.active {
-    color: ${({ theme }) => theme.main01};
+    color: ${({ theme: { mode } }) => mode.main01};
   }
   svg {
     width: 100%;

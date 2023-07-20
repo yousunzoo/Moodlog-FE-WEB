@@ -9,7 +9,7 @@ export const TopbarWrapper = styled.div`
   position: relative;
   padding: 0 25px;
   font-size: 20px;
-  border-bottom: 2px solid ${({ theme }) => theme.border};
+  border-bottom: 2px solid ${({ theme: { mode } }) => mode.border};
 `
 
 export const ModalWrapper = styled.div`
@@ -18,6 +18,6 @@ export const ModalWrapper = styled.div`
   width: 100%;
   height: 400px;
   padding: 25px;
-  background-color: ${({ theme }) => theme.modalBackground};
+  background-color: ${({ theme: { mode } }) => mode.modalBackground};
   border-radius: 20px 20px 0 0;
 `

@@ -11,12 +11,12 @@ export const MenuWrapper = styled.div`
 `
 
 export const Title = styled.p`
-  color: ${({ theme }) => theme.placeholder};
+  color: ${({ theme: { mode } }) => mode.placeholder};
   padding: 0 25px;
   height: 50px;
   line-height: 50px;
   font-size: 18px;
-  border-bottom: 2px solid ${({ theme }) => theme.border};
+  border-bottom: 2px solid ${({ theme: { mode } }) => mode.border};
 `
 
 export const Menu = styled.div`
@@ -27,12 +27,12 @@ export const Menu = styled.div`
   justify-content: space-between;
   align-items: center;
   font-size: 18px;
-  color: ${({ theme }) => theme.textColor};
-  background-color: ${({ theme }) => theme.card};
-  border-bottom: 2px solid ${({ theme }) => theme.border};
+  color: ${({ theme: { mode } }) => mode.textColor};
+  background-color: ${({ theme: { mode } }) => mode.card};
+  border-bottom: 2px solid ${({ theme: { mode } }) => mode.border};
 `
 export const MenuBtn = styled.button`
-  color: ${({ theme }) => theme.textColor};
+  color: ${({ theme: { mode } }) => mode.textColor};
 `
 
 interface ToggleProps {

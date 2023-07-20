@@ -33,7 +33,7 @@ function Canvas({ img, saveImage }: CanvasProps) {
     setCanvasState((prevState) => ({ ...prevState, canvas }))
     if (img) {
       const image = new Image()
-      const src = img.includes('https') ? img + '?timestamp=' + new Date().getTime() : img
+      const src = img + '?timestamp=' + new Date().getTime()
       image.crossOrigin = 'anonymous'
       image.src = src
       image.onload = () => {
@@ -199,8 +199,11 @@ function Canvas({ img, saveImage }: CanvasProps) {
     const image = new Image()
     image.src = URL.createObjectURL(file)
     image.onload = () => {
-      ctx.drawImage(image, 0, 0, 400, 400)
       if (!canvasRef.current) return
+      const width = image.width
+      const height = image.height
+      const ratio = height / width
+      ctx.drawImage(image, 0, 0, 400, 400 * ratio)
       const imageData = ctx.getImageData(0, 0, canvasRef.current.width, canvasRef.current.height)
       setUndoStack((prevState) => [...prevState, imageData])
       saveImage(canvasRef.current.toDataURL('image/png'))

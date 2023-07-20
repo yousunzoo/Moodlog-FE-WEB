@@ -10,8 +10,8 @@ export const DiaryPost = styled(Link)`
   text-decoration: none;
   align-items: center;
   border-radius: 10px;
-  background-color: ${({ theme }) => theme.card};
-  color: ${({ theme }) => theme.textColor};
+  background-color: ${({ theme: { mode } }) => mode.card};
+  color: ${({ theme: { mode } }) => mode.textColor};
 `
 
 export const DiaryPostImage = styled.div`
@@ -49,13 +49,13 @@ export const DiaryPostDate = styled.div`
   font-size: 28px;
   align-items: center;
   text-align: center;
-  color: ${({ theme }) => theme.palette01};
+  color: ${({ theme: { mode } }) => mode.palette01};
 `
 
 export const DiaryPostDateContain = styled.div`
   width: 100%;
   margin: auto;
-  color: ${({ theme }) => theme.main01};
+  color: ${({ theme: { mode } }) => mode.main01};
 `
 
 export const PostBodyWrapper = styled.div`

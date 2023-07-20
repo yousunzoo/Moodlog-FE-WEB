@@ -8,8 +8,8 @@ export const UserProfile = styled.div`
   left: 0;
   width: 100%;
   height: 217px;
-  background: ${({ theme }) => theme.white01};
-  color: ${({ theme }) => theme.textColor};
+  background: ${({ theme: { mode } }) => mode.white01};
+  color: ${({ theme: { mode } }) => mode.textColor};
 `
 
 export const UserDetail = styled.div`
@@ -20,14 +20,14 @@ export const UserDetail = styled.div`
   left: 25px;
   top: 127px;
   border-radius: 10px;
-  background-color: ${({ theme }) => theme.main01};
+  background-color: ${({ theme: { mode } }) => mode.main01};
 `
 
 export const StyledLink = styled(Link)`
   text-decoration: none;
   width: 33.3%;
   height: 100%;
-  color: ${({ theme }) => theme.buttonText};
+  color: ${({ theme: { mode } }) => mode.buttonText};
 `
 
 export const UserDetailContnetText = styled.div<{ size: string }>`
@@ -45,7 +45,7 @@ export const UserDetailIine = styled.div<{ left: string }>`
   top: 33px;
   width: 35px;
   height: 0px;
-  border: 1.5px solid ${({ theme }) => theme.buttonText};
+  border: 1.5px solid ${({ theme: { mode } }) => mode.buttonText};
   border-radius: 1px;
   transform: rotate(90deg);
 `
@@ -59,7 +59,7 @@ export const UserSettingLink = styled(Link)`
   font-size: 0;
   text-indent: -999;
   background-size: 30px;
-  color: ${({ theme }) => theme.textColor};
+  color: ${({ theme: { mode } }) => mode.textColor};
   svg {
     width: 30px;
     height: 30px;
@@ -104,7 +104,7 @@ export const UserIntro = styled.div`
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  color: ${({ theme }) => theme.modalBlack};
+  color: ${({ theme: { mode } }) => mode.modalBlack};
 `
 
 export const Postss = styled.div`

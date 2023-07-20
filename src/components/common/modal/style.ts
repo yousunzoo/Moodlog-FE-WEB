@@ -6,7 +6,7 @@ export const ModalOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: ${({ theme }) => theme.modalOverlay};
+  background-color: ${({ theme: { mode } }) => mode.modalOverlay};
   z-index: 1;
   opacity: 0;
   visibility: hidden;
@@ -30,7 +30,7 @@ export const ModalWrapper = styled.div`
   padding: 20px;
   z-index: 2;
   * {
-    color: ${({ theme }) => theme.modalText};
+    color: ${({ theme: { mode } }) => mode.modalText};
   }
   &.open {
     transform: translateY(0);

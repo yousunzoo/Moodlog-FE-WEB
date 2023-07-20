@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Comments = styled.div`
   padding: 20px;
 
-  color: ${({ theme }) => theme.textColor};
+  color: ${({ theme: { mode } }) => mode.textColor};
   .interact {
     display: flex;
     align-items: center;
@@ -32,7 +32,7 @@ export const Comments = styled.div`
       flex-grow: 1;
       padding: 8px 10px;
       height: auto;
-      border: 1px solid ${({ theme }) => theme.border};
+      border: 1px solid ${({ theme: { mode } }) => mode.border};
       border-radius: 5px;
       color: #333;
       &::-webkit-scrollbar {
@@ -40,7 +40,7 @@ export const Comments = styled.div`
       }
 
       &::-webkit-scrollbar-thumb {
-        background: ${({ theme }) => theme.main02};
+        background: ${({ theme: { mode } }) => mode.main02};
         border-radius: 20px;
       }
       &::-webkit-scrollbar-track {
@@ -51,8 +51,8 @@ export const Comments = styled.div`
 
     button {
       padding: 8px 10px;
-      color: ${({ theme }) => theme.buttonText};
-      background-color: ${({ theme }) => theme.main02};
+      color: ${({ theme: { mode } }) => mode.buttonText};
+      background-color: ${({ theme: { mode } }) => mode.main02};
       border-radius: 5px;
       cursor: pointer;
     }
@@ -61,7 +61,7 @@ export const Comments = styled.div`
       position: absolute;
       bottom: 5px;
       left: 10px;
-      color: ${({ theme }) => theme.palette01};
+      color: ${({ theme: { mode } }) => mode.palette01};
       font-size: 14px;
     }
   }
@@ -100,7 +100,7 @@ export const Comment = styled.div<CommentProp>`
     }
 
     .date {
-      color: ${({ theme }) => theme.grey03};
+      color: ${({ theme: { mode } }) => mode.grey03};
       font-size: 12px;
     }
   }
@@ -118,7 +118,7 @@ export const Comment = styled.div<CommentProp>`
     .delete {
       width: 30px;
       height: 30px;
-      color: ${({ theme }) => theme.palette01};
+      color: ${({ theme: { mode } }) => mode.palette01};
       text-align: center;
       cursor: pointer;
     }

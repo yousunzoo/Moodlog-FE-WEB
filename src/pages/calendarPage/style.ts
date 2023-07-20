@@ -5,14 +5,14 @@ export const TopBar = styled.div`
   display: flex;
   width: 100%;
   flex-direction: row;
-  color: ${({ theme }) => theme.textColor};
+  color: ${({ theme: { mode } }) => mode.textColor};
 `
 export const TopBarLink = styled(Link)`
   width: 30px;
   height: 30px;
   font-size: 0;
   text-indent: -999;
-  color: ${({ theme }) => theme.textColor};
+  color: ${({ theme: { mode } }) => mode.textColor};
   svg {
     width: 30px;
     height: 30px;
