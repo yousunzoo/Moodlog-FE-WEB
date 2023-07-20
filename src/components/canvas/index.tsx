@@ -3,6 +3,9 @@ import * as S from './style'
 import palette from '../../constants/palette.json'
 import { CanvasProps, PaletteJSON } from '../../types/createDiary'
 import { CanvasState } from '../../types/createDiary'
+import { isMobile } from 'react-device-detect'
+
+const colorsArr = ['01', '02', '03', '04', '05', '06', '07', '08']
 
 function Canvas({ img, saveImage }: CanvasProps) {
   const [canvasState, setCanvasState] = useState<CanvasState>({
@@ -106,11 +109,14 @@ function Canvas({ img, saveImage }: CanvasProps) {
     })
   }
 
-  const handleMouseMove: any = (event: MouseEvent<HTMLCanvasElement, MouseEvent>) => {
+  const handleMouseMove: any = (event: TouchEvent | MouseEvent) => {
     if (!canvasState.canvas) return
     if (!ctx) return
     const rect = canvasRef.current?.getBoundingClientRect()
-    const { clientX, clientY } = event
+    const { clientX, clientY } = (isMobile ? (event as TouchEvent).changedTouches[0] : event) as {
+      clientX: number
+      clientY: number
+    }
     const mode = canvasState.mode
     ctx.beginPath()
     if (mode === 'brush') {
@@ -142,18 +148,30 @@ function Canvas({ img, saveImage }: CanvasProps) {
     })
     setCanvasState((prevState) => ({ ...prevState, canvas: canvasRef.current }))
     ctx.beginPath()
-    canvasRef.current.removeEventListener('mousemove', handleMouseMove)
-    canvasRef.current.removeEventListener('mouseup', handleMouseUp)
+    if (isMobile) {
+      canvasRef.current.removeEventListener('touchmove', handleMouseMove)
+      canvasRef.current.removeEventListener('touchend', handleMouseUp)
+    }
+    if (!isMobile) {
+      canvasRef.current.removeEventListener('mousemove', handleMouseMove)
+      canvasRef.current.removeEventListener('mouseup', handleMouseUp)
+    }
   }
 
-  const handleMouseDown = (event: React.MouseEvent<HTMLCanvasElement>) => {
+  const handleMouseDown = () => {
     if (!canvasRef.current) return
     setCanvasState((prevState) => ({ ...prevState }))
-    canvasRef.current.addEventListener('mousemove', handleMouseMove)
-    canvasRef.current.addEventListener('mouseup', handleMouseUp)
+    if (isMobile) {
+      canvasRef.current.addEventListener('touchmove', handleMouseMove)
+      canvasRef.current.addEventListener('touchend', handleMouseUp)
+    }
+    if (!isMobile) {
+      canvasRef.current.addEventListener('mousemove', handleMouseMove)
+      canvasRef.current.addEventListener('mouseup', handleMouseUp)
+    }
   }
 
-  const handleMode = (e: MouseEvent<HTMLDivElement>) => {
+  const handleMode = (e: MouseEvent) => {
     if (!(e.target instanceof HTMLButtonElement)) {
       return
     }
@@ -161,7 +179,7 @@ function Canvas({ img, saveImage }: CanvasProps) {
     setCanvasState({ ...canvasState, mode })
   }
 
-  const handleColorChange = (event: MouseEvent<HTMLDivElement>) => {
+  const handleColorChange = (event: MouseEvent) => {
     if (!(event.target instanceof HTMLButtonElement)) return
     const color = event.target.dataset['color'] as string
     setCanvasState({ ...canvasState, color })
@@ -199,14 +217,9 @@ function Canvas({ img, saveImage }: CanvasProps) {
                 <span>지우기 모드</span>
               </S.DisableColorPicker>
             )}
-            <S.ColorItem className={nowColor === '01' ? 'active' : ''} data-color="01" color="01" />
-            <S.ColorItem className={nowColor === '02' ? 'active' : ''} data-color="02" color="02" />
-            <S.ColorItem className={nowColor === '03' ? 'active' : ''} data-color="03" color="03" />
-            <S.ColorItem className={nowColor === '04' ? 'active' : ''} data-color="04" color="04" />
-            <S.ColorItem className={nowColor === '05' ? 'active' : ''} data-color="05" color="05" />
-            <S.ColorItem className={nowColor === '06' ? 'active' : ''} data-color="06" color="06" />
-            <S.ColorItem className={nowColor === '07' ? 'active' : ''} data-color="07" color="07" />
-            <S.ColorItem className={nowColor === '08' ? 'active' : ''} data-color="08" color="08" />
+            {colorsArr.map((item) => (
+              <S.ColorItem key={item} className={nowColor === item ? 'active' : ''} data-color={item} color={item} />
+            ))}
           </S.ColorPicker>
           <S.SizePicker>
             <span>Size</span>
@@ -233,7 +246,7 @@ function Canvas({ img, saveImage }: CanvasProps) {
         </S.SelectArea>
       </S.PaletteWrapper>
       <S.CanvasArea>
-        <S.Canvas ref={canvasRef} onMouseDown={handleMouseDown} />
+        <S.Canvas ref={canvasRef} onTouchStart={handleMouseDown} onMouseDown={handleMouseDown} />
       </S.CanvasArea>
       <S.SelectPhotoArea>
         <S.SelectPhotoLabel htmlFor="select-photo">사진 선택</S.SelectPhotoLabel>
